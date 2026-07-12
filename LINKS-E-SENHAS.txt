@@ -1,12 +1,18 @@
 ========================================
-   PSICOLOGIA ONLINE BRASIL
+   PSICOLOGIA DIRETA
    LINKS E SENHAS IMPORTANTES
 ========================================
 
 --- SITE ---
-Link do Site: https://psicologia-app-mauve.vercel.app
-Link Admin: https://psicologia-app-mauve.vercel.app/admin
+Link do Site: https://psicologiadireta.com.br
+Link Admin: https://psicologiadireta.com.br/admin
 Senha Admin: socorrinha2026
+
+--- ADMIN PAINÉIS ---
+Gerenciar Agendamentos: https://psicologiadireta.com.br/admin
+Gerenciar Blog: https://psicologiadireta.com.br/admin/blog
+Gerenciar Materiais: https://psicologiadireta.com.br/admin/materials
+Página de Download: https://psicologiadireta.com.br/download
 
 --- GITHUB ---
 Link Repositório: https://github.com/inovagratis-ctrl/onlinepsicologiabrasil
@@ -33,11 +39,26 @@ Sessão Individual: R$ 170,00
 Pacote Mensal: R$ 140,00/sessão
 Orientação a Pais: R$ 120,00
 
---- DOMÍNIO (comprar depois) ---
-Domínio escolhido: onlinepsicologiabrasil.com.br
+--- MATERIAIS PREMIUM ---
+Histórias Sociais: R$ 14,90
+PECS: R$ 17,90
+Atividades de Solicitação: R$ 9,90
+Cartões de Sentimentos: R$ 12,90
+Estratégias de Regulação: R$ 9,90
 
---- ARQUIVOS DO PROJE TO ---
+--- DOMÍNIO ---
+Domínio: psicologiadireta.com.br
+
+--- ARQUIVOS DO PROJETO ---
 Localização: C:\Users\Eusimar\Documents\New OpenCode Project\psicologia-app
+
+--- VARIÁVEIS DE AMBIENTE (VERCEL) ---
+DATABASE_URL: ✅ Configurado
+MP_ACCESS_TOKEN: ✅ Configurado
+MP_CLIENT_ID: ✅ Configurado
+MP_CLIENT_SECRET: ✅ Configurado
+NEXT_PUBLIC_SITE_URL: ✅ Configurado
+BLOB_READ_WRITE_TOKEN: ✅ Configurado (Vercel Blob)
 
 --- COMO RODAR LOCALMENTE ---
 1. Abrir terminal (Win + R → cmd)
@@ -52,6 +73,26 @@ Localização: C:\Users\Eusimar\Documents\New OpenCode Project\psicologia-app
 4. Digitar: git commit -m "Descrição da mudança"
 5. Digitar: git push origin master
 6. O Vercel atualiza automaticamente!
+
+--- COMO ADICIONAR ARTIGO NO BLOG ---
+1. Entrar em https://psicologiadireta.com.br/admin/blog
+2. Clicar em "Novo Artigo"
+3. Preencher título, slug, resumo, conteúdo
+4. Marcar como "Publicado"
+5. Salvar
+
+--- COMO ADICIONAR MATERIAL PREMIUM ---
+1. Entrar em https://psicologiadireta.com.br/admin/materials
+2. Clicar em "Novo Material"
+3. Preencher nome, descrição, preço, páginas
+4. Criar o material
+5. Clicar no ícone de upload (📤) para enviar o PDF
+
+--- FLUXO DE COMPRA DE MATERIAIS ---
+1. Usuário clica "Comprar" no material
+2. Redirecionado para Mercado Pago
+3. Pagamento aprovado → Redirecionado para /download
+4. Clica "Baixar PDF" → Download do arquivo
 
 ========================================
   ATUALIZADO EM: 12/07/2026
