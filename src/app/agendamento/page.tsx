@@ -79,6 +79,7 @@ export default function Agendamento() {
         body: JSON.stringify({
           appointmentId,
           amount: selectedSession?.price,
+          title: selectedSession?.name,
           description: `Sessão: ${selectedSession?.name}`,
           email: formData.email,
         }),
@@ -86,12 +87,10 @@ export default function Agendamento() {
 
       const data = await response.json()
       
-      if (data.success) {
-        if (data.qrCode) {
-          // Real Mercado Pago payment - show QR code
-          alert('PIX gerado! Use o QR Code para pagamento.')
-        }
-        setIsSubmitted(true)
+      if (data.success && data.initPoint) {
+        window.location.href = data.initPoint
+      } else {
+        alert('Erro ao processar pagamento. Tente novamente.')
       }
     } catch (error) {
       console.error('Error:', error)

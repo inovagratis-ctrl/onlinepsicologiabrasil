@@ -1,18 +1,14 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
-// Mercado Pago configuration
-// You need to create an account at https://mercadopago.com.br
-// and get your access token
-const MP_ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN || 'YOUR_ACCESS_TOKEN'
+const MP_ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN
 const MP_API_URL = 'https://api.mercadopago.com/v1'
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { appointmentId, amount, description, email } = body
+    const { appointmentId, amount, description, email, title } = body
 
-    // Validate
     if (!appointmentId || !amount) {
       return NextResponse.json(
         { error: 'Dados incompletos para pagamento' },
@@ -20,60 +16,72 @@ export async function POST(request: Request) {
       )
     }
 
-    // Create payment in Mercado Pago
-    const paymentData = {
-      transaction_amount: parseFloat(amount),
-      description: description || 'Sessão de Psicologia Online',
-      payment_method_id: 'pix', // You can change to 'credit_card' or 'boleto'
+    if (!MP_ACCESS_TOKEN) {
+      return NextResponse.json(
+        { error: 'Mercado Pago não configurado' },
+        { status: 500 }
+      )
+    }
+
+    const preferenceData = {
+      items: [
+        {
+          id: appointmentId,
+          title: title || description || 'Sessão de Psicologia Online',
+          quantity: 1,
+          unit_price: parseFloat(amount),
+        },
+      ],
       payer: {
-        email: email,
+        email: email || 'paciente@email.com',
       },
       external_reference: appointmentId,
+      back_urls: {
+        success: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://onlinepsicologiabrasil.vercel.app'}/agendamento?status=sucesso`,
+        failure: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://onlinepsicologiabrasil.vercel.app'}/agendamento?status=erro`,
+        pending: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://onlinepsicologiabrasil.vercel.app'}/agendamento?status=pendente`,
+      },
+      auto_return: 'approved',
+      payment_methods: {
+        installments: 1,
+      },
     }
 
-    // If you have a valid access token, make the real API call
-    if (MP_ACCESS_TOKEN && MP_ACCESS_TOKEN !== 'YOUR_ACCESS_TOKEN') {
-      const response = await fetch(`${MP_API_URL}/payments`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${MP_ACCESS_TOKEN}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(paymentData),
-      })
-
-      const payment = await response.json()
-
-      if (payment.id) {
-        // Update appointment with payment info
-        await prisma.appointment.update({
-          where: { id: appointmentId },
-          data: {
-            paymentId: payment.id.toString(),
-            paymentStatus: 'pending',
-          },
-        })
-
-        return NextResponse.json({
-          success: true,
-          paymentId: payment.id,
-          qrCode: payment.point_of_interaction?.transaction_data?.qr_code,
-          qrCodeBase64: payment.point_of_interaction?.transaction_data?.qr_code_base64,
-          ticketUrl: payment.ticket_url,
-        })
-      }
-    }
-
-    // Mock response for testing (when no MP token is configured)
-    return NextResponse.json({
-      success: true,
-      message: 'Pagamento configurado. Configure MP_ACCESS_TOKEN para pagamentos reais.',
-      mock: true,
-      paymentId: `MOCK_${Date.now()}`,
+    const response = await fetch(`${MP_API_URL}/checkout/preferences`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${MP_ACCESS_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(preferenceData),
     })
 
+    const preference = await response.json()
+
+    if (preference.id) {
+      await prisma.appointment.update({
+        where: { id: appointmentId },
+        data: {
+          paymentId: preference.id,
+          paymentStatus: 'pending',
+        },
+      })
+
+      return NextResponse.json({
+        success: true,
+        preferenceId: preference.id,
+        initPoint: preference.init_point,
+        sandboxInitPoint: preference.sandbox_init_point,
+      })
+    }
+
+    return NextResponse.json(
+      { error: 'Erro ao criar preferência de pagamento', details: preference },
+      { status: 400 }
+    )
+
   } catch (error) {
-    console.error('Error processing payment:', error)
+    console.error('Error creating payment preference:', error)
     return NextResponse.json(
       { error: 'Erro ao processar pagamento' },
       { status: 500 }
@@ -86,42 +94,32 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
     const paymentId = searchParams.get('paymentId')
 
-    if (!paymentId) {
+    if (!paymentId || !MP_ACCESS_TOKEN) {
       return NextResponse.json(
         { error: 'Payment ID required' },
         { status: 400 }
       )
     }
 
-    // Check payment status
-    if (MP_ACCESS_TOKEN && MP_ACCESS_TOKEN !== 'YOUR_ACCESS_TOKEN') {
-      const response = await fetch(`${MP_API_URL}/payments/${paymentId}`, {
-        headers: {
-          'Authorization': `Bearer ${MP_ACCESS_TOKEN}`,
-        },
-      })
+    const response = await fetch(`${MP_API_URL}/payments/${paymentId}`, {
+      headers: {
+        'Authorization': `Bearer ${MP_ACCESS_TOKEN}`,
+      },
+    })
 
-      const payment = await response.json()
+    const payment = await response.json()
 
-      // Update appointment status based on payment
-      if (payment.status === 'approved') {
-        await prisma.appointment.update({
-          where: { id: payment.external_reference },
-          data: { paymentStatus: 'paid', status: 'confirmed' },
-        })
-      }
-
-      return NextResponse.json({
-        success: true,
-        status: payment.status,
-        statusDetail: payment.status_detail,
+    if (payment.status === 'approved') {
+      await prisma.appointment.update({
+        where: { id: payment.external_reference },
+        data: { paymentStatus: 'paid', status: 'confirmed' },
       })
     }
 
     return NextResponse.json({
       success: true,
-      status: 'pending',
-      message: 'Configure MP_ACCESS_TOKEN para verificar pagamentos reais',
+      status: payment.status,
+      statusDetail: payment.status_detail,
     })
 
   } catch (error) {
