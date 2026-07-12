@@ -8,8 +8,8 @@ const categories = [
     description: 'Atividades para desenvolver interação e comunicação social',
     color: 'bg-primary-100 text-primary-600',
     materials: [
-      { name: 'Roteiro de Interação Social', type: 'PDF', pages: 15, free: true, link: '/materiais' },
-      { name: 'Jogo de Regras Sociais', type: 'PDF', pages: 10, free: true, link: '/materiais' },
+      { name: 'Roteiro de Interação Social', type: 'PDF', pages: 15, free: true, link: '/materiais/interacao-social' },
+      { name: 'Jogo de Regras Sociais', type: 'PDF', pages: 10, free: true, link: '/materiais/regras-sociais' },
       { name: 'Histórias Sociais para Crianças', type: 'PDF', pages: 20, free: false, link: '#' },
     ],
   },
@@ -31,8 +31,8 @@ const categories = [
     color: 'bg-accent-100 text-accent-600',
     materials: [
       { name: 'Quadro de Rotina Diária', type: 'PDF', pages: 5, free: true, link: '/materiais/quadro-rotina' },
-      { name: 'Sequência de Atividades', type: 'PDF', pages: 10, free: true, link: '/materiais' },
-      { name: 'Timer Visual para Transições', type: 'PDF', pages: 3, free: true, link: '/materiais' },
+      { name: 'Sequência de Atividades', type: 'PDF', pages: 10, free: true, link: '/materiais/sequencia-atividades' },
+      { name: 'Timer Visual para Transições', type: 'PDF', pages: 3, free: true, link: '/materiais/timer-visual' },
     ],
   },
   {
