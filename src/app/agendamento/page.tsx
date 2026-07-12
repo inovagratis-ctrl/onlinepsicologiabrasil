@@ -91,7 +91,8 @@ export default function Agendamento() {
         window.location.href = data.initPoint
       } else {
         console.error('Payment error:', data)
-        alert(`Erro: ${data.error || 'Erro desconhecido'}`)
+        const errorMsg = data.details || data.error || 'Erro desconhecido'
+        alert(`Erro ao criar pagamento: ${errorMsg}`)
       }
     } catch (error) {
       console.error('Error:', error)
