@@ -11,7 +11,7 @@ const steps = [
     icon: Search,
     title: 'Avaliação Inicial',
     description: 'Na primeira sessão, vamos nos conhecer. A psicóloga vai ouvir sua história e entender suas necessidades.',
-    detail: 'Duração: 50 minutos. Valor: R$ 170,00',
+    detail: 'Duração: 60 minutos. Valor: R$ 100,00',
   },
   {
     icon: FileText,

@@ -154,7 +154,12 @@ export default function Admin() {
           <div className="bg-white rounded-xl shadow p-4">
             <p className="text-sm text-gray-500">Receita</p>
             <p className="text-2xl font-bold text-primary-500">
-              R$ {appointments.filter(a => a.paymentStatus === 'paid').length * 170},00
+              R$ {appointments.filter(a => a.paymentStatus === 'paid').reduce((acc, a) => {
+                if (a.sessionType === 'Primeira Sessão') return acc + 100
+                if (a.sessionType === 'Sessão Individual') return acc + 140
+                if (a.sessionType === 'Orientação a Pais') return acc + 80
+                return acc + 140
+              }, 0)},00
             </p>
           </div>
         </div>
