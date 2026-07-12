@@ -1,4 +1,4 @@
-import { Download, Eye, Lock, Puzzle, MessageCircle, BookOpen, Heart, Star, Printer } from 'lucide-react'
+import { Download, Eye, Lock, Puzzle, MessageCircle, BookOpen, Heart, Star, Printer, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
 
 const categories = [
@@ -10,7 +10,7 @@ const categories = [
     materials: [
       { name: 'Roteiro de Interação Social', type: 'PDF', pages: 15, free: true, link: '/materiais/interacao-social' },
       { name: 'Jogo de Regras Sociais', type: 'PDF', pages: 10, free: true, link: '/materiais/regras-sociais' },
-      { name: 'Histórias Sociais para Crianças', type: 'PDF', pages: 20, free: false, link: '#' },
+      { name: 'Histórias Sociais para Crianças', type: 'PDF', pages: 20, free: false, price: 14.90, link: '/materiais/historias-sociais' },
     ],
   },
   {
@@ -20,8 +20,8 @@ const categories = [
     color: 'bg-secondary-100 text-secondary-600',
     materials: [
       { name: 'Quadro de Comunicação Funcional', type: 'PDF', pages: 8, free: true, link: '/materiais/comunicacao-funcional' },
-      { name: 'PECS - Sistema de Comunicação por Figuras', type: 'PDF', pages: 25, free: false, link: '#' },
-      { name: 'Atividades de Solicitação', type: 'PDF', pages: 12, free: false, link: '#' },
+      { name: 'PECS - Sistema de Comunicação por Figuras', type: 'PDF', pages: 25, free: false, price: 17.90, link: '/materiais/pecs' },
+      { name: 'Atividades de Solicitação', type: 'PDF', pages: 12, free: false, price: 9.90, link: '/materiais/atividades-solicitacao' },
     ],
   },
   {
@@ -42,8 +42,8 @@ const categories = [
     color: 'bg-purple-100 text-purple-600',
     materials: [
       { name: 'Termômetro de Emoções', type: 'PDF', pages: 6, free: true, link: '/materiais/termometro-emocoes' },
-      { name: 'Cartões de Sentimentos', type: 'PDF', pages: 15, free: false, link: '#' },
-      { name: 'Estratégias de Regulação', type: 'PDF', pages: 12, free: false, link: '#' },
+      { name: 'Cartões de Sentimentos', type: 'PDF', pages: 15, free: false, price: 12.90, link: '/materiais/cartoes-sentimentos' },
+      { name: 'Estratégias de Regulação', type: 'PDF', pages: 12, free: false, price: 9.90, link: '/materiais/estrategias-regulacao' },
     ],
   },
 ]
@@ -64,7 +64,7 @@ export default function Materiais() {
             </div>
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <Lock className="w-4 h-4 text-gray-400" />
-              <span>Premium</span>
+              <span>Premium (a partir de R$ 9,90)</span>
             </div>
           </div>
         </div>
@@ -92,7 +92,7 @@ export default function Materiais() {
                       className={`p-4 rounded-xl border-2 transition-all ${
                         material.free
                           ? 'border-accent-200 bg-accent-50 hover:border-accent-400'
-                          : 'border-gray-200 bg-gray-50 hover:border-gray-300'
+                          : 'border-amber-200 bg-amber-50 hover:border-amber-400'
                       }`}
                     >
                       <div className="flex items-start justify-between mb-3">
@@ -100,7 +100,7 @@ export default function Materiais() {
                           {material.free ? (
                             <Star className="w-5 h-5 text-accent-500 fill-current" />
                           ) : (
-                            <Lock className="w-5 h-5 text-gray-400" />
+                            <Lock className="w-5 h-5 text-amber-500" />
                           )}
                           <span className="text-xs font-medium text-gray-500">{material.type}</span>
                         </div>
@@ -108,6 +108,12 @@ export default function Materiais() {
                       </div>
                       
                       <h3 className="font-semibold text-gray-800 mb-3">{material.name}</h3>
+                      
+                      {!material.free && material.price && (
+                        <p className="text-lg font-bold text-amber-600 mb-3">
+                          R$ {material.price.toFixed(2).replace('.', ',')}
+                        </p>
+                      )}
                       
                       <div className="flex gap-2">
                         {material.free && material.link !== '#' ? (
@@ -119,10 +125,13 @@ export default function Materiais() {
                             Ver
                           </Link>
                         ) : (
-                          <button className="flex-1 flex items-center justify-center gap-1 px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                          <Link
+                            href={material.link || '#'}
+                            className="flex-1 flex items-center justify-center gap-1 px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                          >
                             <Eye className="w-4 h-4" />
                             Ver
-                          </button>
+                          </Link>
                         )}
                         {material.free && material.link !== '#' ? (
                           <Link
@@ -133,17 +142,13 @@ export default function Materiais() {
                             Imprimir
                           </Link>
                         ) : (
-                          <button
-                            className={`flex-1 flex items-center justify-center gap-1 px-3 py-2 text-sm rounded-lg transition-colors ${
-                              material.free
-                                ? 'bg-accent-500 text-white hover:bg-accent-600'
-                                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                            }`}
-                            disabled={!material.free}
+                          <Link
+                            href={material.link || '#'}
+                            className="flex-1 flex items-center justify-center gap-1 px-3 py-2 text-sm bg-amber-500 text-white hover:bg-amber-600 rounded-lg transition-colors"
                           >
-                            <Download className="w-4 h-4" />
-                            {material.free ? 'Baixar' : 'Premium'}
-                          </button>
+                            <ShoppingCart className="w-4 h-4" />
+                            Comprar
+                          </Link>
                         )}
                       </div>
                     </div>
@@ -156,20 +161,19 @@ export default function Materiais() {
 
         {/* CTA Premium */}
         <div className="mt-12 bg-gradient-to-r from-primary-600 to-primary-700 rounded-2xl p-8 text-center">
-          <h3 className="text-2xl font-bold text-white mb-4">Acesso Premium</h3>
+          <h3 className="text-2xl font-bold text-white mb-4">Pack Completo de Materiais</h3>
           <p className="text-primary-100 mb-6 max-w-xl mx-auto">
-            Assine e tenha acesso a todos os materiais, incluindo PECS, histórias sociais, 
-            cartões de sentimentos e muito mais.
+            Compre todos os 5 materiais premium com desconto e tenha acesso a mais de 80 páginas de atividades prontas.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <a
               href="/agendamento"
               className="inline-flex items-center gap-2 bg-white text-primary-600 px-6 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
             >
-              Assinar Agora
+              Ver Materiais
             </a>
             <a
-              href="https://wa.me/5568999035300?text=Olá! Gostaria de saber mais sobre o acesso premium aos materiais."
+              href="https://wa.me/5568999035300?text=Olá! Gostaria de saber mais sobre os materiais premium."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors"
