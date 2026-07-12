@@ -1,0 +1,90 @@
+========================================
+   CONFIGURAÇÃO DE EMAIL GRATUITO
+   psicologiadireta.com.br
+========================================
+
+--- PASSO 1: CRIAR CONTA NO CLOUDFLARE ---
+1. Acesse: https://dash.cloudflare.com/sign-up
+2. Preencha:
+   - Email: inovagratis@gmail.com
+   - Senha: (crie uma senha forte)
+3. Verifique o email
+4. Faça login
+
+--- PASSO 2: ADICIONAR DOMÍNIO ---
+1. No painel, clique "+ Add a site"
+2. Digite: psicologiadireta.com.br
+3. Selecione o plano "Free"
+4. O Cloudflare vai escanear os registros DNS existentes
+5. Clique "Continue"
+
+--- PASSO 3: ATUALIZAR NAMESERVERS NO REGISTRADOR ---
+IMPORTANTE: Você precisa alterar os nameservers no lugar onde comprou o domínio.
+
+Se o domínio foi comprado no Registro.br:
+1. Acesse: https://registro.br
+2. Faça login
+3. Vá em "Meus Domínios" → psicologiadireta.com.br
+4. Clique em "Alterar Nameservers"
+5. Substitua pelos nameservers do Cloudflare:
+   - ns1.cloudflare.com
+   - ns2.cloudflare.com
+6. Salve e aguarde propagação (até 24h)
+
+--- PASSO 4: CONFIGURAR EMAIL ROUTING ---
+Após o nameserver estar ativo:
+
+1. No painel do Cloudflare, vá em "Email" → "Email Routing"
+2. Clique "Get started"
+3. Crie endereços de email:
+
+   ENDSEREÇOS RECOMENDADOS:
+   ├── contato@psicologiadireta.com.br → inovagratis@gmail.com
+   ├── agendar@psicologiadireta.com.br → inovagratis@gmail.com
+   ├── suporte@psicologiadireta.com.br → inovagratis@gmail.com
+   ├── psicologa@psicologiadireta.com.br → psicologasocorinha@gmail.com
+   └── admin@psicologiadireta.com.br → inovagratis@gmail.com
+
+4. Para cada endereço:
+   - Clique "Create address"
+   - Digite o endereço (ex: contato)
+   - No campo "Destination", digite o email de destino
+   - Clique "Save"
+
+--- PASSO 5: ATIVAR EMAIL ROUTING ---
+1. Vá em "Email" → "Email Routing"
+2. Clique "Enable Email Routing"
+3. Confirme
+
+--- PASSO 6: ADICIONAR REGISTROS DNS (OPCIONAL) ---
+Se quiser enviar emails PELO Cloudflare (não apenas receber):
+
+1. Vá em "Email" → "Email Routing" → "Outbound Routing"
+2. Siga as instruções para configurar SPF, DKIM e DMARC
+
+--- REGISTROS DNS NECESSÁRIOS ---
+O Cloudflare adiciona automaticamente:
+- MX register → route1.mx.cloudflare.net (prioridade 69)
+- MX register → route2.mx.cloudflare.net (prioridade 34)
+- MX register → route3.mx.cloudflare.net (prioridade 5)
+- TXT register → "v=spf1 include:_spf.mx.cloudflare.net ~all"
+
+========================================
+  SITES ÚTEIS
+========================================
+
+Cloudflare Painel: https://dash.cloudflare.com
+Registro.br: https://registro.br
+Teste de Email: https://www.mail-tester.com
+
+========================================
+  TESTE APÓS CONFIGURAR
+========================================
+
+1. Envie um email para contato@psicologiadireta.com.br
+2. Verifique se chegou no Gmail
+3. Responda e veja se o destinatário recebe
+
+========================================
+  ATUALIZADO EM: 12/07/2026
+========================================

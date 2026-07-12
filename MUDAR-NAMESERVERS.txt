@@ -1,0 +1,114 @@
+========================================
+   MUDAR NAMESERVERS PARA CLOUDFLARE
+   SEM CAIR O SITE (ZERO DOWNTIME)
+========================================
+
+--- POR QUE NÃO CAI? ---
+
+Quando você muda os nameservers:
+1. O Cloudflare já tem cópia de TODOS os seus registros DNS
+2. Durante a propagação, alguns veem o DNS antigo (Vercel)
+3. Outros veem o DNS novo (Cloudflare)
+4. AMBOS apontam para o mesmo IP do Vercel
+5. Resultado: Site sempre acessível!
+
+--- PASSO A PASSO SEM DOWNTIME ---
+
+### PASSO 1: Criar Conta no Cloudflare
+1. Acesse: https://dash.cloudflare.com/sign-up
+2. Cadastre-se com inovagratis@gmail.com
+3. Verifique o email
+
+### PASSO 2: Adicionar Domínio (SEM mudar nameservers ainda)
+1. No painel, clique "+ Add a site"
+2. Digite: psicologiadireta.com.br
+3. Selecione plano "Free"
+4. O Cloudflare vai escanear seus registros DNS atuais
+5. Aguarde a busca terminar
+
+### PASSO 3: VERIFICAR REGISTROS DNS (CRUCIAL!)
+O Cloudflare vai mostrar todos os registros DNS que encontrou.
+
+IMPORTANTE: Verifique se existem estes registros:
+
+Tipo  Nome                    Valor                   Proxy
+─────────────────────────────────────────────────────────────
+A     psicologiadireta.com.br  76.76.21.21            ✅ DNS only
+CNAME www                      cname.vercel-dns.com   ✅ DNS only
+
+Se NÃO existir, adicione:
+1. Clique "Add record"
+2. Tipo: A
+3. Nome: @ (ou psicologiadireta.com.br)
+4. Conteúdo: 76.76.21.21
+5. Proxy: DNS only (cinza)
+6. Salve
+
+Se o www não existir:
+1. Clique "Add record"
+2. Tipo: CNAME
+3. Nome: www
+4. Conteúdo: cname.vercel-dns.com
+5. Proxy: DNS only (cinza)
+6. Salve
+
+### PASSO 4: Configurar Email Routing (ANTES de mudar nameservers)
+1. Vá em "Email" → "Email Routing"
+2. Crie os endereços desejados
+3. NÃOATIVE ainda (só configure)
+
+### PASSO 5: MUDAR NAMESERVERS NO REGISTRADOR
+Agora sim, mude os nameservers:
+
+No Registro.br:
+1. Acesse: https://registro.br
+2. Login → Meus Domínios → psicologiadireta.com.br
+3. Clique "Alterar Nameservers"
+4. Substitua por:
+   - ns1.cloudflare.com
+   - ns2.cloudflare.com
+5. Salve
+
+### PASSO 6: AGUARDAR PROPAGAÇÃO
+- Tempo médio: 1-4 horas
+- Máximo: 48 horas (raro)
+- Durante esse tempo, o site CONTINUA no ar
+
+### PASSO 7: ATIVAR NO CLOUDFLARE
+Após a propagação:
+1. No Cloudflare, vá em "Overview"
+2. Clique "Check nameservers"
+3. Aguarde mensagem de confirmação
+4. Ative o Email Routing
+
+--- DICA DE SEGURANÇA ---
+
+ANTES de mudar nameservers, faça um teste:
+1. No Cloudflare, copie os registros DNS
+2. Acesse: https://dnschecker.org
+3. Consulte psicologiadireta.com.br
+4. Anote os IPs que aparecem
+5. Depois de mudar, consulte novamente
+6. Os IPs devem ser os mesmos (76.76.21.21)
+
+--- SE DER ALGO ERRADO ---
+
+Se o site cair (improvável):
+1. Volte ao Registro.br
+2. Restaure os nameservers originais do Vercel:
+   - ns1.vercel-dns.com
+   - ns2.vercel-dns.com
+3. Aguarde propagação (1-4 horas)
+4. O site volta ao ar
+
+--- RESUMO ---
+
+✅ Cloudflare já tem seus registros DNS
+✅ Mesmo IP do Vercel em ambos
+✅ Propagação = tempo de transição suave
+✅ Zero downtime se seguir os passos
+✅ Rollback fácil se precisar
+
+========================================
+  ATUALIZADO EM: 12/07/2026
+========================================

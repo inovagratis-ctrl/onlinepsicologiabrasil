@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Plus, Edit, Trash2, Save, X, FileText, Upload } from 'lucide-react'
+import { Plus, Edit, Trash2, Save, X, FileText, ArrowLeft } from 'lucide-react'
+import Link from 'next/link'
 
 interface BlogPost {
   id: string
@@ -143,6 +144,11 @@ export default function AdminBlog() {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-6xl mx-auto px-4">
+        <Link href="/admin" className="inline-flex items-center gap-2 text-gray-600 hover:text-primary-600 mb-6">
+          <ArrowLeft className="w-4 h-4" />
+          Voltar ao Painel
+        </Link>
+        
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold text-gray-800">Gerenciar Blog</h1>
           <button

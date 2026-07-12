@@ -1,0 +1,131 @@
+========================================
+   COMO COLOCAR ANÚNCIOS NO BLOG
+   Guia Passo a Passo
+========================================
+
+--- OPÇÃO 1: GOOGLE ADSENSE (Recomendado) ---
+
+1. Criar Conta:
+   - Acesse: https://www.google.com/adsense
+   - Faça login com Google
+   - Adicione seu site: psicologiadireta.com.br
+   - Aguarde aprovação (pode levar alguns dias)
+
+2. Criar Unidades de Anúncio:
+   No painel do AdSense:
+   - Ads → Anúncios no site → Unidades de anúncio
+   - Crie 4 unidades:
+
+   NOME              TAMINHO        POSIÇÃO
+   ├── Banner Topo    728x90         Topo do blog
+   ├── Conteúdo       300x250        Meio do artigo
+   ├── Lateral        300x600        Sidebar
+   └── Banner Rodapé  728x90         Rodapé
+
+3. Copiar Código:
+   Cada unidade gera um código assim:
+   <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXX"
+     data-ad-slot="XXXXXXXXXX"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+   <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+4. Colocar no Código:
+   - Abra: src/components/AdBanner.tsx
+   - Descomente o bloco da posição desejada
+   - Cole seu código no lugar
+   - Salve e faça deploy
+
+--- OPÇÃO 2: OUTRAS REDES ---
+
+Qualquer rede funciona! Basta colar o código HTML/JS no componente.
+
+Exemplos:
+- Facebook Audience Network
+- Ezoic
+- Mediavine
+- AdThrive
+- PropellerAds
+- Monumetric
+
+--- COMO EDITAR O ARQUIVO ---
+
+1. Abra o arquivo: src/components/AdBanner.tsx
+
+2. Procure a posição desejada (top, middle, bottom, sidebar)
+
+3. Descomente o bloco (remova as // )
+
+4. Cole seu código de anúncio
+
+5. Exemplo prático:
+
+   if (position === 'top') {
+     return (
+       <div className={`mb-8 ${className}`}>
+         <ins className="adsbygoogle"
+           style={{ display: 'block' }}
+           data-ad-client="ca-pub-1234567890"
+           data-ad-slot="0987654321"
+           data-ad-format="auto"
+           data-full-width-responsive="true"
+         />
+         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+       </div>
+     )
+   }
+
+6. Salve e faça deploy:
+   git add .
+   git commit -m "feat: add adsense ads"
+   git push
+
+--- POSIÇÕES DOS ANÚNCIOS ---
+
+BLOG (lista de artigos):
+┌─────────────────────────────────────┐
+│         BANNER TOPO (728x90)        │
+├─────────────────────────────────────┤
+│                                     │
+│         POST EM DESTAQUE            │
+│                                     │
+├─────────────────────────────────────┤
+│       ANÚNCIO MEIO (300x250)        │
+├─────────┬─────────┬─────────────────┤
+│ Post 1  │ Post 2  │     Post 3     │
+├─────────┴─────────┴─────────────────┤
+│        BANNER RODAPÉ (728x90)       │
+└─────────────────────────────────────┘
+
+ARTIGO (página do post):
+┌──────────────────────────┬──────────┐
+│      BANNER TOPO         │          │
+├──────────────────────────┤          │
+│                          │ ANÚNCIO  │
+│    CONTEÚDO DO ARTIGO    │ LATERAL  │
+│                          │ (300x600)│
+│   ┌──────────────────┐   │          │
+│   │ ANÚNCIO MEIO     │   │          │
+│   │ (300x250)        │   │          │
+│   └──────────────────┘   │          │
+│                          │          │
+├──────────────────────────┤          │
+│     BANNER RODAPÉ        │          │
+└──────────────────────────┴──────────┘
+
+========================================
+  DICA: ADSENSE APROVAÇÃO
+========================================
+
+Para ser aprovado no AdSense:
+- Tenha pelo menos 20-30 artigos publicados
+- Tenha conteúdo original e de qualidade
+- Políticas de privacidade e termos de uso
+- Site profissional e fácil de navegar
+- SSL (https) ativado ✅ (já temos)
+
+========================================
+  ATUALIZADO EM: 12/07/2026
+========================================
