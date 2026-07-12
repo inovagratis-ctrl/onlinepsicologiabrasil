@@ -60,6 +60,7 @@ export async function POST(request: Request) {
       auto_return: 'approved',
       payment_methods: {
         installments: 1,
+        excluded_payment_types: [],
       },
     }
 
