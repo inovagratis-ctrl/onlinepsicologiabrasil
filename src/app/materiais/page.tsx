@@ -1,4 +1,5 @@
-import { Download, Eye, Lock, Puzzle, MessageCircle, BookOpen, Heart, Star } from 'lucide-react'
+import { Download, Eye, Lock, Puzzle, MessageCircle, BookOpen, Heart, Star, Printer } from 'lucide-react'
+import Link from 'next/link'
 
 const categories = [
   {
@@ -7,9 +8,9 @@ const categories = [
     description: 'Atividades para desenvolver interação e comunicação social',
     color: 'bg-primary-100 text-primary-600',
     materials: [
-      { name: 'Roteiro de Interação Social', type: 'PDF', pages: 15, free: true },
-      { name: 'Jogo de Regras Sociais', type: 'PDF', pages: 10, free: true },
-      { name: 'Histórias Sociais para Crianças', type: 'PDF', pages: 20, free: false },
+      { name: 'Roteiro de Interação Social', type: 'PDF', pages: 15, free: true, link: '/materiais' },
+      { name: 'Jogo de Regras Sociais', type: 'PDF', pages: 10, free: true, link: '/materiais' },
+      { name: 'Histórias Sociais para Crianças', type: 'PDF', pages: 20, free: false, link: '#' },
     ],
   },
   {
@@ -18,9 +19,9 @@ const categories = [
     description: 'Materiais para estimular a comunicação funcional',
     color: 'bg-secondary-100 text-secondary-600',
     materials: [
-      { name: 'PECS - Sistema de Comunicação por Figuras', type: 'PDF', pages: 25, free: false },
-      { name: 'Quadro de Comunicação Funcional', type: 'PDF', pages: 8, free: true },
-      { name: 'Atividades de Solicitação', type: 'PDF', pages: 12, free: false },
+      { name: 'Quadro de Comunicação Funcional', type: 'PDF', pages: 8, free: true, link: '/materiais/comunicacao-funcional' },
+      { name: 'PECS - Sistema de Comunicação por Figuras', type: 'PDF', pages: 25, free: false, link: '#' },
+      { name: 'Atividades de Solicitação', type: 'PDF', pages: 12, free: false, link: '#' },
     ],
   },
   {
@@ -29,9 +30,9 @@ const categories = [
     description: 'Quadros e rotinas visuais para o dia a dia',
     color: 'bg-accent-100 text-accent-600',
     materials: [
-      { name: 'Quadro de Rotina Diária', type: 'PDF', pages: 5, free: true },
-      { name: 'Sequência de Atividades', type: 'PDF', pages: 10, free: true },
-      { name: 'Timer Visual para Transições', type: 'PDF', pages: 3, free: true },
+      { name: 'Quadro de Rotina Diária', type: 'PDF', pages: 5, free: true, link: '/materiais/quadro-rotina' },
+      { name: 'Sequência de Atividades', type: 'PDF', pages: 10, free: true, link: '/materiais' },
+      { name: 'Timer Visual para Transições', type: 'PDF', pages: 3, free: true, link: '/materiais' },
     ],
   },
   {
@@ -40,9 +41,9 @@ const categories = [
     description: 'Estratégias para lidar com emoções e crises',
     color: 'bg-purple-100 text-purple-600',
     materials: [
-      { name: 'Termômetro de Emoções', type: 'PDF', pages: 6, free: true },
-      { name: 'Cartões de Sentimentos', type: 'PDF', pages: 15, free: false },
-      { name: 'Estratégias de Regulação', type: 'PDF', pages: 12, free: false },
+      { name: 'Termômetro de Emoções', type: 'PDF', pages: 6, free: true, link: '/materiais/termometro-emocoes' },
+      { name: 'Cartões de Sentimentos', type: 'PDF', pages: 15, free: false, link: '#' },
+      { name: 'Estratégias de Regulação', type: 'PDF', pages: 12, free: false, link: '#' },
     ],
   },
 ]
@@ -109,21 +110,41 @@ export default function Materiais() {
                       <h3 className="font-semibold text-gray-800 mb-3">{material.name}</h3>
                       
                       <div className="flex gap-2">
-                        <button className="flex-1 flex items-center justify-center gap-1 px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
-                          <Eye className="w-4 h-4" />
-                          Ver
-                        </button>
-                        <button
-                          className={`flex-1 flex items-center justify-center gap-1 px-3 py-2 text-sm rounded-lg transition-colors ${
-                            material.free
-                              ? 'bg-accent-500 text-white hover:bg-accent-600'
-                              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                          }`}
-                          disabled={!material.free}
-                        >
-                          <Download className="w-4 h-4" />
-                          {material.free ? 'Baixar' : 'Premium'}
-                        </button>
+                        {material.free && material.link !== '#' ? (
+                          <Link
+                            href={material.link}
+                            className="flex-1 flex items-center justify-center gap-1 px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                          >
+                            <Eye className="w-4 h-4" />
+                            Ver
+                          </Link>
+                        ) : (
+                          <button className="flex-1 flex items-center justify-center gap-1 px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                            <Eye className="w-4 h-4" />
+                            Ver
+                          </button>
+                        )}
+                        {material.free && material.link !== '#' ? (
+                          <Link
+                            href={material.link}
+                            className="flex-1 flex items-center justify-center gap-1 px-3 py-2 text-sm bg-accent-500 text-white hover:bg-accent-600 rounded-lg transition-colors"
+                          >
+                            <Printer className="w-4 h-4" />
+                            Imprimir
+                          </Link>
+                        ) : (
+                          <button
+                            className={`flex-1 flex items-center justify-center gap-1 px-3 py-2 text-sm rounded-lg transition-colors ${
+                              material.free
+                                ? 'bg-accent-500 text-white hover:bg-accent-600'
+                                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                            }`}
+                            disabled={!material.free}
+                          >
+                            <Download className="w-4 h-4" />
+                            {material.free ? 'Baixar' : 'Premium'}
+                          </button>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -148,7 +169,7 @@ export default function Materiais() {
               Assinar Agora
             </a>
             <a
-              href="https://wa.me/5511999999999?text=Olá! Gostaria de saber mais sobre o acesso premium aos materiais."
+              href="https://wa.me/5568999035300?text=Olá! Gostaria de saber mais sobre o acesso premium aos materiais."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors"
