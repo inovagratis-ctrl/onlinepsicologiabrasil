@@ -1,5 +1,6 @@
 import { Calendar, Clock, Tag, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+import AdBanner from '@/components/AdBanner'
 
 const posts = [
   {
@@ -44,15 +45,19 @@ export default function Blog() {
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-12">
+        {/* Header */}
+        <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">Blog</h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Artigos, dicas e informações sobre Autismo, TDAH, Dislexia e neurodesenvolvimento
           </p>
         </div>
 
+        {/* Ad - Topo */}
+        <AdBanner position="top" />
+
         {/* Featured Post */}
-        <div className="mb-12">
+        <div className="mb-8">
           <Link href={`/blog/${posts[0].slug}`}>
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
               <div className="md:flex">
@@ -92,6 +97,9 @@ export default function Blog() {
           </Link>
         </div>
 
+        {/* Ad - Meio */}
+        <AdBanner position="middle" />
+
         {/* Posts Grid */}
         <div className="grid md:grid-cols-3 gap-6">
           {posts.slice(1).map((post) => (
@@ -130,6 +138,9 @@ export default function Blog() {
             </Link>
           ))}
         </div>
+
+        {/* Ad - Rodapé */}
+        <AdBanner position="bottom" />
       </div>
     </div>
   )

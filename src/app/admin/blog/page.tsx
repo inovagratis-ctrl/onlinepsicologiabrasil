@@ -333,18 +333,20 @@ export default function AdminBlog() {
                     </p>
                   </div>
                   
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-shrink-0">
                     <button
                       onClick={() => startEditing(post)}
-                      className="p-2 text-gray-400 hover:text-primary-500 hover:bg-primary-50 rounded-lg"
+                      className="flex items-center gap-1 px-3 py-2 text-sm bg-primary-50 text-primary-600 rounded-lg hover:bg-primary-100 transition-colors"
                     >
                       <Edit className="w-4 h-4" />
+                      Editar
                     </button>
                     <button
                       onClick={() => handleDelete(post.id)}
-                      className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg"
+                      className="flex items-center gap-1 px-3 py-2 text-sm bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
                     >
                       <Trash2 className="w-4 h-4" />
+                      Excluir
                     </button>
                   </div>
                 </div>

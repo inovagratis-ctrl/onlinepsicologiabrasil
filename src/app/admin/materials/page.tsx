@@ -325,9 +325,10 @@ export default function AdminMaterials() {
                     )}
                   </div>
                   
-                  <div className="flex gap-2">
-                    <label className={`p-2 rounded-lg cursor-pointer ${uploading ? 'bg-gray-100' : 'hover:bg-blue-50 text-gray-400 hover:text-blue-500'}`}>
+                  <div className="flex gap-2 flex-shrink-0">
+                    <label className={`flex items-center gap-1 px-3 py-2 text-sm rounded-lg cursor-pointer transition-colors ${uploading ? 'bg-gray-100 text-gray-400' : 'bg-blue-50 text-blue-600 hover:bg-blue-100'}`}>
                       <Upload className="w-4 h-4" />
+                      PDF
                       <input
                         type="file"
                         accept=".pdf"
@@ -341,15 +342,17 @@ export default function AdminMaterials() {
                     </label>
                     <button
                       onClick={() => startEditing(material)}
-                      className="p-2 text-gray-400 hover:text-primary-500 hover:bg-primary-50 rounded-lg"
+                      className="flex items-center gap-1 px-3 py-2 text-sm bg-primary-50 text-primary-600 rounded-lg hover:bg-primary-100 transition-colors"
                     >
                       <Edit className="w-4 h-4" />
+                      Editar
                     </button>
                     <button
                       onClick={() => handleDelete(material.id)}
-                      className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg"
+                      className="flex items-center gap-1 px-3 py-2 text-sm bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
                     >
                       <Trash2 className="w-4 h-4" />
+                      Excluir
                     </button>
                   </div>
                 </div>
