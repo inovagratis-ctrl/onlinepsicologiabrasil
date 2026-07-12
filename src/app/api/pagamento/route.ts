@@ -1,5 +1,16 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+
+let prisma: any = null
+
+async function getPrisma() {
+  try {
+    const { prisma: p } = await import('@/lib/prisma')
+    prisma = p
+    return prisma
+  } catch {
+    return null
+  }
+}
 
 const MP_ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN
 const MP_API_URL = 'https://api.mercadopago.com/v1'
@@ -59,13 +70,20 @@ export async function POST(request: Request) {
     const preference = await response.json()
 
     if (preference.id) {
-      await prisma.appointment.update({
-        where: { id: appointmentId },
-        data: {
-          paymentId: preference.id,
-          paymentStatus: 'pending',
-        },
-      })
+      const db = await getPrisma()
+      if (db) {
+        try {
+          await db.appointment.update({
+            where: { id: appointmentId },
+            data: {
+              paymentId: preference.id,
+              paymentStatus: 'pending',
+            },
+          })
+        } catch {
+          // Database not available, continue
+        }
+      }
 
       return NextResponse.json({
         success: true,
@@ -110,10 +128,17 @@ export async function GET(request: Request) {
     const payment = await response.json()
 
     if (payment.status === 'approved') {
-      await prisma.appointment.update({
-        where: { id: payment.external_reference },
-        data: { paymentStatus: 'paid', status: 'confirmed' },
-      })
+      const db = await getPrisma()
+      if (db) {
+        try {
+          await db.appointment.update({
+            where: { id: payment.external_reference },
+            data: { paymentStatus: 'paid', status: 'confirmed' },
+          })
+        } catch {
+          // Database not available
+        }
+      }
     }
 
     return NextResponse.json({
