@@ -65,3 +65,13 @@ model MaterialPurchase {
   updatedAt  DateTime @updatedAt
   material   Material @relation(fields: [materialId], references: [id])
 }
+
+model Ad {
+  id        String   @id @default(cuid())
+  position  String
+  title     String
+  code      String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

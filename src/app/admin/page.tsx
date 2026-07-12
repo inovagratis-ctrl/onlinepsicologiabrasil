@@ -108,6 +108,9 @@ export default function Admin() {
             <a href="/admin/materials" className="text-primary-600 hover:text-primary-700 font-medium">
               Materiais
             </a>
+            <a href="/admin/ads" className="text-primary-600 hover:text-primary-700 font-medium">
+              Anúncios
+            </a>
             <button
               onClick={() => setIsAuthenticated(false)}
               className="text-gray-500 hover:text-gray-700"
