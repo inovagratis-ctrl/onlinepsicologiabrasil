@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Play, Pause, RotateCcw, Check, Timer, Minus, Plus } from 'lucide-react'
+import { Play, Pause, RotateCcw, Check, Timer, Minus, Plus, ArrowLeft } from 'lucide-react'
+import Link from 'next/link'
 
 export default function TimerVisualPage() {
   const [totalTime, setTotalTime] = useState(60)
@@ -67,18 +68,21 @@ export default function TimerVisualPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-2xl mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="w-20 h-20 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Timer className="w-10 h-10 text-primary-600" />
-          </div>
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">Timer Visual para Transições</h1>
-          <p className="text-gray-600">
+      {/* Header */}
+      <div className="bg-white shadow-sm">
+        <div className="max-w-2xl mx-auto px-4 py-4">
+          <Link href="/materiais" className="flex items-center gap-2 text-gray-600 hover:text-primary-600 mb-4">
+            <ArrowLeft className="w-5 h-5" />
+            Voltar
+          </Link>
+          <h1 className="text-2xl font-bold text-gray-800">Timer Visual para Transições</h1>
+          <p className="text-gray-600 text-sm">
             Ajude a criança a entender quanto tempo falta usando uma barra visual colorida
           </p>
         </div>
+      </div>
 
+      <div className="max-w-2xl mx-auto px-4 py-8">
         {/* Timer Circle */}
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8 flex flex-col items-center">
           <div className="relative w-72 h-72">
