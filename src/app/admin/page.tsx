@@ -100,13 +100,21 @@ export default function Admin() {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">Painel de Agendamentos</h1>
-          <button
-            onClick={() => setIsAuthenticated(false)}
-            className="text-gray-500 hover:text-gray-700"
-          >
-            Sair
-          </button>
+          <h1 className="text-3xl font-bold text-gray-800">Painel Admin</h1>
+          <div className="flex items-center gap-4">
+            <a href="/admin/blog" className="text-primary-600 hover:text-primary-700 font-medium">
+              Blog
+            </a>
+            <a href="/admin/materials" className="text-primary-600 hover:text-primary-700 font-medium">
+              Materiais
+            </a>
+            <button
+              onClick={() => setIsAuthenticated(false)}
+              className="text-gray-500 hover:text-gray-700"
+            >
+              Sair
+            </button>
+          </div>
         </div>
 
         {/* Filters */}

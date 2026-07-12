@@ -36,6 +36,7 @@ export default function PremiumMaterial({
           title: title,
           description: `Material: ${title}`,
           email: 'paciente@email.com',
+          materialId: priceId,
         }),
       })
 

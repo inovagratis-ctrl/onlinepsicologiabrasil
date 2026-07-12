@@ -14,13 +14,18 @@ async function getPrisma() {
 
 const MP_ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN
 const MP_API_URL = 'https://api.mercadopago.com'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://onlinepsicologiabrasil.vercel.app'
+
+function generateToken(): string {
+  return Math.random().toString(36).substring(2) + Date.now().toString(36)
+}
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { appointmentId, amount, description, email, title } = body
+    const { appointmentId, amount, description, email, title, materialId } = body
 
-    console.log('Payment request:', { appointmentId, amount, email })
+    console.log('Payment request:', { appointmentId, amount, email, materialId })
 
     if (!appointmentId || !amount) {
       return NextResponse.json(
@@ -37,7 +42,30 @@ export async function POST(request: Request) {
       )
     }
 
-    console.log('MP_ACCESS_TOKEN exists:', MP_ACCESS_TOKEN.substring(0, 20) + '...')
+    const db = await getPrisma()
+    let downloadToken = null
+
+    if (materialId && db) {
+      try {
+        downloadToken = generateToken()
+        await db.materialPurchase.create({
+          data: {
+            materialId,
+            buyerEmail: email || 'comprador@email.com',
+            paymentId: null,
+            status: 'pending',
+            downloadToken,
+          },
+        })
+      } catch {
+        // Continue without purchase record
+      }
+    }
+
+    const isMaterial = !!materialId
+    const successUrl = isMaterial
+      ? `${SITE_URL}/download?token=${downloadToken || 'pending'}`
+      : `${SITE_URL}/agendamento?status=sucesso`
 
     const preferenceData = {
       items: [
@@ -53,9 +81,9 @@ export async function POST(request: Request) {
       },
       external_reference: appointmentId,
       back_urls: {
-        success: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://onlinepsicologiabrasil.vercel.app'}/agendamento?status=sucesso`,
-        failure: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://onlinepsicologiabrasil.vercel.app'}/agendamento?status=erro`,
-        pending: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://onlinepsicologiabrasil.vercel.app'}/agendamento?status=pendente`,
+        success: successUrl,
+        failure: `${SITE_URL}/agendamento?status=erro`,
+        pending: `${SITE_URL}/agendamento?status=pendente`,
       },
       auto_return: 'approved',
       payment_methods: {
@@ -82,8 +110,21 @@ export async function POST(request: Request) {
     console.log('Mercado Pago response:', JSON.stringify(preference).substring(0, 500))
 
     if (preference.id) {
-      const db = await getPrisma()
-      if (db) {
+      if (db && downloadToken) {
+        try {
+          const db2 = await getPrisma()
+          if (db2) {
+            await db2.materialPurchase.updateMany({
+              where: { downloadToken },
+              data: { paymentId: preference.id },
+            })
+          }
+        } catch {
+          // Database not available
+        }
+      }
+
+      if (db && !materialId) {
         try {
           await db.appointment.update({
             where: { id: appointmentId },
@@ -93,7 +134,7 @@ export async function POST(request: Request) {
             },
           })
         } catch {
-          // Database not available, continue
+          // Database not available
         }
       }
 
@@ -102,6 +143,7 @@ export async function POST(request: Request) {
         preferenceId: preference.id,
         initPoint: preference.init_point,
         sandboxInitPoint: preference.sandbox_init_point,
+        downloadToken,
       })
     }
 
@@ -148,10 +190,21 @@ export async function GET(request: Request) {
       const db = await getPrisma()
       if (db) {
         try {
-          await db.appointment.update({
-            where: { id: payment.external_reference },
-            data: { paymentStatus: 'paid', status: 'confirmed' },
+          const purchase = await db.materialPurchase.findFirst({
+            where: { paymentId },
           })
+
+          if (purchase) {
+            await db.materialPurchase.update({
+              where: { id: purchase.id },
+              data: { status: 'approved' },
+            })
+          } else {
+            await db.appointment.update({
+              where: { id: payment.external_reference },
+              data: { paymentStatus: 'paid', status: 'confirmed' },
+            })
+          }
         } catch {
           // Database not available
         }
