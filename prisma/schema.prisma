@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Appointment {
@@ -17,8 +17,8 @@ model Appointment {
   patientPhone  String
   patientAge    String?
   notes         String?
-  status        String   @default("pending") // pending, confirmed, cancelled
-  paymentStatus String   @default("pending") // pending, paid
+  status        String   @default("pending")
+  paymentStatus String   @default("pending")
   paymentId     String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
