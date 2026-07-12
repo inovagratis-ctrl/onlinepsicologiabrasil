@@ -1,6 +1,7 @@
 import Hero from '@/components/Hero'
 import Sobre from '@/components/Sobre'
 import Servicos from '@/components/Servicos'
+import PrimeiraSessao from '@/components/PrimeiraSessao'
 import ComoFunciona from '@/components/ComoFunciona'
 import Depoimentos from '@/components/Depoimentos'
 import FAQ from '@/components/FAQ'
@@ -11,6 +12,7 @@ export default function Home() {
     <>
       <Hero />
       <Sobre />
+      <PrimeiraSessao />
       <Servicos />
       <ComoFunciona />
       <Depoimentos />

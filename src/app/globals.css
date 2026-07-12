@@ -6,13 +6,13 @@
 
 @layer base {
   body {
-    @apply antialiased text-gray-800;
+    @apply antialiased text-gray-800 bg-warm-50;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-all duration-200 shadow-md hover:shadow-lg;
+    @apply bg-primary-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-600 transition-all duration-200 shadow-md hover:shadow-lg;
   }
   
   .btn-secondary {
@@ -20,11 +20,11 @@
   }
   
   .btn-outline {
-    @apply border-2 border-primary-600 text-primary-600 px-6 py-3 rounded-lg font-medium hover:bg-primary-50 transition-all duration-200;
+    @apply border-2 border-primary-500 text-primary-600 px-6 py-3 rounded-lg font-medium hover:bg-primary-50 transition-all duration-200;
   }
   
   .card {
-    @apply bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-200;
+    @apply bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-200;
   }
   
   .section-title {
@@ -38,8 +38,8 @@
 
 .whatsapp-float {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 24px;
+  right: 24px;
   z-index: 50;
   animation: pulse 2s infinite;
 }
@@ -47,8 +47,25 @@
 @keyframes pulse {
   0%, 100% {
     transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
   }
   50% {
     transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
   }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Better focus styles */
+*:focus {
+  @apply outline-none ring-2 ring-primary-500 ring-offset-2;
+}
+
+/* Selection color */
+::selection {
+  @apply bg-primary-100 text-primary-900;
 }

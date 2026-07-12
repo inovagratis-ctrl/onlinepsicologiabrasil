@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Brain, Mail, Phone, MapPin } from 'lucide-react'
+import { Brain, Mail, Phone, Clock, Shield, Heart } from 'lucide-react'
 
 export default function Footer() {
   return (
@@ -11,9 +11,14 @@ export default function Footer() {
               <Brain className="w-8 h-8 text-primary-400" />
               <span className="text-xl font-bold">Psicologia Online Brasil</span>
             </div>
-            <p className="text-gray-400 text-sm">
-              Atendimento psicológico online especializado em Autismo e ABA Naturalista.
+            <p className="text-gray-400 text-sm mb-4">
+              Atendimento psicológico online especializado em Autismo, TDAH, 
+              Deficiência Intelectual e Dislexia.
             </p>
+            <div className="flex items-center gap-2 text-sm text-gray-400">
+              <Shield className="w-4 h-4 text-primary-400" />
+              <span>CRP 20/07319</span>
+            </div>
           </div>
 
           <div>
@@ -23,6 +28,7 @@ export default function Footer() {
               <Link href="/agendamento" className="block text-gray-400 hover:text-white transition-colors">Agendar</Link>
               <Link href="/blog" className="block text-gray-400 hover:text-white transition-colors">Blog</Link>
               <Link href="/materiais" className="block text-gray-400 hover:text-white transition-colors">Materiais</Link>
+              <Link href="/formulario" className="block text-gray-400 hover:text-white transition-colors">Avaliação</Link>
             </div>
           </div>
 
@@ -34,6 +40,7 @@ export default function Footer() {
               <p>Deficiência Intelectual</p>
               <p>Dislexia</p>
               <p>ABA Naturalista</p>
+              <p>TCC</p>
             </div>
           </div>
 
@@ -48,17 +55,38 @@ export default function Footer() {
                 <Phone className="w-4 h-4" />
                 (68) 99903-5300
               </a>
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4" />
+                <div>
+                  <p>Seg - Sex: 08:00 - 20:00</p>
+                  <p>Sábado: 08:00 - 12:00</p>
+                </div>
+              </div>
               <p className="flex items-center gap-2">
-                <MapPin className="w-4 h-4" />
+                <Heart className="w-4 h-4" />
                 Atendimento 100% Online
               </p>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
-          <p>© 2026 Psicologia Online Brasil. Todos os direitos reservados.</p>
-          <p className="mt-2">CRP: XXXXX | CFP 11/2018 - Atendimento Online Regulamentado</p>
+        <div className="border-t border-gray-800 mt-8 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="text-center md:text-left">
+              <p className="text-gray-400 text-sm">© 2026 Psicologia Online Brasil. Todos os direitos reservados.</p>
+              <p className="text-gray-500 text-xs mt-1">Conforme CFP 11/2018 e LGPD</p>
+            </div>
+            <div className="flex items-center gap-4 text-sm text-gray-400">
+              <span className="flex items-center gap-1">
+                <Shield className="w-4 h-4" />
+                Dados protegidos
+              </span>
+              <span className="flex items-center gap-1">
+                <Heart className="w-4 h-4" />
+                Sigilo garantido
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

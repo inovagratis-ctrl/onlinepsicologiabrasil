@@ -1,0 +1,58 @@
+========================================
+   PSICOLOGIA ONLINE BRASIL
+   LINKS E SENHAS IMPORTANTES
+========================================
+
+--- SITE ---
+Link do Site: https://psicologia-app-mauve.vercel.app
+Link Admin: https://psicologia-app-mauve.vercel.app/admin
+Senha Admin: socorrinha2026
+
+--- GITHUB ---
+Link Repositório: https://github.com/inovagratis-ctrl/onlinepsicologiabrasil
+Usuário: inovagratis-ctrl
+E-mail: inovagratis@gmail.com
+
+--- VERCEL ---
+Link Painel: https://vercel.com/eusimar
+E-mail: inovagratis@gmail.com
+
+--- WHATSAPP ---
+Número: (68) 99903-5300
+Link Direto: https://wa.me/5568999035300
+
+--- E-MAIL ---
+psicologasocorinha@gmail.com
+
+--- DADOS DA PROFISSIONAL ---
+Nome: Maria do Socorro Araujo Teixeira
+CRP: 20/07319
+
+--- VALORES ---
+Sessão Individual: R$ 170,00
+Pacote Mensal: R$ 140,00/sessão
+Orientação a Pais: R$ 120,00
+
+--- DOMÍNIO (comprar depois) ---
+Domínio escolhido: onlinepsicologiabrasil.com.br
+
+--- ARQUIVOS DO PROJE TO ---
+Localização: C:\Users\Eusimar\Documents\New OpenCode Project\psicologia-app
+
+--- COMO RODAR LOCALMENTE ---
+1. Abrir terminal (Win + R → cmd)
+2. Digitar: cd C:\Users\Eusimar\Documents\New OpenCode Project\psicologia-app
+3. Digitar: npm run dev
+4. Abrir navegador em: http://localhost:3000
+
+--- COMO ATUALIZAR O SITE ---
+1. Editar arquivos na pasta do projeto
+2. Abrir terminal na pasta do projeto
+3. Digitar: git add .
+4. Digitar: git commit -m "Descrição da mudança"
+5. Digitar: git push origin master
+6. O Vercel atualiza automaticamente!
+
+========================================
+  ATUALIZADO EM: 12/07/2026
+========================================
