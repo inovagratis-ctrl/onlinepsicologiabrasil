@@ -20,6 +20,8 @@ export async function POST(request: Request) {
     const body = await request.json()
     const { appointmentId, amount, description, email, title } = body
 
+    console.log('Payment request:', { appointmentId, amount, email })
+
     if (!appointmentId || !amount) {
       return NextResponse.json(
         { error: 'Dados incompletos para pagamento' },
@@ -28,11 +30,14 @@ export async function POST(request: Request) {
     }
 
     if (!MP_ACCESS_TOKEN) {
+      console.error('MP_ACCESS_TOKEN not configured')
       return NextResponse.json(
         { error: 'Mercado Pago não configurado' },
         { status: 500 }
       )
     }
+
+    console.log('MP_ACCESS_TOKEN exists:', MP_ACCESS_TOKEN.substring(0, 20) + '...')
 
     const preferenceData = {
       items: [
@@ -58,6 +63,8 @@ export async function POST(request: Request) {
       },
     }
 
+    console.log('Calling Mercado Pago API...')
+
     const response = await fetch(`${MP_API_URL}/checkout/preferences`, {
       method: 'POST',
       headers: {
@@ -67,7 +74,11 @@ export async function POST(request: Request) {
       body: JSON.stringify(preferenceData),
     })
 
+    console.log('Mercado Pago response status:', response.status)
+
     const preference = await response.json()
+
+    console.log('Mercado Pago response:', JSON.stringify(preference).substring(0, 500))
 
     if (preference.id) {
       const db = await getPrisma()
