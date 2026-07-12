@@ -1,4 +1,5 @@
-import { Award, BookOpen, Users, Heart } from 'lucide-react'
+import { Award, BookOpen, Users, Heart, Play } from 'lucide-react'
+import Link from 'next/link'
 
 const stats = [
   { icon: Users, value: '100+', label: 'Famílias Atendidas' },
@@ -68,6 +69,14 @@ export default function Sobre() {
                 </div>
               ))}
             </div>
+
+            <Link
+              href="/video-apresentacao"
+              className="mt-6 w-full flex items-center justify-center gap-2 bg-primary-500 text-white py-3 rounded-xl font-semibold hover:bg-primary-600 transition-colors"
+            >
+              <Play className="w-5 h-5" />
+              Assista ao Vídeo de Apresentação
+            </Link>
           </div>
         </div>
       </div>

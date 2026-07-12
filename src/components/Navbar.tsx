@@ -7,6 +7,7 @@ import { Menu, X, Brain } from 'lucide-react'
 const navLinks = [
   { href: '/', label: 'Início' },
   { href: '/#sobre', label: 'Sobre' },
+  { href: '/video-apresentacao', label: 'Vídeo' },
   { href: '/#servicos', label: 'Serviços' },
   { href: '/agendamento', label: 'Agendar' },
   { href: '/video', label: 'Videochamada' },
