@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Calendar, Clock, User, Phone, Mail, CheckCircle, XCircle, Filter } from 'lucide-react'
+import { Calendar, Clock, User, Phone, Mail, CheckCircle, XCircle, Filter, Video, MessageCircle } from 'lucide-react'
 
 interface Appointment {
   id: string
@@ -225,7 +225,29 @@ export default function Admin() {
                     )}
                   </div>
                   
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-wrap">
+                    {apt.status === 'confirmed' && (
+                      <>
+                        <a
+                          href={`https://meet.jit.si/sessao-${apt.id.slice(-8)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 px-3 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 text-sm"
+                        >
+                          <Video className="w-4 h-4" />
+                          Videochamada
+                        </a>
+                        <a
+                          href={`https://wa.me/55${apt.patientPhone.replace(/\D/g, '')}?text=${encodeURIComponent(`Olá! Sua sessão é hoje às ${apt.time}. Clique no link para entrar: https://meet.jit.si/sessao-${apt.id.slice(-8)}`)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 text-sm"
+                        >
+                          <MessageCircle className="w-4 h-4" />
+                          Enviar Link
+                        </a>
+                      </>
+                    )}
                     {apt.status === 'pending' && (
                       <>
                         <button

@@ -10,9 +10,9 @@ const timeSlots = [
 ]
 
 const sessionTypes = [
-  { id: 'avaliacao', name: 'Avaliação Inicial', duration: '60 min', price: 170 },
-  { id: 'sessao', name: 'Sessão Individual', duration: '50 min', price: 170 },
-  { id: 'orientacao', name: 'Orientação a Pais', duration: '50 min', price: 120 },
+  { id: 'primeira', name: 'Primeira Sessão', duration: '60 min', price: 100, highlight: true },
+  { id: 'sessao', name: 'Sessão Individual', duration: '50 min', price: 140, highlight: false },
+  { id: 'orientacao', name: 'Orientação a Pais', duration: '50 min', price: 80, highlight: false },
 ]
 
 export default function Agendamento() {

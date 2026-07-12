@@ -42,7 +42,7 @@ export default function CTA() {
         </div>
         
         <p className="text-primary-200 text-sm mt-6">
-          Primeira sessão: R$ 170,00 • Duração: 50 minutos
+          Primeira sessão: R$ 100,00 • A partir de R$ 80,00 por sessão
         </p>
       </div>
     </section>

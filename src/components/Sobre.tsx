@@ -49,6 +49,10 @@ export default function Sobre() {
                 e adultos com <strong>Autismo (TEA), TDAH, Deficiência Intelectual e Dislexia</strong>.
               </p>
               <p>
+                Também atendo demandas como <strong>Ansiedade, Síndrome do Pânico, Depressão, 
+                TDAH em Adultos, Compulsão Alimentar e Transtorno Obsessivo-Compulsivo (TOC)</strong>.
+              </p>
+              <p>
                 Cada pessoa é única e merece um cuidado personalizado, baseado em evidências 
                 científicas. Utilizo abordagens que respeitam o ritmo de cada paciente, 
                 promovendo aprendizagens significativas no ambiente natural.

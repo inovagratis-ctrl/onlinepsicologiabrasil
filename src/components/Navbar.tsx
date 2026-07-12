@@ -9,6 +9,7 @@ const navLinks = [
   { href: '/#sobre', label: 'Sobre' },
   { href: '/#servicos', label: 'Serviços' },
   { href: '/agendamento', label: 'Agendar' },
+  { href: '/video', label: 'Videochamada' },
   { href: '/blog', label: 'Blog' },
   { href: '/materiais', label: 'Materiais' },
   { href: '/formulario', label: 'Avaliação' },
