@@ -55,8 +55,19 @@ export default function TermometroEmocoes() {
               🌡️ Meu Termômetro de Emoções
             </h1>
             <p className="text-gray-500 mt-2 print:text-sm">
-              Como estou me sentindo agora?
+              Aponte para como você está se sentindo agora
             </p>
+          </div>
+
+          {/* Instructions */}
+          <div className="bg-primary-50 rounded-xl p-4 mb-6 print:mb-4 print:bg-gray-100">
+            <h3 className="font-semibold text-primary-700 mb-2">📋 Instruções:</h3>
+            <ul className="text-sm text-gray-600 space-y-1">
+              <li>• Pergunte: "Como você está se sentindo agora?"</li>
+              <li>• Deixe a criança apontar o nível no termômetro</li>
+              <li>• Converse sobre o que ela está sentindo</li>
+              <li>• Junto, escolham uma estratégia para se sentir melhor</li>
+            </ul>
           </div>
 
           {/* Thermometer */}
@@ -100,17 +111,6 @@ export default function TermometroEmocoes() {
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* How to use */}
-          <div className="mt-6 bg-warm-100 rounded-xl p-4 print:mt-3 print:bg-gray-100">
-            <h4 className="font-semibold text-gray-700 mb-2">📋 Como usar:</h4>
-            <ol className="text-sm text-gray-600 space-y-1">
-              <li>1. Pergunte: "Como você está se sentindo?"</li>
-              <li>2. Deixe a criança apontar o nível no termômetro</li>
-              <li>3. Converse sobre o que ela está sentindo</li>
-              <li>4. Junto, escolham uma estratégia para se sentir melhor</li>
-            </ol>
           </div>
 
           {/* Footer */}

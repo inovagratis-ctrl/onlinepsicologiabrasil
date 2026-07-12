@@ -1,25 +1,25 @@
 'use client'
 
-import { Printer, ArrowLeft, Download } from 'lucide-react'
+import { Printer, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 
 const routineItems = [
-  { time: '07:00', activity: 'Acordar', icon: '☀️', color: 'bg-yellow-100' },
-  { time: '07:15', activity: 'Escovar os dentes', icon: '🦷', color: 'bg-blue-100' },
-  { time: '07:30', activity: 'Tomar banho', icon: '🚿', color: 'bg-blue-100' },
-  { time: '08:00', activity: 'Vestir-se', icon: '👕', color: 'bg-purple-100' },
-  { time: '08:30', activity: 'Café da manhã', icon: '🥣', color: 'bg-orange-100' },
-  { time: '09:00', activity: 'Escola / Atividades', icon: '📚', color: 'bg-green-100' },
-  { time: '12:00', activity: 'Almoço', icon: '🍽️', color: 'bg-orange-100' },
-  { time: '13:00', activity: 'Descanso', icon: '😴', color: 'bg-indigo-100' },
-  { time: '14:00', activity: 'Brincar', icon: '🎮', color: 'bg-pink-100' },
-  { time: '16:00', activity: 'Lanche', icon: '🍎', color: 'bg-orange-100' },
-  { time: '17:00', activity: 'Atividades / Terapia', icon: '🧩', color: 'bg-teal-100' },
-  { time: '18:30', activity: 'Jantar', icon: '🍽️', color: 'bg-orange-100' },
-  { time: '19:00', activity: 'Banho', icon: '🛁', color: 'bg-blue-100' },
-  { time: '19:30', activity: 'Brincadeiras tranquilas', icon: '🧸', color: 'bg-pink-100' },
-  { time: '20:00', activity: 'História / Leitura', icon: '📖', color: 'bg-green-100' },
-  { time: '20:30', activity: 'Dormir', icon: '🌙', color: 'bg-indigo-100' },
+  { activity: 'Acordar', icon: '☀️', color: 'bg-yellow-100' },
+  { activity: 'Escovar os dentes', icon: '🦷', color: 'bg-blue-100' },
+  { activity: 'Tomar banho', icon: '🚿', color: 'bg-blue-100' },
+  { activity: 'Vestir-se', icon: '👕', color: 'bg-purple-100' },
+  { activity: 'Café da manhã', icon: '🥣', color: 'bg-orange-100' },
+  { activity: 'Escola / Atividades', icon: '📚', color: 'bg-green-100' },
+  { activity: 'Almoço', icon: '🍽️', color: 'bg-orange-100' },
+  { activity: 'Descanso', icon: '😴', color: 'bg-indigo-100' },
+  { activity: 'Brincar', icon: '🎮', color: 'bg-pink-100' },
+  { activity: 'Lanche', icon: '🍎', color: 'bg-orange-100' },
+  { activity: 'Atividades / Terapia', icon: '🧩', color: 'bg-teal-100' },
+  { activity: 'Jantar', icon: '🍽️', color: 'bg-orange-100' },
+  { activity: 'Banho', icon: '🛁', color: 'bg-blue-100' },
+  { activity: 'Brincadeiras tranquilas', icon: '🧸', color: 'bg-pink-100' },
+  { activity: 'História / Leitura', icon: '📖', color: 'bg-green-100' },
+  { activity: 'Dormir', icon: '🌙', color: 'bg-indigo-100' },
 ]
 
 export default function QuadroRotina() {
@@ -56,8 +56,19 @@ export default function QuadroRotina() {
               🗓️ Meu Quadro de Rotina
             </h1>
             <p className="text-gray-500 mt-2 print:text-sm">
-              Complete com os horários do seu filho
+              Escreva os horários do seu filho e complete com as atividades
             </p>
+          </div>
+
+          {/* Instructions */}
+          <div className="bg-primary-50 rounded-xl p-4 mb-6 print:mb-4 print:bg-gray-100">
+            <h3 className="font-semibold text-primary-700 mb-2">📋 Instruções:</h3>
+            <ul className="text-sm text-gray-600 space-y-1">
+              <li>• Escreva o horário de cada atividade na coluna ao lado</li>
+              <li>• Adicione ou remova atividades conforme a rotina do seu filho</li>
+              <li>• Use cores diferentes para facilitar a visualização</li>
+              <li>• Coloque o quadro em local visível para a criança</li>
+            </ul>
           </div>
 
           {/* Routine Grid */}
@@ -69,8 +80,15 @@ export default function QuadroRotina() {
               >
                 <div className="text-4xl print:text-3xl">{item.icon}</div>
                 <div className="flex-1">
-                  <div className="text-sm text-gray-500 font-medium">{item.time}</div>
                   <div className="text-lg font-semibold text-gray-800 print:text-base">{item.activity}</div>
+                </div>
+                <div className="w-24 print:w-20">
+                  <input
+                    type="text"
+                    placeholder="__:__"
+                    className="w-full px-3 py-2 border-2 border-dashed border-gray-300 rounded-lg text-center font-mono text-lg print:border-gray-400 print:p-1"
+                    readOnly
+                  />
                 </div>
                 <div className="w-6 h-6 border-2 border-gray-300 rounded print:w-5 print:h-5" />
               </div>
@@ -80,16 +98,34 @@ export default function QuadroRotina() {
           {/* Custom Section */}
           <div className="mt-8 print:mt-4 border-2 border-dashed border-gray-300 rounded-xl p-6 print:p-4">
             <h3 className="font-semibold text-gray-700 mb-4 print:mb-2">
-              ✏️ Minhas atividades personalizadas:
+              ✏️ Adicione suas atividades personalizadas:
             </h3>
-            <div className="grid grid-cols-2 gap-4 print:gap-2">
+            <div className="space-y-3 print:space-y-2">
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="flex items-center gap-2 border-b border-gray-200 pb-2">
-                  <div className="w-20 print:w-16" />
-                  <div className="flex-1 h-6 border-b border-gray-300" />
+                <div key={i} className="flex items-center gap-3">
+                  <div className="w-16 print:w-14">
+                    <input
+                      type="text"
+                      placeholder="__:__"
+                      className="w-full px-2 py-1 border-2 border-dashed border-gray-300 rounded text-center font-mono text-sm print:border-gray-400"
+                      readOnly
+                    />
+                  </div>
+                  <div className="flex-1 border-b-2 border-dashed border-gray-300 h-8 print:border-gray-400" />
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Tips */}
+          <div className="mt-6 bg-warm-100 rounded-xl p-4 print:mt-3 print:bg-gray-100">
+            <h4 className="font-semibold text-gray-700 mb-2">💡 Dicas:</h4>
+            <ul className="text-sm text-gray-600 space-y-1">
+              <li>• Mantenha horários fixos sempre que possível</li>
+              <li>• Use ícones visuais para crianças que ainda não leem</li>
+              <li>• Inclua a criança na organização da rotina</li>
+              <li>• Celebre quando a rotina for cumprida!</li>
+            </ul>
           </div>
 
           {/* Footer */}
@@ -99,24 +135,6 @@ export default function QuadroRotina() {
           </div>
         </div>
       </div>
-
-      {/* Print styles */}
-      <style jsx global>{`
-        @media print {
-          body {
-            background: white !important;
-          }
-          .print\\:hidden {
-            display: none !important;
-          }
-          .print\\:shadow-none {
-            box-shadow: none !important;
-          }
-          .print\\:rounded-none {
-            border-radius: 0 !important;
-          }
-        }
-      `}</style>
     </div>
   )
 }
