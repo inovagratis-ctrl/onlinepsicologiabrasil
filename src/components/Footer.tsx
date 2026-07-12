@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { Brain, Mail, Phone, Clock, Shield, Heart } from 'lucide-react'
+import Image from 'next/image'
+import { Mail, Phone, Clock, Shield, Heart } from 'lucide-react'
 
 export default function Footer() {
   return (
@@ -8,8 +9,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <Brain className="w-8 h-8 text-primary-400" />
-              <span className="text-xl font-bold">Psicologia Direta</span>
+              <Image src="/icone_base.png" alt="Psicologia Direta" width={48} height={48} className="rounded-lg" />
             </div>
             <p className="text-gray-400 text-sm mb-4">
               Atendimento psicológico online especializado em Autismo, TDAH, 

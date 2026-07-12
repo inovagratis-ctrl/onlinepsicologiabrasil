@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { Brain, Heart, Shield, Video, Lock, Award, Clock } from 'lucide-react'
+import Image from 'next/image'
+import { Heart, Shield, Video, Lock, Award, Clock } from 'lucide-react'
 
 export default function Hero() {
   return (
@@ -62,7 +63,7 @@ export default function Hero() {
 
           <div className="relative">
             <div className="bg-white rounded-2xl shadow-2xl p-8 relative z-10">
-              <Brain className="w-20 h-20 text-primary-500 mx-auto mb-6" />
+              <Image src="/icone_base.png" alt="Psicologia Direta" width={120} height={120} className="mx-auto mb-6 rounded-xl" />
               <h3 className="text-xl font-semibold text-center mb-4">Primeira Sessão</h3>
               <p className="text-gray-600 text-center mb-6">
                 Acolhimento, escuta qualificada e plano personalizado para você ou seu filho.
