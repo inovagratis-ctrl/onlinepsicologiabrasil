@@ -9,7 +9,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <Brain className="w-8 h-8 text-primary-400" />
-              <span className="text-xl font-bold">Psicologia Online Brasil</span>
+              <span className="text-xl font-bold">Psicologia Direta</span>
             </div>
             <p className="text-gray-400 text-sm mb-4">
               Atendimento psicológico online especializado em Autismo, TDAH, 
@@ -73,7 +73,7 @@ export default function Footer() {
         <div className="border-t border-gray-800 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-center md:text-left">
-              <p className="text-gray-400 text-sm">© 2026 Psicologia Online Brasil. Todos os direitos reservados.</p>
+              <p className="text-gray-400 text-sm">© 2026 Psicologia Direta. Todos os direitos reservados.</p>
               <p className="text-gray-500 text-xs mt-1">Conforme CFP 11/2018 e LGPD</p>
             </div>
             <div className="flex items-center gap-4 text-sm text-gray-400">
