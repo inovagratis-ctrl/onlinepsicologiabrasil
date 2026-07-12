@@ -1,0 +1,66 @@
+import Link from 'next/link'
+import { Brain, Mail, Phone, MapPin } from 'lucide-react'
+
+export default function Footer() {
+  return (
+    <footer className="bg-gray-900 text-white">
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="grid md:grid-cols-4 gap-8">
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <Brain className="w-8 h-8 text-primary-400" />
+              <span className="text-xl font-bold">Psicologia Online Brasil</span>
+            </div>
+            <p className="text-gray-400 text-sm">
+              Atendimento psicológico online especializado em Autismo e ABA Naturalista.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-semibold mb-4">Links Rápidos</h3>
+            <div className="space-y-2">
+              <Link href="/" className="block text-gray-400 hover:text-white transition-colors">Início</Link>
+              <Link href="/agendamento" className="block text-gray-400 hover:text-white transition-colors">Agendar</Link>
+              <Link href="/blog" className="block text-gray-400 hover:text-white transition-colors">Blog</Link>
+              <Link href="/materiais" className="block text-gray-400 hover:text-white transition-colors">Materiais</Link>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="font-semibold mb-4">Especialidades</h3>
+            <div className="space-y-2 text-gray-400 text-sm">
+              <p>Autismo (TEA)</p>
+              <p>TDAH</p>
+              <p>Deficiência Intelectual</p>
+              <p>Dislexia</p>
+              <p>ABA Naturalista</p>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="font-semibold mb-4">Contato</h3>
+            <div className="space-y-3 text-gray-400 text-sm">
+              <a href="mailto:psicologasocorinha@gmail.com" className="flex items-center gap-2 hover:text-white transition-colors">
+                <Mail className="w-4 h-4" />
+                psicologasocorinha@gmail.com
+              </a>
+              <a href="tel:+5568999035300" className="flex items-center gap-2 hover:text-white transition-colors">
+                <Phone className="w-4 h-4" />
+                (68) 99903-5300
+              </a>
+              <p className="flex items-center gap-2">
+                <MapPin className="w-4 h-4" />
+                Atendimento 100% Online
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
+          <p>© 2026 Psicologia Online Brasil. Todos os direitos reservados.</p>
+          <p className="mt-2">CRP: XXXXX | CFP 11/2018 - Atendimento Online Regulamentado</p>
+        </div>
+      </div>
+    </footer>
+  )
+}
