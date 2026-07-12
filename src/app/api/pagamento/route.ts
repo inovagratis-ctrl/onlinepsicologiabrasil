@@ -93,6 +93,7 @@ export async function POST(request: Request) {
       })
     }
 
+    console.error('Mercado Pago error:', preference)
     return NextResponse.json(
       { error: 'Erro ao criar preferência de pagamento', details: preference },
       { status: 400 }

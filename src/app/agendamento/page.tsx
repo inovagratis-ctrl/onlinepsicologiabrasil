@@ -90,11 +90,12 @@ export default function Agendamento() {
       if (data.success && data.initPoint) {
         window.location.href = data.initPoint
       } else {
-        alert('Erro ao processar pagamento. Tente novamente.')
+        console.error('Payment error:', data)
+        alert(`Erro: ${data.error || 'Erro desconhecido'}`)
       }
     } catch (error) {
       console.error('Error:', error)
-      alert('Erro ao processar pagamento.')
+      alert('Erro ao conectar com o servidor de pagamento.')
     }
   }
 
