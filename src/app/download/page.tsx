@@ -78,11 +78,9 @@ function DownloadContent() {
           Seu material <strong>{material?.name}</strong> está pronto para download.
         </p>
         
-        {material?.pdfUrl && (
+        {token && (
           <a
-            href={material.pdfUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={`/api/materials/download?token=${token}&download=true`}
             className="inline-flex items-center gap-2 bg-primary-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-primary-600 transition-colors shadow-lg"
           >
             <Download className="w-5 h-5" />

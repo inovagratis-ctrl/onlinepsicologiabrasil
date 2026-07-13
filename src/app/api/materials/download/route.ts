@@ -16,6 +16,7 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
     const token = searchParams.get('token')
+    const download = searchParams.get('download')
 
     if (!token) {
       return NextResponse.json({ error: 'Token de download inválido' }, { status: 400 })
@@ -43,6 +44,31 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'PDF não disponível' }, { status: 404 })
     }
 
+    // If download=true, stream the PDF file
+    if (download === 'true') {
+      const response = await fetch(purchase.material.pdfUrl, {
+        headers: {
+          Authorization: `Bearer ${process.env.BLOB_READ_WRITE_TOKEN}`,
+        },
+      })
+
+      if (!response.ok) {
+        console.error('Failed to fetch blob:', response.status, response.statusText)
+        return NextResponse.json({ error: 'Erro ao acessar arquivo' }, { status: 500 })
+      }
+
+      const pdfBuffer = await response.arrayBuffer()
+
+      return new NextResponse(pdfBuffer, {
+        headers: {
+          'Content-Type': 'application/pdf',
+          'Content-Disposition': `attachment; filename="${purchase.material.name}.pdf"`,
+          'Cache-Control': 'no-cache',
+        },
+      })
+    }
+
+    // Otherwise return material info as JSON
     return NextResponse.json({
       success: true,
       material: {
