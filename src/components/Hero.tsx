@@ -25,8 +25,8 @@ export default function Hero() {
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight">
-              Cuide da sua saúde mental com{' '}
-              <span className="text-primary-600">acolhimento e ciência</span>
+              Supere seus desafios com{' '}
+              <span className="text-primary-600">quem entende de psicologia</span>
             </h1>
             
             <p className="mt-6 text-lg text-gray-600 leading-relaxed">
