@@ -25,10 +25,19 @@ export default function Admin() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [password, setPassword] = useState('')
 
+  useEffect(() => {
+    const saved = localStorage.getItem('admin_auth')
+    if (saved === 'socorrinha2026') {
+      setIsAuthenticated(true)
+      fetchAppointments()
+    }
+  }, [])
+
   // Simple password protection (in production, use proper auth)
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
     if (password === 'socorrinha2026') {
+      localStorage.setItem('admin_auth', password)
       setIsAuthenticated(true)
       fetchAppointments()
     } else {
@@ -112,7 +121,7 @@ export default function Admin() {
               Anúncios
             </a>
             <button
-              onClick={() => setIsAuthenticated(false)}
+              onClick={() => { localStorage.removeItem('admin_auth'); setIsAuthenticated(false) }}
               className="text-gray-500 hover:text-gray-700"
             >
               Sair
