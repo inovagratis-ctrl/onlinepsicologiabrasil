@@ -46,10 +46,10 @@ export default function AdBanner({ position, className = '' }: AdBannerProps) {
     }
   }
 
-  // Se tem anúncio no banco, renderiza ele
-  if (ad) {
+  // Se tem anúncio no banco E tem código válido, renderiza ele
+  if (ad && ad.code && ad.code.trim()) {
     return (
-      <div className={`${getPositionStyles(position)} ${className}`}>
+      <div className={`${getPositionStyles(position)} ${className}`} style={{ minHeight: '90px' }}>
         <div dangerouslySetInnerHTML={{ __html: ad.code }} />
       </div>
     )
