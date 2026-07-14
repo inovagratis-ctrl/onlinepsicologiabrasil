@@ -51,6 +51,10 @@ export default function AdBanner({ position, className = '' }: AdBannerProps) {
     return (
       <div className={`${getPositionStyles(position)} ${className}`} style={{ minHeight: '90px' }}>
         <div dangerouslySetInnerHTML={{ __html: ad.code }} />
+        {/* Debug badge - remove depois */}
+        <div style={{ position: 'absolute', top: 4, right: 4, zIndex: 10 }}>
+          <span className="bg-green-500 text-white text-xs px-1.5 py-0.5 rounded">✓ AD OK</span>
+        </div>
       </div>
     )
   }
@@ -85,17 +89,23 @@ export default function AdBanner({ position, className = '' }: AdBannerProps) {
     )
   }
 
-  // Se não tem anúncio, mostra placeholder
+  // Debug visual - mostra status do anúncio (remove depois que funcionar)
   return (
-    <div className={`bg-gray-100 border-2 border-dashed border-gray-300 rounded-xl ${getPositionStyles(position)} ${className}`}>
-      <div className="flex flex-col items-center justify-center h-full min-h-[100px] text-gray-400">
-        <p className="text-sm font-medium">Espaço para Anúncio</p>
-        <p className="text-xs mt-1">{getPositionLabel(position)}</p>
-        <p className="text-xs mt-2 px-3 py-1 bg-gray-200 rounded text-gray-500">
-          {getSize(position)}
-        </p>
-        <a href="/admin/ads" className="text-xs mt-2 text-primary-500 hover:text-primary-600">
-          Configurar no Admin →
+    <div className={`bg-yellow-50 border-2 border-yellow-300 rounded-xl ${getPositionStyles(position)} ${className}`} style={{ minHeight: '90px' }}>
+      <div className="flex flex-col items-center justify-center h-full min-h-[80px] text-yellow-700 relative">
+        <div className="absolute top-2 right-2">
+          <span className="bg-red-500 text-white text-xs px-1.5 py-0.5 rounded">✗ SEM AD</span>
+        </div>
+        <p className="text-sm font-medium">⚠ Anúncio não encontrado</p>
+        <p className="text-xs mt-1">Posição: <code className="px-1 bg-yellow-100 rounded">{position}</code></p>
+        <p className="text-xs mt-1 text-gray-600">Verifique no Admin se:</p>
+        <ul className="text-xs mt-1 text-left w-full max-w-xs space-y-1 pl-4">
+          <li>• Anúncio está <strong>Ativo</strong> (toggle verde)</li>
+          <li>• <strong>Código</strong> está preenchido (não vazio)</li>
+          <li>• <strong>Posição</strong> bate exatamente: <code>{position}</code></li>
+        </ul>
+        <a href="/admin/ads" className="text-xs mt-3 text-primary-500 hover:text-primary-600 underline block text-center">
+          Ir para Admin →
         </a>
       </div>
     </div>
