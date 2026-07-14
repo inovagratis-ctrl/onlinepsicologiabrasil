@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -32,6 +33,16 @@ export default function RootLayout({
         </main>
         <Footer />
         <WhatsAppButton />
+        <Script
+          id="adsterra-autotag"
+          strategy="lazyOnload"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(){if(!window.aclib){window.aclib={runAutoTag:function(){var u=arguments;if(!aclib.runAutoTag.q){aclib.runAutoTag.q=[]}aclib.runAutoTag.q.push(u)}};var s=document.createElement('script');s.async='async';s.defer='defer';s.src='//acdn.adnxs.com/ast/ast.js';var p=document.getElementsByTagName('script')[0];p.parentNode.insertBefore(s,p)}})();
+              aclib.runAutoTag({zoneId: 'u0rrrdetg1'});
+            `,
+          }}
+        />
       </body>
     </html>
   )
