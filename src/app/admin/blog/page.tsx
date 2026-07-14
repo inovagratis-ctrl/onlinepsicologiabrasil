@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Plus, Edit, Trash2, Save, X, FileText, ArrowLeft } from 'lucide-react'
+import { Plus, Edit, Trash2, Save, X, FileText, ArrowLeft, Image as ImageIcon, Trash2 as Trash2Icon, Upload } from 'lucide-react'
 import Link from 'next/link'
 
 interface BlogPost {
@@ -32,6 +32,8 @@ export default function AdminBlog() {
     readTime: '5 min',
     published: false,
   })
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [imageUploading, setImageUploading] = useState(false)
 
   useEffect(() => {
     fetchPosts()
@@ -51,11 +53,56 @@ export default function AdminBlog() {
     }
   }
 
+  const handleImageUpload = async (file: File) => {
+    if (!file) return
+
+    setImageUploading(true)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const response = await fetch('/api/materials/upload', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const data = await response.json()
+
+      if (data.success && data.url) {
+        setFormData(prev => ({ ...prev, image: data.url }))
+        setImagePreview(data.url)
+      } else {
+        alert(data.error || 'Erro ao fazer upload da imagem')
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error)
+      alert('Erro ao fazer upload da imagem')
+    } finally {
+      setImageUploading(false)
+    }
+  }
+
+  const removeImage = () => {
+    setFormData(prev => ({ ...prev, image: '' }))
+    setImagePreview(null)
+  }
+
+  const generateSlug = (title: string) => {
+    return title
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .trim()
+  }
+
   const handleSave = async () => {
     try {
       const method = editing ? 'PUT' : 'POST'
       const url = editing ? `/api/blog/${editing.id}` : '/api/blog'
-      
+
       const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
@@ -76,6 +123,7 @@ export default function AdminBlog() {
           readTime: '5 min',
           published: false,
         })
+        setImagePreview(null)
         fetchPosts()
       } else {
         alert(data.error || 'Erro ao salvar')
@@ -113,6 +161,7 @@ export default function AdminBlog() {
       readTime: post.readTime,
       published: post.published,
     })
+    setImagePreview(post.image || null)
   }
 
   const startCreating = () => {
@@ -128,17 +177,7 @@ export default function AdminBlog() {
       readTime: '5 min',
       published: false,
     })
-  }
-
-  const generateSlug = (title: string) => {
-    return title
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .trim()
+    setImagePreview(null)
   }
 
   return (
@@ -148,7 +187,7 @@ export default function AdminBlog() {
           <ArrowLeft className="w-4 h-4" />
           Voltar ao Painel
         </Link>
-        
+
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold text-gray-800">Gerenciar Blog</h1>
           <button
@@ -257,14 +296,61 @@ export default function AdminBlog() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">URL da Imagem (opcional)</label>
-                    <input
-                      type="text"
-                      value={formData.image}
-                      onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                      className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500"
-                      placeholder="https://images.unsplash.com/..."
-                    />
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Imagem do Artigo</label>
+                    <div className="space-y-3">
+                      {/* Preview da imagem */}
+                      {imagePreview && (
+                        <div className="relative group">
+                          <div className="aspect-video rounded-lg overflow-hidden bg-gray-100">
+                            <img
+                              src={imagePreview}
+                              alt="Preview da imagem"
+                              className="w-full h-full object-cover"
+                            />
+                            <button
+                              type="button"
+                              onClick={removeImage}
+                              className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-red-500 text-white rounded-full p-1.5 hover:bg-red-600 transition-opacity"
+                              title="Remover imagem"
+                            >
+                              <X className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <label className="flex-1 flex flex-col">
+                          <span className="text-sm font-medium text-gray-700 mb-1">URL da Imagem (ou faça upload)</span>
+                          <input
+                            type="text"
+                            value={formData.image}
+                            onChange={(e) => {
+                              setFormData(prev => ({ ...prev, image: e.target.value }))
+                              if (e.target.value) setImagePreview(e.target.value)
+                            }}
+                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500"
+                            placeholder="https://images.unsplash.com/... ou faça upload abaixo"
+                          />
+                        </label>
+                        <label className="flex items-end">
+                          <span className="text-sm font-medium text-gray-700 mb-1 block w-full text-center">OU</span>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => e.target.files?.[0] && handleImageUpload(e.target.files[0])}
+                            disabled={imageUploading}
+                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 cursor-pointer hover:bg-gray-50"
+                          />
+                        </label>
+                      </div>
+                      {imageUploading && (
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <div className="animate-spin rounded-full h-4 w-4 border-2 border-primary-500 border-t-transparent"></div>
+                          <span>Enviando imagem...</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <div className="flex items-center gap-2">
@@ -308,7 +394,7 @@ export default function AdminBlog() {
           <div className="bg-white rounded-xl shadow p-8 text-center">
             <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
             <p className="text-gray-500 mb-4">Nenhum artigo encontrado</p>
-            <button onClick={startCreating} className="btn-primary">
+            <button onClick={startCreating} className="bg-primary-500 text-white px-6 py-3 rounded-lg hover:bg-primary-600">
               Criar Primeiro Artigo
             </button>
           </div>
@@ -338,7 +424,7 @@ export default function AdminBlog() {
                       Criado em {new Date(post.createdAt).toLocaleDateString('pt-BR')}
                     </p>
                   </div>
-                  
+
                   <div className="flex gap-2 flex-shrink-0">
                     <button
                       onClick={() => startEditing(post)}
@@ -351,7 +437,7 @@ export default function AdminBlog() {
                       onClick={() => handleDelete(post.id)}
                       className="flex items-center gap-1 px-3 py-2 text-sm bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2Icon className="w-4 h-4" />
                       Excluir
                     </button>
                   </div>
