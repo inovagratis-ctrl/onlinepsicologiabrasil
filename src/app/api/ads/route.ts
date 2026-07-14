@@ -16,13 +16,16 @@ export async function GET() {
   try {
     const db = await getPrisma()
     if (!db) {
+      console.log('[Ads API] Prisma not available')
       return NextResponse.json({ ads: [], success: true })
     }
 
     const ads = await db.ad.findMany({
+      where: { active: true },
       orderBy: { createdAt: 'desc' },
     })
 
+    console.log('[Ads API] Found', ads.length, 'active ads:', ads.map((a: any) => ({ id: a.id, position: a.position, title: a.title, active: a.active, hasCode: !!a.code })))
     return NextResponse.json({ ads, success: true })
   } catch (error) {
     console.error('Error fetching ads:', error)
@@ -49,10 +52,11 @@ export async function POST(request: Request) {
         position,
         title: title || `Anúncio ${position}`,
         code,
-        active: active ?? true,
+        active: active !== undefined ? active : true,
       },
     })
 
+    console.log('[Ads API] Created ad:', ad.id, ad.position, ad.title, 'active:', ad.active)
     return NextResponse.json({ ad, success: true })
   } catch (error) {
     console.error('Error creating ad:', error)
