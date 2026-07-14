@@ -20,6 +20,7 @@ export async function GET() {
     }
 
     const posts = await db.blogPost.findMany({
+      where: { published: true },
       orderBy: { createdAt: 'desc' },
     })
 
