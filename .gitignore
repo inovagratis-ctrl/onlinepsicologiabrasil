@@ -39,4 +39,4 @@ prisma/dev.db-journal
 .vercel
 .env*
 
-public/VIDEO DE APRESENTAÇÃO.mp4
+public/*.mp4
