@@ -1,12 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { Play, ArrowLeft, Phone, Mail, MapPin, Award, Heart, Users, Star } from 'lucide-react'
+import { Play, ArrowLeft, Phone, Mail, MapPin, Award, Heart, ExternalLink, Upload } from 'lucide-react'
 import Link from 'next/link'
 
-export default function VideoApresentacao() {
-  const [videoLoaded, setVideoLoaded] = useState(false)
+const YOUTUBE_VIDEO_ID = ''
 
+export default function VideoApresentacao() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -24,14 +24,36 @@ export default function VideoApresentacao() {
         {/* Video Section */}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
           <div className="relative aspect-video bg-gray-900">
-            <video
-              src="/VIDEO%20DE%20APRESENTA%C3%87%C3%83O.mp4"
-              controls
-              preload="metadata"
-              className="w-full h-full"
-              poster="/SOCORRINHA%20PSICOLOGIA%20DIRETA.png"
-              onLoad={() => setVideoLoaded(true)}
-            />
+            {YOUTUBE_VIDEO_ID ? (
+              <iframe
+                src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}`}
+                title="Vídeo de Apresentação - Maria do Socorro"
+                className="w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            ) : (
+              <div className="w-full h-full flex flex-col items-center justify-center text-white p-8">
+                <img
+                  src="/SOCORRINHA%20PSICOLOGIA%20DIRETA.png"
+                  alt="Maria do Socorro"
+                  className="w-32 h-32 rounded-full object-cover mb-4 border-4 border-white/20"
+                />
+                <h3 className="text-xl font-bold mb-2">Vídeo de Apresentação</h3>
+                <p className="text-white/70 text-center mb-4">
+                  Em breve o vídeo estará disponível aqui!
+                </p>
+                <a
+                  href="https://wa.me/5568999035300?text=Olá! Gostaria de conhecer mais sobre os serviços."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors"
+                >
+                  <Phone className="w-5 h-5" />
+                  Fale Conosco pelo WhatsApp
+                </a>
+              </div>
+            )}
           </div>
           
           <div className="p-6">
