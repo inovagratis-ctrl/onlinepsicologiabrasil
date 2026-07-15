@@ -1,79 +1,136 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
 
-let prisma: any = null
-
-async function getPrisma() {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
-    const { prisma: p } = await import('@/lib/prisma')
-    prisma = p
-    return prisma
-  } catch {
-    return null
-  }
-}
+    const { id } = params
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
-  try {
-    const db = await getPrisma()
-    if (!db) {
-      return NextResponse.json({ error: 'Banco de dados não disponível' }, { status: 500 })
-    }
+    const post = await prisma.blogPost.findFirst({
+      where: { OR: [{ id }, { slug: id }] },
+    })
 
-    const post = await db.blogPost.findUnique({ where: { id: params.id } })
     if (!post) {
-      return NextResponse.json({ error: 'Post não encontrado' }, { status: 404 })
+      return NextResponse.json(
+        { success: false, error: 'Post não encontrado' },
+        { status: 404 }
+      )
     }
 
-    return NextResponse.json({ post, success: true })
+    if (!post.published) {
+      const authHeader = request.headers.get('authorization')
+      if (authHeader !== `Bearer ${process.env.ADMIN_PASSWORD || 'socorrinha2026'}`) {
+        return NextResponse.json(
+          { success: false, error: 'Post não encontrado' },
+          { status: 404 }
+        )
+      }
+    }
+
+    await prisma.blogPost.update({
+      where: { id: post.id },
+      data: { viewCount: { increment: 1 } },
+    })
+
+    return NextResponse.json({ success: true, post })
   } catch (error) {
-    console.error('Error fetching post:', error)
-    return NextResponse.json({ error: 'Erro ao buscar post' }, { status: 500 })
+    console.error('Error fetching blog post:', error)
+    return NextResponse.json(
+      { success: false, error: 'Erro ao buscar post' },
+      { status: 500 }
+    )
   }
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
-    const db = await getPrisma()
-    if (!db) {
-      return NextResponse.json({ error: 'Banco de dados não disponível' }, { status: 500 })
+    const { id } = params
+    const body = await request.json()
+
+    const existingPost = await prisma.blogPost.findUnique({ where: { id } })
+    if (!existingPost) {
+      return NextResponse.json(
+        { success: false, error: 'Post não encontrado' },
+        { status: 404 }
+      )
     }
 
-    const body = await request.json()
-    const { slug, title, excerpt, content, category, image, readTime, published } = body
+    let slug = existingPost.slug
+    if (body.title && body.title !== existingPost.title) {
+      slug = body.title
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .trim()
 
-    const post = await db.blogPost.update({
-      where: { id: params.id },
+      const slugExists = await prisma.blogPost.findFirst({
+        where: { slug, id: { not: id } },
+      })
+      if (slugExists) {
+        slug = `${slug}-${Date.now()}`
+      }
+    }
+
+    const post = await prisma.blogPost.update({
+      where: { id },
       data: {
-        ...(slug && { slug }),
-        ...(title && { title }),
-        ...(excerpt !== undefined && { excerpt }),
-        ...(content && { content }),
-        ...(category && { category }),
-        ...(image !== undefined && { image }),
-        ...(readTime && { readTime }),
-        ...(published !== undefined && { published }),
+        slug,
+        title: body.title ?? existingPost.title,
+        excerpt: body.excerpt ?? existingPost.excerpt,
+        content: body.content ?? existingPost.content,
+        category: body.category ?? existingPost.category,
+        image: body.image !== undefined ? body.image : existingPost.image,
+        author: body.author ?? existingPost.author,
+        readTime: body.readTime ?? existingPost.readTime,
+        published: body.published !== undefined ? body.published : existingPost.published,
+        featured: body.featured !== undefined ? body.featured : existingPost.featured,
+        tags: body.tags !== undefined ? body.tags : existingPost.tags,
+        metaTitle: body.metaTitle !== undefined ? body.metaTitle : existingPost.metaTitle,
+        metaDescription: body.metaDescription !== undefined ? body.metaDescription : existingPost.metaDescription,
       },
     })
 
-    return NextResponse.json({ post, success: true })
+    return NextResponse.json({ success: true, post })
   } catch (error) {
-    console.error('Error updating post:', error)
-    return NextResponse.json({ error: 'Erro ao atualizar post' }, { status: 500 })
+    console.error('Error updating blog post:', error)
+    return NextResponse.json(
+      { success: false, error: 'Erro ao atualizar post' },
+      { status: 500 }
+    )
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
-    const db = await getPrisma()
-    if (!db) {
-      return NextResponse.json({ error: 'Banco de dados não disponível' }, { status: 500 })
+    const { id } = params
+
+    const post = await prisma.blogPost.findUnique({ where: { id } })
+    if (!post) {
+      return NextResponse.json(
+        { success: false, error: 'Post não encontrado' },
+        { status: 404 }
+      )
     }
 
-    await db.blogPost.delete({ where: { id: params.id } })
+    await prisma.blogPost.delete({ where: { id } })
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true, message: 'Post excluído com sucesso' })
   } catch (error) {
-    console.error('Error deleting post:', error)
-    return NextResponse.json({ error: 'Erro ao deletar post' }, { status: 500 })
+    console.error('Error deleting blog post:', error)
+    return NextResponse.json(
+      { success: false, error: 'Erro ao excluir post' },
+      { status: 500 }
+    )
   }
 }

@@ -1,138 +1,209 @@
-import { Calendar, Clock, ArrowLeft, Share2, MessageCircle } from 'lucide-react'
+'use client'
+
+import { useState, useEffect } from 'react'
+import { useParams } from 'next/navigation'
 import Link from 'next/link'
-import AdBanner from '@/components/AdBanner'
-import { prisma } from '@/lib/prisma'
+import { ArrowLeft, Clock, User, Calendar, Tag, Share2 } from 'lucide-react'
 
-export const dynamic = 'force-dynamic'
+interface BlogPost {
+  id: string
+  slug: string
+  title: string
+  excerpt: string
+  content: string
+  category: string
+  image: string | null
+  author: string
+  readTime: string
+  tags: string | null
+  metaTitle: string | null
+  metaDescription: string | null
+  viewCount: number
+  createdAt: string
+}
 
-export default async function BlogPost({ params }: { params: { slug: string } }) {
-  const post = await prisma.blogPost.findUnique({
-    where: { slug: params.slug, published: true },
-  })
+export default function BlogPostPage() {
+  const params = useParams()
+  const [post, setPost] = useState<BlogPost | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
-  if (!post) {
+  useEffect(() => {
+    if (params.slug) {
+      fetchPost(params.slug as string)
+    }
+  }, [params.slug])
+
+  const fetchPost = async (slug: string) => {
+    try {
+      const response = await fetch(`/api/blog/${slug}`)
+      const data = await response.json()
+      if (data.success) {
+        setPost(data.post)
+      } else {
+        setError('Post não encontrado')
+      }
+    } catch (err) {
+      setError('Erro ao carregar post')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const formatDate = (dateStr: string) => {
+    return new Date(dateStr).toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+    })
+  }
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: post?.title,
+        text: post?.excerpt,
+        url: window.location.href,
+      })
+    } else {
+      navigator.clipboard.writeText(window.location.href)
+      alert('Link copiado!')
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+      </div>
+    )
+  }
+
+  if (error || !post) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">Post não encontrado</h1>
-          <Link href="/blog" className="text-primary-600 hover:underline">
-            Voltar ao blog
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">{error || 'Post não encontrado'}</h1>
+          <Link href="/blog" className="text-purple-600 hover:text-purple-700 font-medium">
+            ← Voltar ao Blog
           </Link>
         </div>
       </div>
     )
   }
 
-  const paragraphs = post.content.split('\n').filter(p => p.trim())
-  const midpoint = Math.ceil(paragraphs.length / 2)
-  const firstHalf = paragraphs.slice(0, midpoint)
-  const secondHalf = paragraphs.slice(midpoint)
+  const tags = post.tags ? post.tags.split(',').map(t => t.trim()).filter(Boolean) : []
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-6xl mx-auto px-4">
-        <Link href="/blog" className="inline-flex items-center gap-2 text-gray-600 hover:text-primary-600 mb-6">
-          <ArrowLeft className="w-4 h-4" />
-          Voltar ao blog
-        </Link>
+    <div className="min-h-screen bg-gray-50">
+      {/* Hero Image */}
+      {post.image && (
+        <div className="relative h-64 md:h-96 w-full">
+          <img
+            src={post.image}
+            alt={post.title}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        </div>
+      )}
 
-        {/* Ad - Topo do Artigo */}
-        <AdBanner position="top" />
+      <article className="max-w-4xl mx-auto px-4 -mt-16 relative z-10">
+        <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+          {/* Back */}
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 text-purple-600 hover:text-purple-700 mb-6 text-sm font-medium"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Voltar ao Blog
+          </Link>
 
-        <div className="flex gap-8 mt-6">
-          {/* Conteúdo Principal */}
-          <article className="flex-1">
-            <div className="bg-white rounded-2xl shadow-lg p-8">
-              <div className="flex items-center gap-4 mb-6">
-                <span className="px-3 py-1 bg-primary-100 text-primary-600 rounded-full text-sm font-medium">
-                  {post.category}
-                </span>
-                <span className="text-sm text-gray-500 flex items-center gap-1">
-                  <Clock className="w-4 h-4" />
-                  {post.readTime}
-                </span>
-                <span className="text-sm text-gray-500 flex items-center gap-1">
-                  <Calendar className="w-4 h-4" />
-                  {new Date(post.createdAt).toLocaleDateString('pt-BR')}
-                </span>
-              </div>
+          {/* Category */}
+          <div className="mb-4">
+            <span className="bg-purple-100 text-purple-700 text-xs font-semibold px-3 py-1 rounded-full">
+              {post.category}
+            </span>
+          </div>
 
-              <h1 className="text-3xl font-bold text-gray-800 mb-8">{post.title}</h1>
+          {/* Title */}
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6 leading-tight">
+            {post.title}
+          </h1>
 
-              {/* Primeira metade do conteúdo */}
-              <div className="prose prose-lg max-w-none">
-                {firstHalf.map((paragraph, index) => (
-                  <div key={index} className="mb-6">
-                    {paragraph.startsWith('###') ? (
-                      <h2 className="text-xl font-bold text-gray-800 mt-8 mb-4">
-                        {paragraph.replace('### ', '')}
-                      </h2>
-                    ) : paragraph.startsWith('- **') ? (
-                      <li className="ml-4 mb-2">
-                        <strong>{paragraph.match(/\*\*(.*?)\*\*/)?.[1]}</strong>
-                        {paragraph.replace(/- \*\*.*?\*\*/, '')}
-                      </li>
-                    ) : paragraph.startsWith('- ') ? (
-                      <li className="ml-4 mb-2 text-gray-600">{paragraph.replace('- ', '')}</li>
-                    ) : (
-                      <p className="text-gray-600 leading-relaxed">{paragraph}</p>
-                    )}
-                  </div>
-                ))}
-              </div>
+          {/* Meta */}
+          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-8 pb-8 border-b">
+            <span className="flex items-center gap-1">
+              <User className="w-4 h-4" />
+              {post.author}
+            </span>
+            <span className="flex items-center gap-1">
+              <Calendar className="w-4 h-4" />
+              {formatDate(post.createdAt)}
+            </span>
+            <span className="flex items-center gap-1">
+              <Clock className="w-4 h-4" />
+              {post.readTime}
+            </span>
+            <button
+              onClick={handleShare}
+              className="flex items-center gap-1 text-purple-600 hover:text-purple-700 ml-auto"
+            >
+              <Share2 className="w-4 h-4" />
+              Compartilhar
+            </button>
+          </div>
 
-              {/* Ad - Meio do Conteúdo */}
-              <AdBanner position="middle" />
+          {/* Excerpt */}
+          <p className="text-lg text-gray-600 mb-8 leading-relaxed font-medium">
+            {post.excerpt}
+          </p>
 
-              {/* Segunda metade do conteúdo */}
-              <div className="prose prose-lg max-w-none mt-6">
-                {secondHalf.map((paragraph, index) => (
-                  <div key={index} className="mb-6">
-                    {paragraph.startsWith('###') ? (
-                      <h2 className="text-xl font-bold text-gray-800 mt-8 mb-4">
-                        {paragraph.replace('### ', '')}
-                      </h2>
-                    ) : paragraph.startsWith('- **') ? (
-                      <li className="ml-4 mb-2">
-                        <strong>{paragraph.match(/\*\*(.*?)\*\*/)?.[1]}</strong>
-                        {paragraph.replace(/- \*\*.*?\*\*/, '')}
-                      </li>
-                    ) : paragraph.startsWith('- ') ? (
-                      <li className="ml-4 mb-2 text-gray-600">{paragraph.replace('- ', '')}</li>
-                    ) : (
-                      <p className="text-gray-600 leading-relaxed">{paragraph}</p>
-                    )}
-                  </div>
-                ))}
-              </div>
+          {/* Content */}
+          <div
+            className="prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-600 prose-a:text-purple-600 prose-strong:text-gray-800"
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
 
-              <div className="border-t mt-8 pt-8 flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <button className="flex items-center gap-2 text-gray-600 hover:text-primary-600">
-                    <Share2 className="w-5 h-5" />
-                    Compartilhar
-                  </button>
-                  <Link
-                    href="/formulario"
-                    className="flex items-center gap-2 text-gray-600 hover:text-primary-600"
+          {/* Tags */}
+          {tags.length > 0 && (
+            <div className="mt-8 pt-8 border-t">
+              <div className="flex items-center gap-2 flex-wrap">
+                <Tag className="w-4 h-4 text-gray-400" />
+                {tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded-full"
                   >
-                    <MessageCircle className="w-5 h-5" />
-                    Agendar Consulta
-                  </Link>
-                </div>
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
-          </article>
+          )}
 
-          {/* Sidebar com Anúncio */}
-          <aside className="hidden lg:block w-80 flex-shrink-0">
-            <AdBanner position="sidebar" />
-          </aside>
+          {/* CTA */}
+          <div className="mt-12 bg-purple-50 rounded-xl p-8 text-center">
+            <h3 className="text-xl font-bold text-gray-800 mb-2">
+              Precisa de ajuda?
+            </h3>
+            <p className="text-gray-600 mb-4">
+              Agende uma consulta com Maria do Socorro Araujo Teixeira
+            </p>
+            <a
+              href="https://wa.me/5568999035300?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 font-medium"
+            >
+              Agendar Consulta
+            </a>
+          </div>
         </div>
+      </article>
 
-        {/* Ad - Rodapé do Artigo */}
-        <AdBanner position="bottom" />
-      </div>
+      {/* Spacer */}
+      <div className="h-16" />
     </div>
   )
 }

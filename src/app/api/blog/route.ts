@@ -1,71 +1,123 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
 
-let prisma: any = null
-
-async function getPrisma() {
+export async function GET(request: NextRequest) {
   try {
-    const { prisma: p } = await import('@/lib/prisma')
-    prisma = p
-    return prisma
-  } catch {
-    return null
-  }
-}
+    const { searchParams } = new URL(request.url)
+    const page = parseInt(searchParams.get('page') || '1')
+    const limit = parseInt(searchParams.get('limit') || '12')
+    const category = searchParams.get('category')
+    const search = searchParams.get('search')
+    const all = searchParams.get('all') === 'true'
 
-export async function GET() {
-  try {
-    const db = await getPrisma()
-    if (!db) {
-      return NextResponse.json({ posts: [], success: true })
+    const where: any = {}
+    if (!all) {
+      where.published = true
+    }
+    if (category) {
+      where.category = category
+    }
+    if (search) {
+      where.OR = [
+        { title: { contains: search, mode: 'insensitive' } },
+        { excerpt: { contains: search, mode: 'insensitive' } },
+        { content: { contains: search, mode: 'insensitive' } },
+      ]
     }
 
-    const posts = await db.blogPost.findMany({
-      where: { published: true },
-      orderBy: { createdAt: 'desc' },
+    const [posts, total] = await Promise.all([
+      prisma.blogPost.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        skip: (page - 1) * limit,
+        take: limit,
+        select: {
+          id: true,
+          slug: true,
+          title: true,
+          excerpt: true,
+          category: true,
+          image: true,
+          author: true,
+          readTime: true,
+          published: true,
+          featured: true,
+          tags: true,
+          viewCount: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      }),
+      prisma.blogPost.count({ where }),
+    ])
+
+    return NextResponse.json({
+      success: true,
+      posts,
+      pagination: {
+        page,
+        limit,
+        total,
+        pages: Math.ceil(total / limit),
+      },
     })
-
-    return NextResponse.json({ posts, success: true })
   } catch (error) {
-    console.error('Error fetching posts:', error)
-    return NextResponse.json({ posts: [], success: true })
+    console.error('Error fetching blog posts:', error)
+    return NextResponse.json(
+      { success: false, error: 'Erro ao buscar posts' },
+      { status: 500 }
+    )
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const db = await getPrisma()
-    if (!db) {
-      return NextResponse.json({ error: 'Banco de dados não disponível' }, { status: 500 })
-    }
-
     const body = await request.json()
-    const { slug, title, excerpt, content, category, image, readTime, published } = body
+    const { title, excerpt, content, category, image, author, readTime, published, featured, tags, metaTitle, metaDescription } = body
 
-    if (!slug || !title || !content) {
-      return NextResponse.json({ error: 'Slug, título e conteúdo são obrigatórios' }, { status: 400 })
+    if (!title || !excerpt || !content || !category) {
+      return NextResponse.json(
+        { success: false, error: 'Título, resumo, conteúdo e categoria são obrigatórios' },
+        { status: 400 }
+      )
     }
 
-    const existingPost = await db.blogPost.findUnique({ where: { slug } })
-    if (existingPost) {
-      return NextResponse.json({ error: 'Já existe um post com esse slug' }, { status: 400 })
-    }
+    const slug = title
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .trim()
 
-    const post = await db.blogPost.create({
+    const existingPost = await prisma.blogPost.findUnique({ where: { slug } })
+    const finalSlug = existingPost ? `${slug}-${Date.now()}` : slug
+
+    const post = await prisma.blogPost.create({
       data: {
-        slug,
+        slug: finalSlug,
         title,
-        excerpt: excerpt || '',
+        excerpt,
         content,
-        category: category || 'Geral',
-        image,
+        category,
+        image: image || null,
+        author: author || 'Maria do Socorro',
         readTime: readTime || '5 min',
-        published: published ?? false,
+        published: published || false,
+        featured: featured || false,
+        tags: tags || null,
+        metaTitle: metaTitle || null,
+        metaDescription: metaDescription || null,
       },
     })
 
-    return NextResponse.json({ post, success: true })
+    return NextResponse.json({ success: true, post }, { status: 201 })
   } catch (error) {
-    console.error('Error creating post:', error)
-    return NextResponse.json({ error: 'Erro ao criar post' }, { status: 500 })
+    console.error('Error creating blog post:', error)
+    return NextResponse.json(
+      { success: false, error: 'Erro ao criar post' },
+      { status: 500 }
+    )
   }
 }

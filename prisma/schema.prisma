@@ -25,17 +25,23 @@ model Appointment {
 }
 
 model BlogPost {
-  id        String   @id @default(cuid())
-  slug      String   @unique
-  title     String
-  excerpt   String
-  content   String
-  category  String
-  image     String?
-  readTime  String   @default("5 min")
-  published Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id             String   @id @default(cuid())
+  slug           String   @unique
+  title          String
+  excerpt        String
+  content        String
+  category       String
+  image          String?
+  author         String   @default("Maria do Socorro")
+  readTime       String   @default("5 min")
+  published      Boolean  @default(false)
+  featured       Boolean  @default(false)
+  tags           String?
+  metaTitle      String?
+  metaDescription String?
+  viewCount      Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
 model Material {

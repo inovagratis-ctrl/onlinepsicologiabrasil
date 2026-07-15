@@ -16,16 +16,14 @@ export async function GET() {
   try {
     const db = await getPrisma()
     if (!db) {
-      console.log('[Ads API] Prisma not available')
       return NextResponse.json({ ads: [], success: true })
     }
 
-    const ads = await db.ad.findMany({
+    const ads = await db.adSlot.findMany({
       where: { active: true },
       orderBy: { createdAt: 'desc' },
     })
 
-    console.log('[Ads API] Found', ads.length, 'active ads:', ads.map((a: any) => ({ id: a.id, position: a.position, title: a.title, active: a.active, hasCode: !!a.code })))
     return NextResponse.json({ ads, success: true })
   } catch (error) {
     console.error('Error fetching ads:', error)
@@ -41,22 +39,21 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json()
-    const { position, title, code, active } = body
+    const { name, slotId, position, active } = body
 
-    if (!position || !code) {
-      return NextResponse.json({ error: 'Posição e código são obrigatórios' }, { status: 400 })
+    if (!name || !slotId) {
+      return NextResponse.json({ error: 'Nome e Slot ID são obrigatórios' }, { status: 400 })
     }
 
-    const ad = await db.ad.create({
+    const ad = await prisma.adSlot.create({
       data: {
-        position,
-        title: title || `Anúncio ${position}`,
-        code,
-        active: active !== undefined ? active : true,
+        name,
+        slotId,
+        position: position || 'in-content',
+        active: active ?? true,
       },
     })
 
-    console.log('[Ads API] Created ad:', ad.id, ad.position, ad.title, 'active:', ad.active)
     return NextResponse.json({ ad, success: true })
   } catch (error) {
     console.error('Error creating ad:', error)

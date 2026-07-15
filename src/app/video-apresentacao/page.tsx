@@ -24,30 +24,14 @@ export default function VideoApresentacao() {
         {/* Video Section */}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
           <div className="relative aspect-video bg-gray-900">
-            {/* Placeholder - Substituir pelo vídeo real */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-              {!videoLoaded ? (
-                <>
-                  <div className="w-24 h-24 bg-primary-500 rounded-full flex items-center justify-center mb-4 cursor-pointer hover:bg-primary-600 transition">
-                    <Play className="w-12 h-12 ml-1" />
-                  </div>
-                  <p className="text-lg font-semibold">Apresentação da Psicóloga</p>
-                  <p className="text-gray-400 text-sm mt-2">Clique para assistir</p>
-                </>
-              ) : (
-                <p className="text-gray-400">Vídeo será inserido aqui</p>
-              )}
-            </div>
-            
-            {/* Quando tiver o vídeo, substituir por: */}
-            {/* 
-            <iframe
-              src="URL_DO_VIDEO_YOUTUBE"
+            <video
+              src="/VIDEO%20DE%20APRESENTA%C3%87%C3%83O.mp4"
+              controls
+              preload="metadata"
               className="w-full h-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
+              poster="/SOCORRINHA%20PSICOLOGIA%20DIRETA.png"
+              onLoad={() => setVideoLoaded(true)}
             />
-            */}
           </div>
           
           <div className="p-6">

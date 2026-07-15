@@ -1,5 +1,6 @@
 import { Award, BookOpen, Users, Heart, Play } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const stats = [
   { icon: Users, value: '100+', label: 'Famílias Atendidas' },
@@ -21,8 +22,16 @@ export default function Sobre() {
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="bg-gradient-to-br from-primary-100 to-primary-50 rounded-2xl p-8 text-center">
-            <div className="w-48 h-48 bg-primary-200 rounded-full mx-auto mb-6 flex items-center justify-center">
-              <span className="text-6xl">👩‍⚕️</span>
+            <div className="w-64 h-64 mx-auto mb-6 relative">
+              <Image
+                src="/SOCORRINHA%20PSICOLOGIA%20DIRETA.png"
+                alt="Maria do Socorro Araujo Teixeira - Psicóloga"
+                width={256}
+                height={256}
+                className="rounded-full object-cover shadow-lg"
+                priority
+                unoptimized
+              />
             </div>
             <h3 className="text-2xl font-bold text-gray-800 mb-2">Maria do Socorro Araujo Teixeira</h3>
             <p className="text-primary-600 font-medium mb-4">CRP: 20/07319</p>
