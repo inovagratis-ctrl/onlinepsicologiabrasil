@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Plus, Edit3, Trash2, Eye, EyeOff, Star, StarOff, Search, X, Save, Image, Tag } from 'lucide-react'
+import { Plus, Edit3, Trash2, Eye, EyeOff, Star, StarOff, Search, X, Save, Image, Tag, Bold, Italic, Heading1, Link2, List, Quote, Code } from 'lucide-react'
 
 interface BlogPost {
   id: string
@@ -63,6 +63,10 @@ export default function AdminBlog() {
   const [saving, setSaving] = useState(false)
   const [uploadingImage, setUploadingImage] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const contentRef = useRef<HTMLTextAreaElement>(null)
+  const [showImageModal, setShowImageModal] = useState(false)
+  const [imageUrl, setImageUrl] = useState('')
+  const [imageAlt, setImageAlt] = useState('')
   const [formData, setFormData] = useState<FormData>({
     title: '',
     excerpt: '',
@@ -264,6 +268,52 @@ export default function AdminBlog() {
     })
   }
 
+  const insertAtCursor = (before: string, after: string = '') => {
+    const textarea = contentRef.current
+    if (!textarea) return
+    const start = textarea.selectionStart
+    const end = textarea.selectionEnd
+    const selected = formData.content.substring(start, end)
+    const newContent = formData.content.substring(0, start) + before + selected + after + formData.content.substring(end)
+    setFormData(prev => ({ ...prev, content: newContent }))
+    setTimeout(() => {
+      textarea.focus()
+      textarea.setSelectionRange(start + before.length, start + before.length + selected.length)
+    }, 0)
+  }
+
+  const handleInsertImage = () => {
+    if (imageUrl) {
+      const html = `<figure className="my-6"><img src="${imageUrl}" alt="${imageAlt || 'Imagem do artigo'}" className="w-full rounded-lg" /><figcaption className="text-center text-sm text-gray-500 mt-2">${imageAlt || ''}</figcaption></figure>`
+      insertAtCursor('\n' + html + '\n')
+      setShowImageModal(false)
+      setImageUrl('')
+      setImageAlt('')
+    }
+  }
+
+  const handleImageUploadForContent = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploadingImage(true)
+    try {
+      const formDataUpload = new FormData()
+      formDataUpload.append('file', file)
+      formDataUpload.append('type', 'blog')
+      const response = await fetch('/api/materials/upload', { method: 'POST', body: formDataUpload })
+      const data = await response.json()
+      if (data.success) {
+        setImageUrl(data.url)
+      } else {
+        alert('Erro ao fazer upload')
+      }
+    } catch (error) {
+      alert('Erro ao fazer upload')
+    } finally {
+      setUploadingImage(false)
+    }
+  }
+
   const filteredPosts = posts.filter(post => {
     const matchesSearch = !searchTerm ||
       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -440,14 +490,48 @@ export default function AdminBlog() {
                 {/* Content */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Conteúdo * (HTML permitido)</label>
+                  {/* Toolbar */}
+                  <div className="flex flex-wrap gap-1 p-2 bg-gray-100 border border-b-0 rounded-t-lg">
+                    <button type="button" onClick={() => insertAtCursor('<strong>', '</strong>')} className="p-2 hover:bg-gray-200 rounded text-gray-700" title="Negrito">
+                      <Bold className="w-4 h-4" />
+                    </button>
+                    <button type="button" onClick={() => insertAtCursor('<em>', '</em>')} className="p-2 hover:bg-gray-200 rounded text-gray-700" title="Itálico">
+                      <Italic className="w-4 h-4" />
+                    </button>
+                    <button type="button" onClick={() => insertAtCursor('<h2>', '</h2>')} className="p-2 hover:bg-gray-200 rounded text-gray-700" title="Título H2">
+                      <Heading1 className="w-4 h-4" />
+                    </button>
+                    <button type="button" onClick={() => insertAtCursor('<h3>', '</h3>')} className="p-2 hover:bg-gray-200 rounded text-gray-700" title="Título H3">
+                      <span className="text-xs font-bold">H3</span>
+                    </button>
+                    <button type="button" onClick={() => insertAtCursor('<ul>\n  <li>', '</li>\n</ul>')} className="p-2 hover:bg-gray-200 rounded text-gray-700" title="Lista">
+                      <List className="w-4 h-4" />
+                    </button>
+                    <button type="button" onClick={() => insertAtCursor('<blockquote className="border-l-4 border-purple-500 pl-4 italic text-gray-600 my-4">', '</blockquote>')} className="p-2 hover:bg-gray-200 rounded text-gray-700" title="Citação">
+                      <Quote className="w-4 h-4" />
+                    </button>
+                    <button type="button" onClick={() => insertAtCursor('<a href="" target="_blank">', '</a>')} className="p-2 hover:bg-gray-200 rounded text-gray-700" title="Link">
+                      <Link2 className="w-4 h-4" />
+                    </button>
+                    <div className="w-px bg-gray-300 mx-1" />
+                    <button type="button" onClick={() => setShowImageModal(true)} className="flex items-center gap-1 px-3 py-1.5 bg-purple-100 text-purple-700 hover:bg-purple-200 rounded text-sm font-medium" title="Inserir imagem no conteúdo">
+                      <Image className="w-4 h-4" />
+                      Inserir Imagem
+                    </button>
+                    <button type="button" onClick={() => insertAtCursor('<p className="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-lg my-4">', '</p>')} className="p-2 hover:bg-gray-200 rounded text-gray-700" title="Destaque">
+                      <Code className="w-4 h-4" />
+                    </button>
+                  </div>
                   <textarea
+                    ref={contentRef}
                     required
-                    rows={12}
+                    rows={14}
                     value={formData.content}
                     onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 font-mono text-sm"
-                    placeholder="Conteúdo completo do post. Use HTML para formatação."
+                    className="w-full px-4 py-3 border border-gray-300 rounded-b-lg focus:ring-2 focus:ring-purple-500 font-mono text-sm"
+                    placeholder="Conteúdo completo do post. Use os botões acima para formatar."
                   />
+                  <p className="text-xs text-gray-400 mt-1">Dica: Selecione o texto e clique nos botões para formatar</p>
                 </div>
 
                 {/* Category + Author + ReadTime */}
@@ -569,6 +653,77 @@ export default function AdminBlog() {
                   </button>
                 </div>
               </form>
+            </div>
+          </div>
+        )}
+
+        {/* Image Insert Modal */}
+        {showImageModal && (
+          <div className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center">
+            <div className="bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-bold text-gray-800">Inserir Imagem no Conteúdo</h3>
+                <button onClick={() => setShowImageModal(false)} className="text-gray-400 hover:text-gray-600">
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">URL da Imagem</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUploadForContent}
+                    className="hidden"
+                    id="content-image-upload"
+                  />
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={imageUrl}
+                      onChange={(e) => setImageUrl(e.target.value)}
+                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      placeholder="https://... ou faça upload"
+                    />
+                    <label
+                      htmlFor="content-image-upload"
+                      className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 cursor-pointer text-sm whitespace-nowrap"
+                    >
+                      {uploadingImage ? 'Enviando...' : 'Upload'}
+                    </label>
+                  </div>
+                </div>
+                {imageUrl && (
+                  <div>
+                    <img src={imageUrl} alt="Preview" className="w-full h-40 object-cover rounded-lg border" />
+                  </div>
+                )}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Texto Alternativo (alt)</label>
+                  <input
+                    type="text"
+                    value={imageAlt}
+                    onChange={(e) => setImageAlt(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                    placeholder="Descrição da imagem"
+                  />
+                </div>
+                <div className="flex justify-end gap-3 pt-2">
+                  <button
+                    onClick={() => { setShowImageModal(false); setImageUrl(''); setImageAlt('') }}
+                    className="px-4 py-2 text-gray-600 hover:text-gray-800"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    onClick={handleInsertImage}
+                    disabled={!imageUrl}
+                    className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 text-sm"
+                  >
+                    Inserir Imagem
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         )}
