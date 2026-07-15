@@ -41,6 +41,8 @@ interface FormData {
 const CATEGORIES = [
   'Ansiedade',
   'Depressão',
+  'TDAH',
+  'Autismo',
   'Terapia Infantil',
   'Terapia de Casal',
   'Autoconhecimento',
