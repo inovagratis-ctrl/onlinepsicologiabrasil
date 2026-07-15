@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 
 interface Ad {
   id: string
@@ -15,101 +15,75 @@ interface AdBannerProps {
   className?: string
 }
 
-function ensureAdSenseLoader(): Promise<void> {
-  return new Promise((resolve) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const w = window as any
-    if (w.adsbygoogle) {
-      resolve()
-      return
-    }
+function extractAdSlot(html: string): { client: string; slot: string; format: string; layout?: string } | null {
+  const clientMatch = html.match(/data-ad-client="([^"]+)"/)
+  const slotMatch = html.match(/data-ad-slot="([^"]+)"/)
+  const formatMatch = html.match(/data-ad-format="([^"]+)"/)
+  const layoutMatch = html.match(/data-ad-layout="([^"]+)"/)
 
-    const existingScript = document.querySelector(
-      'script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]'
-    )
-    if (existingScript) {
-      existingScript.addEventListener('load', () => resolve())
-      resolve()
-      return
-    }
+  if (!clientMatch || !slotMatch) return null
 
-    const script = document.createElement('script')
-    script.async = true
-    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3922432751903141'
-    script.crossOrigin = 'anonymous'
-    script.onload = () => resolve()
-    script.onerror = () => resolve()
-    document.head.appendChild(script)
-  })
+  return {
+    client: clientMatch[1],
+    slot: slotMatch[1],
+    format: formatMatch?.[1] || 'auto',
+    layout: layoutMatch?.[1],
+  }
 }
 
 export default function AdBanner({ position, className = '' }: AdBannerProps) {
   const [ad, setAd] = useState<Ad | null>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  const fetchAd = async () => {
-    try {
-      const response = await fetch('/api/ads')
-      const data = await response.json()
-      if (data.success) {
-        const found = data.ads.find((a: Ad) => a.position === position && a.active)
-        setAd(found || null)
-      }
-    } catch (error) {
-      console.error('Error fetching ad:', error)
-    }
-  }
+  const [adInfo, setAdInfo] = useState<{ client: string; slot: string; format: string; layout?: string } | null>(null)
 
   useEffect(() => {
+    const fetchAd = async () => {
+      try {
+        const response = await fetch('/api/ads')
+        const data = await response.json()
+        if (data.success) {
+          const found = data.ads.find((a: Ad) => a.position === position && a.active)
+          if (found) {
+            setAd(found)
+            setAdInfo(extractAdSlot(found.code))
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching ad:', error)
+      }
+    }
     fetchAd()
   }, [position])
 
   useEffect(() => {
-    if (!ad || !containerRef.current) return
+    if (!adInfo) return
 
-    const container = containerRef.current
-    container.innerHTML = ''
+    const timer = setTimeout(() => {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const w = window as any
+        w.adsbygoogle = w.adsbygoogle || []
+        w.adsbygoogle.push({})
+      } catch (e) {
+        console.error('AdSense push error:', e)
+      }
+    }, 500)
 
-    const temp = document.createElement('div')
-    temp.innerHTML = ad.code
+    return () => clearTimeout(timer)
+  }, [adInfo])
 
-    const scripts = Array.from(temp.querySelectorAll('script'))
-    scripts.forEach((s) => s.remove())
-
-    container.innerHTML = temp.innerHTML
-
-    ensureAdSenseLoader().then(() => {
-      scripts.forEach((oldScript) => {
-        const newScript = document.createElement('script')
-        if (oldScript.src) {
-          newScript.src = oldScript.src
-          newScript.async = true
-        } else {
-          newScript.textContent = oldScript.textContent
-        }
-        container.appendChild(newScript)
-      })
-
-      const insElements = container.querySelectorAll('ins.adsbygoogle')
-      insElements.forEach(() => {
-        try {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const w = window as any
-          w.adsbygoogle = w.adsbygoogle || []
-          w.adsbygoogle.push({})
-        } catch (e) {
-          console.error('AdSense push error:', e)
-        }
-      })
-    })
-  }, [ad])
-
-  if (!ad) return null
+  if (!ad || !adInfo) return null
 
   return (
     <div className={`ad-banner ${className}`} data-position={position}>
       <div className="text-xs text-gray-400 text-center mb-1">Publicidade</div>
-      <div ref={containerRef} />
+      <ins
+        className="adsbygoogle"
+        style={{ display: 'block', minHeight: '90px' }}
+        data-ad-client={adInfo.client}
+        data-ad-slot={adInfo.slot}
+        data-ad-format={adInfo.format}
+        data-full-width-responsive="true"
+      />
     </div>
   )
 }
