@@ -15,11 +15,12 @@ interface AdBannerProps {
   className?: string
 }
 
-function extractAdSlot(html: string): { client: string; slot: string; format: string; layout?: string } | null {
+function extractAdSlot(html: string): { client: string; slot: string; format: string; layout?: string; style?: string } | null {
   const clientMatch = html.match(/data-ad-client="([^"]+)"/)
   const slotMatch = html.match(/data-ad-slot="([^"]+)"/)
   const formatMatch = html.match(/data-ad-format="([^"]+)"/)
   const layoutMatch = html.match(/data-ad-layout="([^"]+)"/)
+  const styleMatch = html.match(/style="([^"]+)"/)
 
   if (!clientMatch || !slotMatch) return null
 
@@ -28,12 +29,13 @@ function extractAdSlot(html: string): { client: string; slot: string; format: st
     slot: slotMatch[1],
     format: formatMatch?.[1] || 'auto',
     layout: layoutMatch?.[1],
+    style: styleMatch?.[1] || 'display:block',
   }
 }
 
 export default function AdBanner({ position, className = '' }: AdBannerProps) {
   const [ad, setAd] = useState<Ad | null>(null)
-  const [adInfo, setAdInfo] = useState<{ client: string; slot: string; format: string; layout?: string } | null>(null)
+  const [adInfo, setAdInfo] = useState<{ client: string; slot: string; format: string; layout?: string; style?: string } | null>(null)
 
   useEffect(() => {
     const fetchAd = async () => {
@@ -66,7 +68,7 @@ export default function AdBanner({ position, className = '' }: AdBannerProps) {
       } catch (e) {
         console.error('AdSense push error:', e)
       }
-    }, 500)
+    }, 1000)
 
     return () => clearTimeout(timer)
   }, [adInfo])
@@ -78,10 +80,11 @@ export default function AdBanner({ position, className = '' }: AdBannerProps) {
       <div className="text-xs text-gray-400 text-center mb-1">Publicidade</div>
       <ins
         className="adsbygoogle"
-        style={{ display: 'block', minHeight: '90px' }}
+        style={{ display: 'block' }}
         data-ad-client={adInfo.client}
         data-ad-slot={adInfo.slot}
         data-ad-format={adInfo.format}
+        data-ad-layout={adInfo.layout}
         data-full-width-responsive="true"
       />
     </div>
