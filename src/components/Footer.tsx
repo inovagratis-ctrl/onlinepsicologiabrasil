@@ -8,8 +8,8 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid md:grid-cols-4 gap-8">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <Image src="/icone_base.png" alt="Psicologia Direta" width={48} height={48} className="rounded-lg" />
+            <div className="mb-4">
+              <Image src="/logo_completa_base.png" alt="Psicologia Direta" width={180} height={50} className="rounded-lg" unoptimized />
             </div>
             <p className="text-gray-400 text-sm mb-4">
               Atendimento psicológico online especializado em Autismo, TDAH, 
