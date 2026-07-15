@@ -1,29 +1,12 @@
-import { NextResponse } from 'next/server'
-
-let prisma: any = null
-
-async function getPrisma() {
-  try {
-    const { prisma: p } = await import('@/lib/prisma')
-    prisma = p
-    return prisma
-  } catch {
-    return null
-  }
-}
+import { NextRequest, NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
 
 export async function GET() {
   try {
-    const db = await getPrisma()
-    if (!db) {
-      return NextResponse.json({ ads: [], success: true })
-    }
-
-    const ads = await db.adSlot.findMany({
+    const ads = await prisma.ad.findMany({
       where: { active: true },
       orderBy: { createdAt: 'desc' },
     })
-
     return NextResponse.json({ ads, success: true })
   } catch (error) {
     console.error('Error fetching ads:', error)
@@ -31,30 +14,25 @@ export async function GET() {
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const db = await getPrisma()
-    if (!db) {
-      return NextResponse.json({ error: 'Banco de dados não disponível' }, { status: 500 })
-    }
-
     const body = await request.json()
-    const { name, slotId, position, active } = body
+    const { title, position, code, active } = body
 
-    if (!name || !slotId) {
-      return NextResponse.json({ error: 'Nome e Slot ID são obrigatórios' }, { status: 400 })
+    if (!title || !code) {
+      return NextResponse.json({ error: 'Título e Código são obrigatórios' }, { status: 400 })
     }
 
-    const ad = await prisma.adSlot.create({
+    const ad = await prisma.ad.create({
       data: {
-        name,
-        slotId,
+        title,
         position: position || 'in-content',
-        active: active ?? true,
+        code,
+        active: active !== undefined ? active : true,
       },
     })
 
-    return NextResponse.json({ ad, success: true })
+    return NextResponse.json({ ad, success: true }, { status: 201 })
   } catch (error) {
     console.error('Error creating ad:', error)
     return NextResponse.json({ error: 'Erro ao criar anúncio' }, { status: 500 })

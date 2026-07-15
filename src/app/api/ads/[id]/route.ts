@@ -8,13 +8,13 @@ export async function PUT(
   try {
     const { id } = params
     const body = await request.json()
-    const { position, title, code, active } = body
+    const { title, position, code, active } = body
 
     const ad = await prisma.ad.update({
       where: { id },
       data: {
-        position: position ?? undefined,
         title: title ?? undefined,
+        position: position ?? undefined,
         code: code ?? undefined,
         active: active !== undefined ? active : undefined,
       },
@@ -33,11 +33,7 @@ export async function DELETE(
 ) {
   try {
     const { id } = params
-
-    await prisma.ad.delete({
-      where: { id },
-    })
-
+    await prisma.ad.delete({ where: { id } })
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('Error deleting ad:', error)
