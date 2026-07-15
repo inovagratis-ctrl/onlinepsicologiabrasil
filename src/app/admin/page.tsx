@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Calendar, Clock, User, Phone, Mail, CheckCircle, XCircle, Filter, Video, MessageCircle } from 'lucide-react'
+import { Calendar, Clock, User, Phone, Mail, CheckCircle, XCircle, Filter, Video, MessageCircle, Trash2 } from 'lucide-react'
 
 interface Appointment {
   id: string
@@ -69,6 +69,16 @@ export default function Admin() {
       fetchAppointments()
     } catch (error) {
       console.error('Error updating status:', error)
+    }
+  }
+
+  const deleteAppointment = async (id: string) => {
+    if (!confirm('Excluir este agendamento permanentemente?')) return
+    try {
+      await fetch('/api/agendamento/' + id, { method: 'DELETE' })
+      fetchAppointments()
+    } catch (error) {
+      console.error('Error deleting appointment:', error)
     }
   }
 
@@ -289,7 +299,23 @@ export default function Admin() {
                           <XCircle className="w-4 h-4" />
                           Cancelar
                         </button>
+                        <button
+                          onClick={() => deleteAppointment(apt.id)}
+                          className="flex items-center gap-1 px-3 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 text-sm"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                          Excluir
+                        </button>
                       </>
+                    )}
+                    {apt.status === 'cancelled' && (
+                      <button
+                        onClick={() => deleteAppointment(apt.id)}
+                        className="flex items-center gap-1 px-3 py-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 text-sm"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                        Excluir
+                      </button>
                     )}
                   </div>
                 </div>
