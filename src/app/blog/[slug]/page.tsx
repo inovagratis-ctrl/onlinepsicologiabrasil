@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, Clock, User, Calendar, Tag, Share2 } from 'lucide-react'
+import AdBanner from '@/components/AdBanner'
 
 interface BlogPost {
   id: string
@@ -190,6 +191,11 @@ export default function BlogPostPage() {
             className="prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-600 prose-a:text-purple-600 prose-strong:text-gray-800 prose-li:text-gray-600 prose-ul:my-4 prose-ol:my-4 prose-li:my-1"
             dangerouslySetInnerHTML={{ __html: formatContent(post.content) }}
           />
+
+          {/* Ad - Meio do Artigo */}
+          <div className="my-8">
+            <AdBanner position="article-middle" />
+          </div>
 
           {/* Tags */}
           {tags.length > 0 && (

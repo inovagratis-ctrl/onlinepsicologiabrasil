@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Search, Clock, User, ArrowRight, Tag } from 'lucide-react'
+import AdBanner from '@/components/AdBanner'
 
 interface BlogPost {
   id: string
@@ -110,6 +111,11 @@ export default function BlogPage() {
         </div>
       </section>
 
+      {/* Ad - Topo do Blog */}
+      <div className="max-w-6xl mx-auto px-4 mt-8">
+        <AdBanner position="top" />
+      </div>
+
       <div className="max-w-6xl mx-auto px-4 py-12">
         {/* Categories */}
         {categories.length > 0 && (
@@ -167,7 +173,67 @@ export default function BlogPage() {
         ) : (
           <>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post) => (
+              {posts.slice(0, 3).map((post) => (
+                <Link
+                  key={post.id}
+                  href={`/blog/${post.slug}`}
+                  className="group bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all duration-300"
+                >
+                  <div className="relative h-48 overflow-hidden">
+                    {post.image ? (
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
+                        <span className="text-white text-4xl font-bold opacity-30">PS</span>
+                      </div>
+                    )}
+                    <div className="absolute top-4 left-4">
+                      <span className="bg-white/90 backdrop-blur-sm text-purple-700 text-xs font-semibold px-3 py-1 rounded-full">
+                        {post.category}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center gap-4 text-xs text-gray-400 mb-3">
+                      <span className="flex items-center gap-1">
+                        <User className="w-3 h-3" />
+                        {post.author}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        {post.readTime}
+                      </span>
+                    </div>
+                    <h2 className="font-bold text-gray-800 text-lg mb-2 group-hover:text-purple-600 transition-colors line-clamp-2">
+                      {post.title}
+                    </h2>
+                    <p className="text-gray-500 text-sm line-clamp-3 mb-4">
+                      {post.excerpt}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-400">
+                        {formatDate(post.createdAt)}
+                      </span>
+                      <span className="text-purple-600 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Ler mais <ArrowRight className="w-4 h-4" />
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {/* Ad - Meio do Blog */}
+            <div className="my-8">
+              <AdBanner position="middle" />
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {posts.slice(3).map((post) => (
                 <Link
                   key={post.id}
                   href={`/blog/${post.slug}`}
