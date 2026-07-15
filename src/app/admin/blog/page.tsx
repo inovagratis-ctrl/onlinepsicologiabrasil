@@ -60,6 +60,7 @@ export default function AdminBlog() {
     try {
       const formData = new FormData()
       formData.append('file', file)
+      formData.append('type', 'blog') // Add type to allow images
 
       const response = await fetch('/api/materials/upload', {
         method: 'POST',
