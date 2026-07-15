@@ -186,6 +186,9 @@ export default function BlogPostPage() {
             {post.excerpt}
           </p>
 
+          {/* Ad - Topo do Artigo */}
+          <AdBanner position="article-top" className="mb-8" />
+
           {/* Content */}
           <div
             className="prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-600 prose-a:text-purple-600 prose-strong:text-gray-800 prose-li:text-gray-600 prose-ul:my-4 prose-ol:my-4 prose-li:my-1"
@@ -230,6 +233,11 @@ export default function BlogPostPage() {
             >
               Agendar Consulta
             </a>
+          </div>
+
+          {/* Ad - Rodapé do Artigo */}
+          <div className="mt-8">
+            <AdBanner position="article-bottom" />
           </div>
         </div>
       </article>

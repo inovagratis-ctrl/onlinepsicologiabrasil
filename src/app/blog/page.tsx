@@ -287,6 +287,11 @@ export default function BlogPage() {
               ))}
             </div>
 
+            {/* Ad - Rodapé do Blog */}
+            <div className="my-8">
+              <AdBanner position="bottom" />
+            </div>
+
             {/* Pagination */}
             {totalPages > 1 && (
               <div className="flex justify-center gap-2 mt-12">
