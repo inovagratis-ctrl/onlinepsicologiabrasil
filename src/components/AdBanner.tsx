@@ -15,6 +15,34 @@ interface AdBannerProps {
   className?: string
 }
 
+function ensureAdSenseLoader(): Promise<void> {
+  return new Promise((resolve) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const w = window as any
+    if (w.adsbygoogle) {
+      resolve()
+      return
+    }
+
+    const existingScript = document.querySelector(
+      'script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]'
+    )
+    if (existingScript) {
+      existingScript.addEventListener('load', () => resolve())
+      resolve()
+      return
+    }
+
+    const script = document.createElement('script')
+    script.async = true
+    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3922432751903141'
+    script.crossOrigin = 'anonymous'
+    script.onload = () => resolve()
+    script.onerror = () => resolve()
+    document.head.appendChild(script)
+  })
+}
+
 export default function AdBanner({ position, className = '' }: AdBannerProps) {
   const [ad, setAd] = useState<Ad | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -46,30 +74,34 @@ export default function AdBanner({ position, className = '' }: AdBannerProps) {
     temp.innerHTML = ad.code
 
     const scripts = Array.from(temp.querySelectorAll('script'))
+    scripts.forEach((s) => s.remove())
 
-    const nonScriptHtml = temp.innerHTML
-    container.innerHTML = nonScriptHtml
+    container.innerHTML = temp.innerHTML
 
-    scripts.forEach((oldScript) => {
-      const newScript = document.createElement('script')
-      if (oldScript.src) {
-        newScript.src = oldScript.src
-        newScript.async = true
-      } else {
-        newScript.textContent = oldScript.textContent
-      }
-      if (oldScript.className) newScript.className = oldScript.className
-      container.appendChild(newScript)
+    ensureAdSenseLoader().then(() => {
+      scripts.forEach((oldScript) => {
+        const newScript = document.createElement('script')
+        if (oldScript.src) {
+          newScript.src = oldScript.src
+          newScript.async = true
+        } else {
+          newScript.textContent = oldScript.textContent
+        }
+        container.appendChild(newScript)
+      })
+
+      const insElements = container.querySelectorAll('ins.adsbygoogle')
+      insElements.forEach(() => {
+        try {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const w = window as any
+          w.adsbygoogle = w.adsbygoogle || []
+          w.adsbygoogle.push({})
+        } catch (e) {
+          console.error('AdSense push error:', e)
+        }
+      })
     })
-
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const w = window as any
-      w.adsbygoogle = w.adsbygoogle || []
-      w.adsbygoogle.push({})
-    } catch (e) {
-      // AdSense not yet loaded, retry after scripts load
-    }
   }, [ad])
 
   if (!ad) return null
