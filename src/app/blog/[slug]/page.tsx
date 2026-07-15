@@ -58,6 +58,32 @@ export default function BlogPostPage() {
     })
   }
 
+  const formatContent = (text: string) => {
+    if (!text) return ''
+    if (text.includes('<p>') || text.includes('<h2>') || text.includes('<h3>') || text.includes('<ul>')) {
+      return text
+    }
+    const paragraphs = text.split(/\n\n+/)
+    return paragraphs
+      .map(p => {
+        p = p.trim()
+        if (!p) return ''
+        if (p.startsWith('- ') || p.startsWith('• ')) {
+          const items = p.split(/\n/).map(item => `<li>${item.replace(/^[-•]\s*/, '')}</li>`).join('')
+          return `<ul>${items}</ul>`
+        }
+        if (/^\d+\.\s/.test(p)) {
+          const items = p.split(/\n/).map(item => `<li>${item.replace(/^\d+\.\s*/, '')}</li>`).join('')
+          return `<ol>${items}</ol>`
+        }
+        if (p.match(/^(O que é|Principais|Como|Estratégias|Tratamento|Quando|Considerações|Vale lembrar|O diagnóstico)/i)) {
+          return `<h2>${p}</h2>`
+        }
+        return `<p>${p.replace(/\n/g, '<br/>')}</p>`
+      })
+      .join('\n')
+  }
+
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
@@ -161,8 +187,8 @@ export default function BlogPostPage() {
 
           {/* Content */}
           <div
-            className="prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-600 prose-a:text-purple-600 prose-strong:text-gray-800"
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            className="prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-600 prose-a:text-purple-600 prose-strong:text-gray-800 prose-li:text-gray-600 prose-ul:my-4 prose-ol:my-4 prose-li:my-1"
+            dangerouslySetInnerHTML={{ __html: formatContent(post.content) }}
           />
 
           {/* Tags */}
