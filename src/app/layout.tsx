@@ -28,13 +28,13 @@ export default function RootLayout({
     <html lang="pt-BR">
       <head>
         <meta name="google-adsense-account" content="ca-pub-3922432751903141" />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3922432751903141"
-          crossOrigin="anonymous"
-        />
       </head>
       <body className="min-h-screen flex flex-col">
+        <Script
+          id="adsbygoogle"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3922432751903141"
+          strategy="afterInteractive"
+        />
         <Navbar />
         <main className="flex-1">
           {children}
