@@ -16,25 +16,25 @@ export default function CTA() {
         </div>
         
         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-          Pronto para começar sua jornada?
+          Cuidar da saúde mental é o primeiro passo
         </h2>
         <p className="text-lg text-primary-100 mb-8 max-w-2xl mx-auto">
-          Agende agora sua primeira sessão e descubra como podemos ajudar você ou seu filho. 
-          Atendimento online para todo o Brasil.
+          Avaliação psicológica personalizada para crianças, adolescentes e adultos. 
+          Atendimento online sigiloso para todo o Brasil, com profissional especializada em TEA, TDAH e Neurodiversidade.
         </p>
         <div className="flex flex-wrap gap-4 justify-center">
-          <Link
-            href="/agendamento"
-            className="inline-flex items-center gap-2 bg-white text-primary-600 px-8 py-4 rounded-lg font-semibold hover:bg-primary-50 transition-colors shadow-lg"
-          >
-            Agendar Primeira Sessão
-            <ArrowRight className="w-5 h-5" />
-          </Link>
           <Link
             href="/formulario"
             className="inline-flex items-center gap-2 bg-accent-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-accent-600 transition-colors shadow-lg"
           >
             Fazer Avaliação Grátis
+            <ArrowRight className="w-5 h-5" />
+          </Link>
+          <Link
+            href="/agendamento"
+            className="inline-flex items-center gap-2 bg-white text-primary-600 px-8 py-4 rounded-lg font-semibold hover:bg-primary-50 transition-colors shadow-lg"
+          >
+            Agendar Primeira Sessão
             <ArrowRight className="w-5 h-5" />
           </Link>
           <a
