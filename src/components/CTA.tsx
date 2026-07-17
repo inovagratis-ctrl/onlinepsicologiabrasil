@@ -30,6 +30,13 @@ export default function CTA() {
             Agendar Primeira Sessão
             <ArrowRight className="w-5 h-5" />
           </Link>
+          <Link
+            href="/formulario"
+            className="inline-flex items-center gap-2 bg-accent-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-accent-600 transition-colors shadow-lg"
+          >
+            Fazer Avaliação Grátis
+            <ArrowRight className="w-5 h-5" />
+          </Link>
           <a
             href="https://wa.me/5568999035300?text=Olá! Gostaria de saber mais sobre o atendimento."
             target="_blank"
