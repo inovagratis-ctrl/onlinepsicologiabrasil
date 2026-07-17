@@ -14,7 +14,6 @@ const navLinks = [
   { href: '/video', label: 'Videochamada' },
   { href: '/blog', label: 'Blog' },
   { href: '/materiais', label: 'Materiais' },
-  { href: '/formulario', label: 'Avaliação' },
 ]
 
 export default function Navbar() {
@@ -38,6 +37,12 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+            <Link
+              href="/formulario"
+              className="bg-accent-500 hover:bg-accent-600 text-white px-5 py-2.5 rounded-full font-semibold transition-colors shadow-md hover:shadow-lg"
+            >
+              Avaliação Grátis
+            </Link>
             <Link href="/agendamento" className="btn-primary">
               Agendar Sessão
             </Link>
@@ -63,6 +68,13 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+            <Link
+              href="/formulario"
+              className="block mx-4 mt-2 bg-accent-500 hover:bg-accent-600 text-white text-center py-3 rounded-lg font-semibold shadow-md"
+              onClick={() => setIsOpen(false)}
+            >
+              Avaliação Grátis
+            </Link>
             <Link
               href="/agendamento"
               className="block mx-4 mt-2 btn-primary text-center"
