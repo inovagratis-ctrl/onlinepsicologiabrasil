@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Plus, Edit3, Trash2, Eye, EyeOff, Star, StarOff, Search, X, Save, Image, Tag, Bold, Italic, Heading1, Link2, List, Quote, Code } from 'lucide-react'
+import { Plus, Edit3, Trash2, Eye, EyeOff, Star, StarOff, Search, X, Save, Image, Tag, Bold, Italic, Heading1, Link2, List, Quote, Code, RefreshCw } from 'lucide-react'
 
 interface BlogPost {
   id: string
@@ -105,7 +105,7 @@ export default function AdminBlog() {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch('/api/blog?all=true')
+      const response = await fetch(`/api/blog?all=true&t=${Date.now()}`)
       const data = await response.json()
       if (data.success) {
         setPosts(data.posts)
@@ -367,6 +367,14 @@ export default function AdminBlog() {
             >
               <Plus className="w-4 h-4" />
               Novo Post
+            </button>
+            <button
+              onClick={fetchPosts}
+              disabled={loading}
+              className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 disabled:opacity-50"
+            >
+              <RefreshCw className="w-4 h-4 mr-2" />
+              Atualizar
             </button>
           </div>
         </div>

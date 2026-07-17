@@ -25,28 +25,28 @@ model Appointment {
 }
 
 model BlogPost {
-  id             String   @id @default(cuid())
-  slug           String   @unique
-  title          String
-  excerpt        String
-  content        String
-  category       String
-  image          String?
-  author         String   @default("Maria do Socorro")
-  readTime       String   @default("5 min")
-  published      Boolean  @default(false)
-  featured       Boolean  @default(false)
-  tags           String?
-  metaTitle      String?
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  title           String
+  excerpt         String
+  content         String
+  category        String
+  image           String?
+  readTime        String   @default("5 min")
+  published       Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  author          String   @default("Maria do Socorro")
+  featured        Boolean  @default(false)
   metaDescription String?
-  viewCount      Int      @default(0)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  metaTitle       String?
+  tags            String?
+  viewCount       Int      @default(0)
 }
 
 model Material {
-  id          String   @id @default(cuid())
-  slug        String   @unique
+  id          String             @id @default(cuid())
+  slug        String             @unique
   name        String
   description String
   price       Float
@@ -54,22 +54,22 @@ model Material {
   pdfUrl      String?
   previewUrl  String?
   category    String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
   purchases   MaterialPurchase[]
 }
 
 model MaterialPurchase {
-  id         String   @id @default(cuid())
-  materialId String
-  buyerEmail String
-  buyerName  String?
-  paymentId  String?
-  status     String   @default("pending")
-  downloadToken String @unique
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  material   Material @relation(fields: [materialId], references: [id])
+  id            String   @id @default(cuid())
+  materialId    String
+  buyerEmail    String
+  buyerName     String?
+  paymentId     String?
+  status        String   @default("pending")
+  downloadToken String   @unique
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  material      Material @relation(fields: [materialId], references: [id])
 }
 
 model Ad {
