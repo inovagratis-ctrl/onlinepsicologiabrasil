@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { EDITORIAL_ARTICLES, PROFESSIONAL_AUTHOR } from '@/data/articles'
 
 export async function GET(request: NextRequest) {
   try {
@@ -10,65 +11,66 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get('search')
     const all = searchParams.get('all') === 'true'
 
-    const where: any = {}
-    if (!all) {
-      where.published = true
-    }
-    if (category) {
-      where.category = category
-    }
-    if (search) {
-      where.OR = [
-        { title: { contains: search, mode: 'insensitive' } },
-        { excerpt: { contains: search, mode: 'insensitive' } },
-        { content: { contains: search, mode: 'insensitive' } },
-      ]
+    let dbPosts: any[] = []
+    try {
+      dbPosts = await prisma.blogPost.findMany({
+        orderBy: { createdAt: 'desc' },
+      })
+    } catch {
+      // Fallback silencioso para EDITORIAL_ARTICLES caso o banco não esteja acessível no momento
+      dbPosts = []
     }
 
-    const [posts, total] = await Promise.all([
-      prisma.blogPost.findMany({
-        where,
-        orderBy: { createdAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-        select: {
-          id: true,
-          slug: true,
-          title: true,
-          excerpt: true,
-          content: true,
-          category: true,
-          image: true,
-          author: true,
-          readTime: true,
-          published: true,
-          featured: true,
-          tags: true,
-          metaTitle: true,
-          metaDescription: true,
-          viewCount: true,
-          createdAt: true,
-          updatedAt: true,
-        },
-      }),
-      prisma.blogPost.count({ where }),
-    ])
+    // Mescla os artigos fundamentais com os do banco (priorizando a versão rica do EDITORIAL_ARTICLES para os 10 artigos base)
+    const staticSlugs = new Set(EDITORIAL_ARTICLES.map((a) => a.slug))
+    const customDbPosts = dbPosts.filter((p) => !staticSlugs.has(p.slug))
+
+    let combined = [...EDITORIAL_ARTICLES, ...customDbPosts]
+
+    if (!all) {
+      combined = combined.filter((p) => p.published)
+    }
+
+    if (category) {
+      combined = combined.filter(
+        (p) => p.category.toLowerCase() === category.toLowerCase() || p.categorySlug === category.toLowerCase()
+      )
+    }
+
+    if (search) {
+      const q = search.toLowerCase()
+      combined = combined.filter(
+        (p) =>
+          p.title.toLowerCase().includes(q) ||
+          p.excerpt.toLowerCase().includes(q) ||
+          p.content.toLowerCase().includes(q) ||
+          (p.tags && p.tags.toLowerCase().includes(q))
+      )
+    }
+
+    const total = combined.length
+    const start = (page - 1) * limit
+    const paginated = combined.slice(start, start + limit)
 
     return NextResponse.json({
       success: true,
-      posts,
+      posts: paginated,
       pagination: {
         page,
         limit,
         total,
-        pages: Math.ceil(total / limit),
+        pages: Math.max(1, Math.ceil(total / limit)),
       },
     })
   } catch (error) {
     console.error('Error fetching blog posts:', error)
     return NextResponse.json(
-      { success: false, error: 'Erro ao buscar posts' },
-      { status: 500 }
+      {
+        success: true,
+        posts: EDITORIAL_ARTICLES,
+        pagination: { page: 1, limit: 12, total: EDITORIAL_ARTICLES.length, pages: 1 },
+      },
+      { status: 200 }
     )
   }
 }
@@ -76,7 +78,20 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { title, excerpt, content, category, image, author, readTime, published, featured, tags, metaTitle, metaDescription } = body
+    const {
+      title,
+      excerpt,
+      content,
+      category,
+      image,
+      author,
+      readTime,
+      published,
+      featured,
+      tags,
+      metaTitle,
+      metaDescription,
+    } = body
 
     if (!title || !excerpt || !content || !category) {
       return NextResponse.json(
@@ -105,8 +120,8 @@ export async function POST(request: NextRequest) {
         content,
         category,
         image: image || null,
-        author: author || 'Maria do Socorro',
-        readTime: readTime || '5 min',
+        author: author || PROFESSIONAL_AUTHOR,
+        readTime: readTime || '6 min',
         published: published || false,
         featured: featured || false,
         tags: tags || null,

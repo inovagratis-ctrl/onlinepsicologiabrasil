@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { EDITORIAL_ARTICLES } from '@/data/articles'
 
 export async function GET(
   request: NextRequest,
@@ -7,6 +8,12 @@ export async function GET(
 ) {
   try {
     const { id } = params
+
+    // Primeiro verifica nos 10 artigos fundamentais revisados
+    const staticArticle = EDITORIAL_ARTICLES.find((a) => a.slug === id || a.id === id)
+    if (staticArticle) {
+      return NextResponse.json({ success: true, post: staticArticle })
+    }
 
     const post = await prisma.blogPost.findFirst({
       where: { OR: [{ id }, { slug: id }] },
@@ -37,6 +44,10 @@ export async function GET(
     return NextResponse.json({ success: true, post })
   } catch (error) {
     console.error('Error fetching blog post:', error)
+    const fallback = EDITORIAL_ARTICLES.find((a) => a.slug === params.id || a.id === params.id)
+    if (fallback) {
+      return NextResponse.json({ success: true, post: fallback })
+    }
     return NextResponse.json(
       { success: false, error: 'Erro ao buscar post' },
       { status: 500 }
@@ -55,7 +66,7 @@ export async function PUT(
     const existingPost = await prisma.blogPost.findUnique({ where: { id } })
     if (!existingPost) {
       return NextResponse.json(
-        { success: false, error: 'Post não encontrado' },
+        { success: false, error: 'Post não encontrado no banco editável' },
         { status: 404 }
       )
     }

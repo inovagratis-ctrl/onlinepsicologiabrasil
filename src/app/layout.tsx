@@ -4,17 +4,40 @@ import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
+import CookieBanner from '@/components/CookieBanner'
 
 export const metadata: Metadata = {
-  title: 'Psicologia Direta | Atendimento Online - Autismo, TDAH, Dislexia',
-  description: 'Psicologia Direta - Atendimento psicológico online especializado em Autismo (TEA), TDAH, Deficiência Intelectual e Dislexia. Psicóloga Maria do Socorro - CRP 20/07319',
-  keywords: ['psicologia online', 'psicólogo online', 'autismo', 'TDAH', 'dislexia', 'deficiência intelectual', 'ABA', 'terapia online', 'CRP 20/07319', 'psicologia direta'],
+  metadataBase: new URL('https://psicologiadireta.com.br'),
+  title: {
+    default: 'Psicologia Direta | Saúde Mental, Neurodesenvolvimento e Orientação para Famílias (CRP 24/02327)',
+    template: '%s | Psicologia Direta',
+  },
+  description:
+    'Portal de utilidade em saúde mental, TDAH, Autismo (TEA), Dislexia, Ansiedade e Orientação Parental, com atendimento psicológico online ético — Psicóloga Maria do Socorro Araujo Teixeira (CRP 24/02327).',
+  keywords: [
+    'psicologia online',
+    'saúde mental',
+    'autismo',
+    'TDAH',
+    'dislexia',
+    'orientação parental',
+    'ansiedade',
+    'terapia cognitivo-comportamental',
+    'CRP 24/02327',
+    'Maria do Socorro Araujo Teixeira',
+    'psicologia direta',
+  ],
   icons: {
     icon: '/favicon.png',
   },
   openGraph: {
-    title: 'Psicologia Direta | Atendimento Online',
-    description: 'Atendimento psicológico online especializado em Autismo, TDAH, Dislexia',
+    title: 'Psicologia Direta | Saúde Mental e Orientação para Famílias (CRP 24/02327)',
+    description:
+      'Guias práticos, ferramentas gratuitas e atendimento psicológico online com a Psicóloga Maria do Socorro Araujo Teixeira (CRP 24/02327).',
+    url: 'https://psicologiadireta.com.br',
+    siteName: 'Psicologia Direta',
+    locale: 'pt_BR',
+    type: 'website',
     images: ['/icone_base.png'],
   },
 }
@@ -36,11 +59,10 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
         <Navbar />
-        <main className="flex-1">
-          {children}
-        </main>
+        <main className="flex-1">{children}</main>
         <Footer />
         <WhatsAppButton />
+        <CookieBanner />
       </body>
     </html>
   )

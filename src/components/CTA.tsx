@@ -1,56 +1,56 @@
+'use client'
+
 import Link from 'next/link'
-import { ArrowRight, MessageCircle, Shield } from 'lucide-react'
+import { ArrowRight, MessageCircle, Shield, BookOpen, Calendar } from 'lucide-react'
+import { PROFESSIONAL_AUTHOR, PROFESSIONAL_CRP } from '@/data/articles'
+import { trackEvent } from '@/lib/analytics'
 
 export default function CTA() {
   return (
-    <section className="py-20 bg-gradient-to-r from-primary-500 to-primary-600">
+    <section className="py-16 md:py-20 bg-gradient-to-r from-primary-700 to-secondary-800">
       <div className="max-w-4xl mx-auto px-4 text-center">
-        <div className="flex justify-center gap-4 mb-6">
-          <span className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm">
+        <div className="flex flex-wrap justify-center gap-3 mb-6">
+          <span className="inline-flex items-center gap-2 bg-white/15 text-white px-4 py-1.5 rounded-full text-xs font-medium">
             <Shield className="w-4 h-4" />
-            100% Sigiloso
+            {PROFESSIONAL_AUTHOR} • {PROFESSIONAL_CRP}
           </span>
-          <span className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm">
-            Conforme LGPD
+          <span className="inline-flex items-center gap-2 bg-white/15 text-white px-4 py-1.5 rounded-full text-xs font-medium">
+            Sigilo Profissional e Conformidade LGPD
           </span>
         </div>
-        
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-          Cuidar da saúde mental é o primeiro passo
+
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+          Cuidado psicológico ético, acolhedor e baseado em evidências
         </h2>
-        <p className="text-lg text-primary-100 mb-8 max-w-2xl mx-auto">
-          Avaliação psicológica personalizada para crianças, adolescentes e adultos. 
-          Atendimento online sigiloso para todo o Brasil, com profissional especializada em TEA, TDAH e Neurodiversidade.
+        <p className="text-base sm:text-lg text-primary-100 mb-8 max-w-2xl mx-auto leading-relaxed">
+          Explore nossos guias gratuitos sobre desenvolvimento infantil, TDAH, autismo e ansiedade, ou entre em contato para conhecer o funcionamento das sessões online.
         </p>
+
         <div className="flex flex-wrap gap-4 justify-center">
           <Link
-            href="/formulario"
-            className="inline-flex items-center gap-2 bg-accent-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-accent-600 transition-colors shadow-lg"
+            href="/blog"
+            className="inline-flex items-center gap-2 bg-white text-primary-800 px-6 py-3.5 rounded-xl font-semibold text-sm hover:bg-primary-50 transition-colors shadow-md"
           >
-            Fazer Avaliação Grátis
-            <ArrowRight className="w-5 h-5" />
+            <BookOpen className="w-4 h-4" />
+            Conheça os conteúdos
+          </Link>
+          <Link
+            href="/contato"
+            className="inline-flex items-center gap-2 bg-primary-600 border border-white/30 text-white px-6 py-3.5 rounded-xl font-semibold text-sm hover:bg-primary-500 transition-colors shadow-md"
+          >
+            <MessageCircle className="w-4 h-4" />
+            Tire suas dúvidas
           </Link>
           <Link
             href="/agendamento"
-            className="inline-flex items-center gap-2 bg-white text-primary-600 px-8 py-4 rounded-lg font-semibold hover:bg-primary-50 transition-colors shadow-lg"
+            onClick={() => trackEvent('start_booking', { location: 'footer_cta' })}
+            className="inline-flex items-center gap-2 bg-accent-600 text-white px-6 py-3.5 rounded-xl font-semibold text-sm hover:bg-accent-700 transition-colors shadow-md"
           >
-            Agendar Primeira Sessão
-            <ArrowRight className="w-5 h-5" />
+            <Calendar className="w-4 h-4" />
+            Agende uma conversa
+            <ArrowRight className="w-4 h-4" />
           </Link>
-          <a
-            href="https://wa.me/5568999035300?text=Olá! Gostaria de saber mais sobre o atendimento."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-green-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-600 transition-colors shadow-lg"
-          >
-            <MessageCircle className="w-5 h-5" />
-            Tirar Dúvidas no WhatsApp
-          </a>
         </div>
-        
-        <p className="text-primary-200 text-sm mt-6">
-          Primeira sessão: R$ 100,00 • A partir de R$ 80,00 por sessão
-        </p>
       </div>
     </section>
   )

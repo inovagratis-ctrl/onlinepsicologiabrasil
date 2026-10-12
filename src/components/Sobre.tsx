@@ -1,91 +1,120 @@
-import { Award, BookOpen, Users, Heart, Play } from 'lucide-react'
+import { GraduationCap, BookOpen, ShieldCheck, HeartHandshake, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { PROFESSIONAL_AUTHOR, PROFESSIONAL_CRP } from '@/data/articles'
 
-const stats = [
-  { icon: Users, value: '100+', label: 'Famílias Atendidas' },
-  { icon: BookOpen, value: '10+', label: 'Anos de Experiência' },
-  { icon: Award, value: '4', label: 'Especializações' },
-  { icon: Heart, value: '100%', label: 'Dedicação' },
+const credentials = [
+  {
+    icon: ShieldCheck,
+    title: 'Registro Profissional Ativo',
+    detail: `${PROFESSIONAL_CRP} — Atuação em conformidade com o Código de Ética do CFP`,
+  },
+  {
+    icon: GraduationCap,
+    title: 'Formação Acadêmica',
+    detail: 'Graduação em Psicologia (UNINORTE) e Pós-Graduação em Autismo (FANI)',
+  },
+  {
+    icon: BookOpen,
+    title: 'Abordagens Baseadas em Evidências',
+    detail: 'Terapia Cognitivo-Comportamental (TCC) e Práticas de ABA Naturalista',
+  },
+  {
+    icon: HeartHandshake,
+    title: 'Escuta Acolhedora e Contextualizada',
+    detail: 'Atendimento sem promessas irreais, respeitando o ritmo de cada pessoa e família',
+  },
 ]
 
 export default function Sobre() {
   return (
-    <section id="sobre" className="py-20 bg-white">
+    <section id="sobre" className="py-16 md:py-20 bg-white border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="section-title">Quem é a Psicóloga</h2>
+          <span className="text-xs font-bold uppercase tracking-wider text-primary-600">
+            Responsabilidade Clínica e Editorial
+          </span>
+          <h2 className="section-title mt-1">Quem é a Psicóloga Responsável</h2>
           <p className="section-subtitle max-w-2xl mx-auto">
-            Conheça a profissional que cuidará do desenvolvimento do seu filho com carinho e competência
+            Conheça a formação e os princípios éticos que orientam os conteúdos educativos e os atendimentos psicológicos deste portal
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="bg-gradient-to-br from-primary-100 to-primary-50 rounded-2xl p-8 text-center">
-            <div className="w-64 h-64 mx-auto mb-6 relative">
+        <div className="grid md:grid-cols-12 gap-10 items-center">
+          <div className="md:col-span-5 bg-gradient-to-br from-primary-50 to-warm-100 rounded-3xl p-8 text-center border border-primary-100">
+            <div className="w-56 h-56 mx-auto mb-6 relative">
               <Image
                 src="/SOCORRINHA%20PSICOLOGIA%20DIRETA.png"
-                alt="Maria do Socorro Araujo Teixeira - Psicóloga"
-                width={256}
-                height={256}
-                className="rounded-full object-cover shadow-lg"
+                alt={`${PROFESSIONAL_AUTHOR} - ${PROFESSIONAL_CRP}`}
+                width={224}
+                height={224}
+                className="rounded-full object-cover shadow-md border-4 border-white"
                 priority
                 unoptimized
               />
             </div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-2">Maria do Socorro Araujo Teixeira</h3>
-            <p className="text-primary-600 font-medium mb-4">CRP: 20/07319</p>
+            <h3 className="text-2xl font-bold text-gray-800 mb-1">
+              Maria do Socorro Araujo Teixeira
+            </h3>
+            <p className="text-primary-700 font-semibold mb-4">Psicóloga • {PROFESSIONAL_CRP}</p>
             <div className="flex flex-wrap justify-center gap-2">
-              <span className="px-3 py-1 bg-white rounded-full text-sm text-gray-600 shadow-sm">UNINORTE</span>
-              <span className="px-3 py-1 bg-white rounded-full text-sm text-gray-600 shadow-sm">Pós FANI</span>
-              <span className="px-3 py-1 bg-white rounded-full text-sm text-gray-600 shadow-sm">ABA - Maira Gaiato</span>
-              <span className="px-3 py-1 bg-white rounded-full text-sm text-gray-600 shadow-sm">TCC</span>
-              <span className="px-3 py-1 bg-white rounded-full text-sm text-gray-600 shadow-sm">SEAB/SSP/ACRE</span>
+              <span className="px-3 py-1 bg-white rounded-full text-xs font-medium text-gray-700 shadow-sm">
+                Psicologia UNINORTE
+              </span>
+              <span className="px-3 py-1 bg-white rounded-full text-xs font-medium text-gray-700 shadow-sm">
+                Pós em Autismo (FANI)
+              </span>
+              <span className="px-3 py-1 bg-white rounded-full text-xs font-medium text-gray-700 shadow-sm">
+                ABA Naturalista
+              </span>
+              <span className="px-3 py-1 bg-white rounded-full text-xs font-medium text-gray-700 shadow-sm">
+                Especialização em TCC
+              </span>
             </div>
           </div>
 
-          <div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">Sobre Mim</h3>
-            <div className="space-y-4 text-gray-600 leading-relaxed">
+          <div className="md:col-span-7">
+            <h3 className="text-2xl font-bold text-gray-800 mb-4">
+              Ciência Psicológica Aplicada com Ética e Clareza
+            </h3>
+            <div className="space-y-4 text-gray-600 leading-relaxed text-sm sm:text-base">
               <p>
-                Sou psicóloga, formada pela <strong>Faculdade Barão do Rio Branco (UNINORTE)</strong>, 
-                com pós-graduação em Autismo pela <strong>FANI</strong>, formação em ABA Naturalista 
-                (Análise do Comportamento Aplicada) com <strong>Maira Gaiato</strong> e 
-                especialização em <strong>Terapia Cognitivo-Comportamental (TCC)</strong>.
+                Sou psicóloga graduada pela <strong>Faculdade Barão do Rio Branco (UNINORTE)</strong>, inscrita no Conselho Regional de Psicologia sob o número <strong>{PROFESSIONAL_CRP}</strong>, com pós-graduação em Autismo pela <strong>FANI</strong>, formação em <strong>ABA Naturalista</strong> e especialização em <strong>Terapia Cognitivo-Comportamental (TCC)</strong>.
               </p>
               <p>
-                Atuei no Serviço Social do Acre (SEAB/SSP/ACRE), onde desenvolvi experiência 
-                no atendimento à população vulnerável. Especializada no atendimento de crianças 
-                e adultos com <strong>Autismo (TEA), TDAH, Deficiência Intelectual e Dislexia</strong>.
+                Ao longo da minha trajetória clínica e institucional (incluindo atuação no Serviço Social do Acre — SEAB/SSP/ACRE), compreendi como a orientação clara e livre de estigmas transforma a rotina de pais, educadores e adultos que convivem com <strong>Autismo (TEA), TDAH, Dislexia e Ansiedade</strong>.
               </p>
               <p>
-                Também atendo demandas como <strong>Ansiedade, Síndrome do Pânico, Depressão, 
-                TDAH em Adultos, Compulsão Alimentar e Transtorno Obsessivo-Compulsivo (TOC)</strong>.
-              </p>
-              <p>
-                Cada pessoa é única e merece um cuidado personalizado, baseado em evidências 
-                científicas. Utilizo abordagens que respeitam o ritmo de cada paciente, 
-                promovendo aprendizagens significativas no ambiente natural.
+                Cada pessoa e cada família possuem uma história única. Por isso, tanto nos guias abertos deste site quanto nas sessões online, nosso trabalho é pautado pela escuta qualificada, pelo respeito às evidências científicas e pela ausência de fórmulas mágicas ou promessas padronizadas.
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 mt-8">
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center p-4 bg-gray-50 rounded-xl">
-                  <stat.icon className="w-6 h-6 text-primary-500 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-gray-800">{stat.value}</div>
-                  <div className="text-sm text-gray-500">{stat.label}</div>
+            <div className="grid sm:grid-cols-2 gap-4 mt-8">
+              {credentials.map((cred, index) => (
+                <div key={index} className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                  <div className="flex items-center gap-2.5 mb-1.5">
+                    <cred.icon className="w-5 h-5 text-primary-600 flex-shrink-0" />
+                    <h4 className="font-bold text-gray-800 text-sm">{cred.title}</h4>
+                  </div>
+                  <p className="text-xs text-gray-600 leading-relaxed">{cred.detail}</p>
                 </div>
               ))}
             </div>
 
-            <Link
-              href="/video-apresentacao"
-              className="mt-6 w-full flex items-center justify-center gap-2 bg-primary-500 text-white py-3 rounded-xl font-semibold hover:bg-primary-600 transition-colors"
-            >
-              <Play className="w-5 h-5" />
-              Assista ao Vídeo de Apresentação
-            </Link>
+            <div className="flex flex-wrap gap-3 mt-6">
+              <Link
+                href="/sobre"
+                className="inline-flex items-center gap-2 bg-primary-600 text-white px-5 py-3 rounded-xl text-sm font-semibold hover:bg-primary-700 transition-colors"
+              >
+                Ver Currículo e Metodologia Editorial <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="/video-apresentacao"
+                className="inline-flex items-center gap-2 border border-gray-300 text-gray-700 px-5 py-3 rounded-xl text-sm font-semibold hover:bg-gray-50 transition-colors"
+              >
+                Vídeo de Apresentação
+              </Link>
+            </div>
           </div>
         </div>
       </div>

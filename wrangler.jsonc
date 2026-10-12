@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "psicologia-direta",
+  "compatibility_date": "2026-10-12",
+  "observability": {
+    "enabled": true
+  },
+  "routes": [
+    {
+      "pattern": "psicologiadireta.com.br/*",
+      "zone_name": "psicologiadireta.com.br"
+    },
+    {
+      "pattern": "www.psicologiadireta.com.br/*",
+      "zone_name": "psicologiadireta.com.br"
+    }
+  ],
+  "assets": {
+    "directory": ".next",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}
