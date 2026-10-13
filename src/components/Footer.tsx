@@ -1,170 +1,91 @@
 import Link from 'next/link'
-import Image from 'next/image'
-import { Mail, Phone, Clock, Shield, Heart, PhoneCall } from 'lucide-react'
+import { Shield, Info } from 'lucide-react'
 import { CATEGORY_LIST } from '@/data/categories'
 import { PROFESSIONAL_AUTHOR, PROFESSIONAL_CRP } from '@/data/articles'
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white">
-      {/* Faixa informativa de emergência (CVV 188) */}
-      <div className="bg-gray-800 border-b border-gray-700 py-3 px-4">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-300">
+    <footer className="bg-slate-100 text-slate-700 border-t border-slate-200">
+      <div className="bg-amber-50 border-b border-amber-200 py-3 px-4">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-amber-900">
           <span className="flex items-center gap-2">
-            <PhoneCall className="w-4 h-4 text-amber-400 flex-shrink-0" />
+            <Info className="w-4 h-4 text-amber-700 flex-shrink-0" />
             <span>
-              <strong>Importante:</strong> Este site não realiza atendimento de urgência ou emergência médica/psiquiátrica.
+              <strong>Aviso Editorial:</strong> Todo o conteúdo deste portal (artigos, e-books e materiais) tem caráter exclusivamente educativo e informativo.
             </span>
           </span>
           <span>
-            Em crise aguda, ligue gratuitamente para o <strong>CVV (188 — 24h)</strong> ou acione o <strong>SAMU (192)</strong>.
+            Em caso de crise emocional aguda, ligue gratuitamente para o <strong>CVV (188 — 24h)</strong>.
           </span>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-8">
-          <div className="lg:col-span-2">
-            <div className="mb-4">
-              <Image
-                src="/logo_completa_base.png"
-                alt="Psicologia Direta"
-                width={180}
-                height={50}
-                className="rounded-lg"
-                unoptimized
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div>
+            <Link href="/" className="inline-block mb-4 group">
+              <img
+                src="/assets/psicologia-direta/01-logo-horizontal.png"
+                alt="Psicologia Direta — Artigos, Guias e Recursos para Saúde Mental e Neurodesenvolvimento"
+                className="h-12 sm:h-14 w-auto object-contain transition-transform group-hover:scale-[1.02]"
+                width="280"
+                height="56"
               />
-            </div>
-            <p className="text-gray-400 text-sm mb-4 leading-relaxed max-w-sm">
-              Portal de utilidade em saúde mental, neurodesenvolvimento e orientação para famílias, aliado ao atendimento psicológico online ético.
+            </Link>
+            <p className="text-slate-600 text-xs mb-3 leading-relaxed">
+              Portal especializado em psicoterapia para adultos (depressão, ansiedade, pânico, TOC, compulsão alimentar e narcisismo) e acervo de materiais e ferramentas clínicas para psicólogos.
             </p>
-            <div className="space-y-1.5 text-sm text-gray-300">
-              <div className="flex items-center gap-2 font-semibold text-white">
-                <Shield className="w-4 h-4 text-primary-400" />
-                <span>
-                  {PROFESSIONAL_AUTHOR} — {PROFESSIONAL_CRP}
-                </span>
-              </div>
-              <p className="text-xs text-gray-400">
-                Atuação regulamentada conforme Resolução CFP nº 11/2018 e Código de Ética do Psicólogo.
-              </p>
+            <div className="text-xs text-slate-700 flex items-center gap-1.5 font-semibold">
+              <Shield className="w-4 h-4 text-blue-600" />
+              <span>Revisão Técnica: {PROFESSIONAL_AUTHOR} ({PROFESSIONAL_CRP})</span>
             </div>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4 text-sm uppercase tracking-wider text-gray-200">
-              Guias e Especialidades
+            <h3 className="font-bold mb-3 text-xs uppercase tracking-wider text-slate-900">
+              Temas e Guias
             </h3>
-            <div className="space-y-2 text-sm">
+            <ul className="space-y-2 text-xs">
               {CATEGORY_LIST.map((hub) => (
-                <Link
-                  key={hub.slug}
-                  href={`/${hub.slug}`}
-                  className="block text-gray-400 hover:text-white transition-colors"
-                >
-                  {hub.shortTitle}
-                </Link>
+                <li key={hub.slug}>
+                  <Link href={`/${hub.slug}`} className="text-slate-600 hover:text-blue-600">
+                    {hub.shortTitle}
+                  </Link>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4 text-sm uppercase tracking-wider text-gray-200">
-              Navegação e Institucional
+            <h3 className="font-bold mb-3 text-xs uppercase tracking-wider text-slate-900">
+              Publicações & Recursos
             </h3>
-            <div className="space-y-2 text-sm">
-              <Link href="/" className="block text-gray-400 hover:text-white transition-colors">
-                Início
-              </Link>
-              <Link href="/servicos" className="block text-gray-400 hover:text-white transition-colors">
-                Serviços Psicológicos
-              </Link>
-              <Link href="/materiais" className="block text-gray-400 hover:text-white transition-colors">
-                Materiais e Checklists Gratuitos
-              </Link>
-              <Link href="/blog" className="block text-gray-400 hover:text-white transition-colors">
-                Blog e Artigos Revisados
-              </Link>
-              <Link href="/sobre" className="block text-gray-400 hover:text-white transition-colors">
-                Sobre a Psicóloga e Autoria
-              </Link>
-              <Link href="/metodologia-editorial" className="block text-gray-400 hover:text-white transition-colors">
-                Metodologia Editorial
-              </Link>
-              <Link href="/agendamento" className="block text-gray-400 hover:text-white transition-colors">
-                Agendar Conversa
-              </Link>
-              <Link href="/contato" className="block text-gray-400 hover:text-white transition-colors">
-                Contato e Dúvidas
-              </Link>
-            </div>
+            <ul className="space-y-2 text-xs">
+              <li><Link href="/blog" className="text-slate-600 hover:text-blue-600">Todos os Artigos e Guias</Link></li>
+              <li><Link href="/materiais" className="text-slate-600 hover:text-blue-600">E-books, Apostilas e PDFs</Link></li>
+              <li><Link href="/materiais#ferramentas-interativas" className="text-slate-600 hover:text-blue-600">Quadros de Rotina e Checklists</Link></li>
+              <li><Link href="/sobre" className="text-slate-600 hover:text-blue-600">Sobre o Portal e Autoria</Link></li>
+              <li><Link href="/contato" className="text-slate-600 hover:text-blue-600">Contato Editorial e Parcerias</Link></li>
+            </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4 text-sm uppercase tracking-wider text-gray-200">
-              Contato e Transparência
+            <h3 className="font-bold mb-3 text-xs uppercase tracking-wider text-slate-900">
+              Transparência e Legal
             </h3>
-            <div className="space-y-3 text-gray-400 text-sm">
-              <a
-                href="mailto:psicologasocorinha@gmail.com"
-                className="flex items-center gap-2 hover:text-white transition-colors"
-              >
-                <Mail className="w-4 h-4 flex-shrink-0" />
-                <span className="truncate">psicologasocorinha@gmail.com</span>
-              </a>
-              <a
-                href="tel:+5568999035300"
-                className="flex items-center gap-2 hover:text-white transition-colors"
-              >
-                <Phone className="w-4 h-4 flex-shrink-0" />
-                <span>(68) 99903-5300</span>
-              </a>
-              <div className="flex items-start gap-2">
-                <Clock className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                <div className="text-xs">
-                  <p>Seg - Sex: 08:00 - 20:00</p>
-                  <p>Sábado: 08:00 - 12:00</p>
-                </div>
-              </div>
-              <div className="pt-3 border-t border-gray-800 space-y-1.5 text-xs">
-                <Link href="/politica-de-privacidade" className="block hover:text-white">
-                  Política de Privacidade (LGPD)
-                </Link>
-                <Link href="/politica-de-cookies" className="block hover:text-white">
-                  Política de Cookies
-                </Link>
-                <Link href="/termos-de-uso" className="block hover:text-white">
-                  Termos de Uso
-                </Link>
-                <Link href="/transparencia-afiliados" className="block hover:text-white">
-                  Transparência e Afiliados
-                </Link>
-              </div>
-            </div>
+            <ul className="space-y-2 text-xs">
+              <li><Link href="/metodologia-editorial" className="text-slate-600 hover:text-blue-600">Metodologia e Revisão Técnica</Link></li>
+              <li><Link href="/transparencia-afiliados" className="text-slate-600 hover:text-blue-600">Transparência de Afiliados</Link></li>
+              <li><Link href="/politica-de-privacidade" className="text-slate-600 hover:text-blue-600">Política de Privacidade (LGPD)</Link></li>
+              <li><Link href="/politica-de-cookies" className="text-slate-600 hover:text-blue-600">Política de Cookies</Link></li>
+              <li><Link href="/termos-de-uso" className="text-slate-600 hover:text-blue-600">Termos de Uso</Link></li>
+            </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-10 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-center md:text-left">
-              <p className="text-gray-400 text-xs">
-                © {new Date().getFullYear()} Psicologia Direta ({PROFESSIONAL_AUTHOR} — {PROFESSIONAL_CRP}). Todos os direitos reservados.
-              </p>
-              <p className="text-gray-500 text-xs mt-1">
-                Conteúdos informativos não substituem avaliação psicológica ou médica individualizada.
-              </p>
-            </div>
-            <div className="flex items-center gap-4 text-xs text-gray-400">
-              <span className="flex items-center gap-1">
-                <Shield className="w-4 h-4 text-primary-400" />
-                Conformidade CFP e LGPD
-              </span>
-              <span className="flex items-center gap-1">
-                <Heart className="w-4 h-4 text-accent-400" />
-                Sigilo Profissional
-              </span>
-            </div>
-          </div>
+        <div className="mt-10 pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
+          <p>&copy; 2026 Psicologia Direta — Portal de Artigos e E-books ({PROFESSIONAL_AUTHOR} — {PROFESSIONAL_CRP}). Todos os direitos reservados.</p>
+          <p><Link href="/sitemap.xml" className="hover:text-blue-600">Sitemap XML</Link> • <Link href="/robots.txt" className="hover:text-blue-600">Robots.txt</Link></p>
         </div>
       </div>
     </footer>

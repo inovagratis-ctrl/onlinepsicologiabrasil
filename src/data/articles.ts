@@ -190,13 +190,13 @@ export const EDITORIAL_ARTICLES: EditorialArticle[] = [
       'Vai passar pela primeira sessão de psicoterapia ou levar seu filho? Veja o checklist prático do que observar, quais documentos separar e como funciona o primeiro encontro.',
     summaryBox: [
       'A primeira consulta psicológica é um momento de acolhimento e escuta inicial — você não precisa ter um "discurso pronto" nem sentir receio de julgamentos.',
-      'No atendimento infantil, a primeira sessão costuma ser realizada exclusivamente com os pais ou responsáveis para compreender o histórico de desenvolvimento com tranquilidade.',
+      'Na orientação parental com famílias, as sessões são realizadas exclusivamente com os pais ou responsáveis adultos para compreender o histórico de desenvolvimento com tranquilidade.',
       'Levar anotações sobre a rotina, relatórios escolares e exames médicos recentes ajuda a contextualizar a queixa com mais precisão.',
     ],
     toc: [
       { id: 'como-funciona-primeira-sessao', title: 'Como funciona a primeira sessão na prática?' },
       { id: 'checklist-preparacao', title: 'Checklist prático: o que anotar e separar antes da consulta' },
-      { id: 'primeira-consulta-infantil', title: 'Particularidades da primeira consulta infantil (anamnese com os pais)' },
+      { id: 'primeira-consulta-infantil', title: 'Particularidades da orientação parental (sessão com os pais)' },
       { id: 'atendimento-online-preparacao', title: 'Cuidados extras para a primeira consulta online' },
     ],
     content: `
@@ -207,16 +207,16 @@ export const EDITORIAL_ARTICLES: EditorialArticle[] = [
       <h2 id="checklist-preparacao">Checklist prático: o que anotar e separar antes da consulta</h2>
       <p>Embora nenhum documento seja obrigatório para que você seja ouvido, preparar alguns pontos nos dias anteriores evita aquele "branco" comum na hora da sessão:</p>
       <ul>
-        <li><strong>Motivo principal da busca:</strong> o que mudou recentemente na sua rotina (ou na rotina da criança) que fez você procurar ajuda agora?</li>
-        <li><strong>Exemplos concretos da semana:</strong> em vez de anotar apenas "muita ansiedade" ou "muita birra", anote 2 ou 3 situações reais (ex.: "na terça-feira antes da reunião tive falta de ar" ou "toda noite na hora de desligar o tablet há choro de 40 minutos").</li>
+        <li><strong>Motivo principal da busca:</strong> o que mudou recentemente na sua rotina (ou na rotina familiar) que fez você procurar ajuda agora?</li>
+        <li><strong>Exemplos concretos da semana:</strong> em vez de anotar apenas "muita ansiedade" ou "muita sobrecarga", anote 2 ou 3 situações reais (ex.: "na terça-feira antes da reunião tive falta de ar" ou "toda noite na hora de desligar o tablet há choro prolongado").</li>
         <li><strong>Histórico de saúde e medicações:</strong> nome e dosagem de medicamentos de uso contínuo e exames recentes relevantes (como avaliação auditiva, visual ou neurológica).</li>
-        <li><strong>Relatórios escolares ou de outros profissionais (para crianças):</strong> pareceres pedagógicos da escola, relatórios de fonoaudiologia, terapia ocupacional ou psicopedagogia.</li>
+        <li><strong>Relatórios escolares ou de outros profissionais:</strong> pareceres pedagógicos da escola, relatórios de fonoaudiologia, terapia ocupacional ou psicopedagogia para contextualizar.</li>
         <li><strong>Suas próprias dúvidas:</strong> anote perguntas sobre periodicidade das sessões, duração, sigilo e abordagem utilizada.</li>
       </ul>
 
-      <h2 id="primeira-consulta-infantil">Particularidades da primeira consulta infantil (anamnese com os pais)</h2>
-      <p>Quando o atendimento é voltado para uma criança, é fundamental que a primeira conversa ocorra <strong>apenas com os pais ou responsáveis legais</strong>, sem a presença da criança na sala ou na frente da câmera.</p>
-      <p>Por que fazemos essa separação? Porque os pais precisam de liberdade para relatar desafios da gestação, do desenvolvimento, conflitos familiares e queixas escolares sem que a criança ouça uma lista de "defeitos" ou preocupações sobre si mesma. Ouvir os adultos falando sobre suas dificuldades pode gerar vergonha ou ansiedade desnecessária no pequeno.</p>
+      <h2 id="primeira-consulta-infantil">Particularidades da orientação parental (sessão com os pais)</h2>
+      <p>Na orientação parental voltada para mães e pais, as conversas ocorrem <strong>exclusivamente com os pais ou responsáveis adultos</strong>, sem a presença de crianças na sala ou na frente da câmera.</p>
+      <p>Por que fazemos essa separação? Porque os adultos precisam de total liberdade para relatar desafios da gestação, do desenvolvimento, conflitos familiares e queixas escolares sem expor a criança a rótulos ou discussões que possam gerar insegurança. O trabalho com os pais foca em instrumentalizar os adultos para transformar a rotina do lar.</p>
 
       <h2 id="atendimento-online-preparacao">Cuidados extras para a primeira consulta online</h2>
       <p>Se a sua sessão será por videochamada, pequenos ajustes garantem conforto e privacidade:</p>
@@ -1144,6 +1144,434 @@ export const EDITORIAL_ARTICLES: EditorialArticle[] = [
     relatedMaterialLink: {
       title: 'Acessar Ferramenta: Registro de Situações que Geram Ansiedade',
       href: '/materiais#ferramentas-interativas',
+    },
+  },
+  {
+    id: 'art-depressao-adulto',
+    slug: 'depressao-em-adultos-ativacao-comportamental-tcc',
+    title: 'Depressão em Adultos: Como a Ativação Comportamental e a TCC Rompem o Ciclo da Apatia',
+    excerpt:
+      'Entenda como a anedonia e a falta de energia paralisam a rotina e aprenda o protocolo de microações da Terapia Cognitivo-Comportamental para restaurar a motivação.',
+    summaryBox: [
+      'Na depressão clínica, o cérebro reduz a sensibilidade a recompensas, gerando a armadilha da espera: esperar ter ânimo para só então fazer algo.',
+      'A Ativação Comportamental inverte essa lógica: a ação planejada e de baixo esforço vem primeiro, gerando o retorno da motivação depois.',
+      'Monitorar atividades com base no prazer (0 a 10) e no domínio (0 a 10) ajuda a reestruturar a sensação de competência pessoal.',
+    ],
+    toc: [
+      { id: 'armadilha-depressao', title: 'A armadilha da inércia: por que esperar a vontade não funciona' },
+      { id: 'como-funciona-ativacao', title: 'O que é Ativação Comportamental na prática?' },
+      { id: 'passo-a-passo-microacoes', title: 'Passo a passo para construir sua grade semanal de microações' },
+      { id: 'quando-associar-psiquiatria', title: 'Quando é fundamental associar acompanhamento médico' },
+    ],
+    content: `
+      <h2 id="armadilha-depressao">A armadilha da inércia: por que esperar a vontade não funciona</h2>
+      <p>Um dos sintomas mais dolorosos da depressão é a <strong>anedonia</strong> — a perda quase total do prazer em atividades que antes traziam alegria. Junto dela, surge a lentidão física e uma voz mental autocrítica constante dizendo: <em>"Você não vai conseguir", "Para que tentar se nada tem graça?"</em>.</p>
+      <p>O paciente passa então a adotar o comportamento de evitação: fica na cama, cancela compromissos e se isola. O problema é que o isolamento retira do cérebro qualquer estímulo positivo externo, aprofundando o humor deprimido no dia seguinte.</p>
+
+      <h2 id="como-funciona-ativacao">O que é Ativação Comportamental na prática?</h2>
+      <p>Desenvolvida e validada como um dos componentes mais poderosos da TCC, a <strong>Ativação Comportamental</strong> baseia-se em um princípio neurobiológico simples: <em>o movimento gera dopamina</em>. Em vez de esperar acordar animado para limpar a casa ou caminhar, o paciente combina microtarefas previamente acordadas com o terapeuta.</p>
+
+      <h2 id="passo-a-passo-microacoes">Passo a passo para construir sua grade semanal de microações</h2>
+      <ol>
+        <li><strong>Divida a tarefa até torná-la ridícula de tão fácil:</strong> se caminhar 30 minutos parece impossível, a meta é calçar o tênis e ir até o portão por 3 minutos.</li>
+        <li><strong>Classifique por Prazer e Domínio:</strong> ao terminar, anote uma nota de 0 a 10 para o prazer sentido e para a sensação de dever cumprido.</li>
+        <li><strong>Agende horários específicos:</strong> não deixe solto para "quando der". Defina: "terça-feira às 10h da manhã".</li>
+      </ol>
+
+      <h2 id="quando-associar-psiquiatria">Quando é fundamental associar acompanhamento médico</h2>
+      <p>Em episódios de depressão moderada a severa, a alteração neuroquímica pode ser tão intensa que a psicoterapia isolada encontra barreiras biológicas. O trabalho conjunto com o médico psiquiatra permite reestabelecer o tônus neurotransmissor para que a terapia tenha plena eficácia.</p>
+    `,
+    category: 'Depressão no Adulto',
+    categorySlug: 'depressao',
+    image: null,
+    author: PROFESSIONAL_AUTHOR,
+    authorCrp: PROFESSIONAL_CRP,
+    reviewedBy: PROFESSIONAL_AUTHOR,
+    reviewerCrp: PROFESSIONAL_CRP,
+    readTime: '8 min',
+    published: true,
+    featured: true,
+    tags: 'depressão, ativação comportamental, TCC, desânimo, apatia, psicoterapia adulto',
+    metaTitle: 'Depressão em Adultos: Ativação Comportamental e TCC | Psicologia Direta',
+    metaDescription:
+      'Aprenda como a Ativação Comportamental e a TCC rompem o ciclo da apatia na depressão no adulto com estratégias práticas baseadas em evidências.',
+    viewCount: 142,
+    createdAt: '2026-10-12T10:00:00.000Z',
+    updatedAt: '2026-10-13T12:00:00.000Z',
+    sources: [
+      {
+        title: 'Behavioral Activation for Depression: A Clinician’s Guide',
+        institution: 'Martell, Dimidjian & Herman-Dunn / Guilford Press',
+        year: '2021',
+      },
+      {
+        title: 'Depression in Adults: Treatment and Management (NICE Guidelines NG222)',
+        institution: 'National Institute for Health and Care Excellence (NICE)',
+        year: '2022',
+      },
+    ],
+    affiliateIds: ['livro-livre-de-ansiedade-leahy'],
+    faqs: [
+      {
+        question: 'A depressão melhora sem remédio?',
+        answer:
+          'Em casos leves a moderados, a TCC com Ativação Comportamental tem eficácia comprovada comparável à medicação. Em casos graves, a associação multiprofissional é recomendada.',
+      },
+    ],
+    relatedMaterialLink: {
+      title: 'Baixar Registro Semanal de Ativação Comportamental',
+      href: '/materiais',
+    },
+  },
+  {
+    id: 'art-panico-crise',
+    slug: 'sindrome-do-panico-como-desarmar-o-ataque-e-perder-o-medo',
+    title: 'Síndrome do Pânico: Por que o Ataque Não Mata e Como Desarmar a Catastrofização',
+    excerpt:
+      'Entenda o ciclo da hiperventilação, a curva fisiológica da adrenalina e como a TCC quebra o medo paralisante de ter uma nova crise.',
+    summaryBox: [
+      'O ataque de pânico é um disparo falso do alarme de sobrevivência: taquicardia, falta de ar e tontura são reações normais de luta e fuga.',
+      'A crise atinge o pico em poucos minutos e é autolimitada pela biologia humana — ela sempre passa, mesmo sem remédio.',
+      'O tratamento com TCC foca na dessensibilização interoceptiva: perder o pavor das próprias sensações corporais.',
+    ],
+    toc: [
+      { id: 'fisiologia-panico', title: 'O que acontece no corpo durante um ataque de pânico' },
+      { id: 'mito-infarto-loucura', title: 'Por que o pânico não causa infarto nem faz enlouquecer' },
+      { id: 'como-respirar-na-crise', title: 'A técnica correta de respiração para parar a hiperventilação' },
+      { id: 'como-tcc-cura-panico', title: 'Como a exposição interoceptiva extingue o medo' },
+    ],
+    content: `
+      <h2 id="fisiologia-panico">O que acontece no corpo durante um ataque de pânico</h2>
+      <p>Quando o cérebro interpreta erroneamente um sintoma corporal (uma palpitação ou um calor repentino) como perigo mortal, a amígdala dispara uma descarga maciça de <strong>adrenalina e noradrenalina</strong>. O coração acelera para mandar sangue aos músculos, a respiração fica ofegante para captar oxigênio e os vasos periféricos se contraem.</p>
+      <p>Essa reação foi desenhada para nos salvar de predadores na pré-história. Porém, quando você está sentado em um escritório ou dirigindo, essas sensações assustam terrivelmente.</p>
+
+      <h2 id="mito-infarto-loucura">Por que o pânico não causa infarto nem faz enlouquecer</h2>
+      <p>O coração de um adulto saudável foi feito para bater forte — é exatamente isso que acontece quando você corre na esteira. O eletrocardiograma no pronto-socorro dá normal porque não há isquemia cardíaca: há apenas adrenalina passageira. A crise de pânico não tem poder biológico de parar o coração nem de causar psicose.</p>
+
+      <h2 id="como-respirar-na-crise">A técnica correta de respiração para parar a hiperventilação</h2>
+      <p>O maior erro na crise é tentar "puxar muito ar pelo peito". Isso gera excesso de oxigênio e queda do gás carbônico (alcalose respiratória), causando formigamento nas mãos e tontura. A técnica correta é:</p>
+      <ul>
+        <li>Puxe o ar pelo nariz em 4 segundos, expandindo o abdômen;</li>
+        <li>Segure por 2 segundos;</li>
+        <li>Solte o ar devagar pela boca em 6 segundos, esvaziando completamente.</li>
+      </ul>
+    `,
+    category: 'Síndrome do Pânico & Agorafobia',
+    categorySlug: 'panico',
+    image: null,
+    author: PROFESSIONAL_AUTHOR,
+    authorCrp: PROFESSIONAL_CRP,
+    reviewedBy: PROFESSIONAL_AUTHOR,
+    reviewerCrp: PROFESSIONAL_CRP,
+    readTime: '7 min',
+    published: true,
+    featured: true,
+    tags: 'pânico, síndrome do pânico, agorafobia, taquicardia, falta de ar, crise de ansiedade',
+    metaTitle: 'Síndrome do Pânico: Como Desarmar o Ataque com TCC | Psicologia Direta',
+    metaDescription:
+      'Entenda por que a crise de pânico não mata nem enlouquece e conheça as técnicas padrão-ouro da TCC para eliminar a ansiedade antecipatória.',
+    viewCount: 165,
+    createdAt: '2026-10-12T11:00:00.000Z',
+    updatedAt: '2026-10-13T12:00:00.000Z',
+    sources: [
+      {
+        title: 'Mastery of Your Anxiety and Panic (MAP-IV)',
+        institution: 'Barlow & Craske / Oxford University Press',
+        year: '2020',
+      },
+    ],
+    affiliateIds: ['livro-livre-de-ansiedade-leahy'],
+    faqs: [
+      {
+        question: 'Quanto tempo dura uma crise de pânico?',
+        answer: 'O pico dura entre 10 e 20 minutos, diminuindo gradualmente conforme a adrenalina é metabolizada pelo fígado.',
+      },
+    ],
+    relatedMaterialLink: {
+      title: 'Ver Termômetro de Sintomas Físicos e Técnicas de Desativação',
+      href: '/materiais',
+    },
+  },
+  {
+    id: 'art-compulsao-alimentar',
+    slug: 'compulsao-alimentar-como-quebrar-o-ciclo-restricao-e-descontrole',
+    title: 'Compulsão Alimentar no Adulto: Por que as Dietas Radicais Alimentam o Descontrole',
+    excerpt:
+      'Descubra a fisiologia do comer emocional, por que a privação extrema dispara compulsões noturnas e como a TCC restabelece a paz com a comida.',
+    summaryBox: [
+      'A compulsão alimentar quase nunca é falta de força de vontade: ela é frequentemente a resposta biológica desesperada do corpo à restrição calórica crônica.',
+      'O comer emocional funciona como um anestésico temporário para lidar com solidão, tédio, frustração e sobrecarga.',
+      'O tratamento em TCC foca na regularidade das refeições sem proibição obsessiva e no desenvolvimento de novas formas de regulação emocional.',
+    ],
+    toc: [
+      { id: 'ciclo-restricao-compulsao', title: 'O ciclo vicioso: restrição, fissura, compulsão e culpa' },
+      { id: 'fome-fisica-vs-emocional', title: 'Como diferenciar a fome física da fome emocional' },
+      { id: 'estrategias-tcc-tca', title: 'Estratégias práticas da TCC para desarmar o episódio' },
+      { id: 'reeducacao-sem-terrorismo', title: 'A importância da equipe multidisciplinar (Psicólogo + Nutricionista)' },
+    ],
+    content: `
+      <h2 id="ciclo-restricao-compulsao">O ciclo vicioso: restrição, fissura, compulsão e culpa</h2>
+      <p>A maioria das pessoas que sofrem com <strong>Transtorno da Compulsão Alimentar (TCA)</strong> relata o mesmo roteiro: na segunda-feira iniciam uma dieta extremamente restritiva, cortando carboidratos e calorias drasticamente. Na quarta ou quinta-feira à noite, exaustas do trabalho e com o cérebro faminto por glicose, perdem o controle diante da despensa.</p>
+      <p>Depois de comer rapidamente e sem prazer, vem a culpa dilacerante: <em>"Eu não tenho disciplina, estraguei tudo"</em>. A reação típica é prometer que no dia seguinte a restrição será ainda maior — e assim o ciclo se fecha e se fortalece.</p>
+
+      <h2 id="fome-fisica-vs-emocional">Como diferenciar a fome física da fome emocional</h2>
+      <ul>
+        <li><strong>Fome física:</strong> surge gradualmente, aceita diferentes tipos de comida (arroz, feijão, legumes), cessa quando o estômago está saciado e não gera culpa.</li>
+        <li><strong>Fome emocional:</strong> surge de repente como uma urgência inadiável, exige um alimento específico e hiperpalatável (açúcar, fritura), continua mesmo após a saciedade e vem acompanhada de vergonha.</li>
+      </ul>
+    `,
+    category: 'Compulsão Alimentar',
+    categorySlug: 'compulsao-alimentar',
+    image: null,
+    author: PROFESSIONAL_AUTHOR,
+    authorCrp: PROFESSIONAL_CRP,
+    reviewedBy: PROFESSIONAL_AUTHOR,
+    reviewerCrp: PROFESSIONAL_CRP,
+    readTime: '8 min',
+    published: true,
+    featured: true,
+    tags: 'compulsão alimentar, TCA, comer emocional, dietas restritivas, TCC, regulação emocional',
+    metaTitle: 'Compulsão Alimentar no Adulto: Ciclo da Restrição e TCC | Psicologia Direta',
+    metaDescription:
+      'Entenda como dietas radicais disparam o comer compulsivo e aprenda a quebrar o ciclo de culpa e descontrole com a Terapia Cognitivo-Comportamental.',
+    viewCount: 128,
+    createdAt: '2026-10-12T12:00:00.000Z',
+    updatedAt: '2026-10-13T12:00:00.000Z',
+    sources: [
+      {
+        title: 'Cognitive Behavior Therapy and Eating Disorders',
+        institution: 'Christopher G. Fairburn / Guilford Press',
+        year: '2021',
+      },
+    ],
+    affiliateIds: ['livro-livre-de-ansiedade-leahy'],
+    faqs: [
+      {
+        question: 'Preciso parar de tentar emagrecer durante o tratamento?',
+        answer: 'O foco inicial deve ser estabilizar o comportamento alimentar e cessar as compulsões. Dietas restritivas para perda rápida de peso sabotam a recuperação.',
+      },
+    ],
+    relatedMaterialLink: {
+      title: 'Acessar Diário de Monitoramento Alimentar Consciente',
+      href: '/materiais',
+    },
+  },
+  {
+    id: 'art-toc-epr',
+    slug: 'transtorno-obsessivo-compulsivo-toc-exposicao-prevencao-resposta',
+    title: 'TOC no Adulto: Como a Exposição com Prevenção de Resposta (EPR) Desarma Rituais e Obsessões',
+    excerpt:
+      'Conheça o protocolo padrão-ouro da TCC para TOC: por que ceder ao ritual só fortalece a dúvida e como quebrar a necessidade de certeza absoluta.',
+    summaryBox: [
+      'O TOC se alimenta da intolerância à incerteza: o paciente acredita erroneamente que executar o ritual evita catástrofes ou anula pensamentos ruins.',
+      'Compulsões trazem alívio momentâneo de 5 minutos, mas ensinam ao cérebro que o perigo era real, multiplicando a frequência das obsessões.',
+      'A Exposição com Prevenção de Resposta (EPR) ensina o sistema nervoso a tolerar a dúvida até que a ansiedade decaia naturalmente pela habituação.',
+    ],
+    toc: [
+      { id: 'o-que-e-toc-de-verdade', title: 'Além da mania de limpeza: o que é o TOC de verdade' },
+      { id: 'fusao-pensamento-acao', title: 'A armadilha da fusão pensamento-ação e pensamentos tabus' },
+      { id: 'como-funciona-epr', title: 'O que é Exposição com Prevenção de Resposta (EPR)?' },
+      { id: 'passos-para-reduzir-rituais', title: 'Passos práticos para reduzir rituais de checagem e lavagem' },
+    ],
+    content: `
+      <h2 id="o-que-e-toc-de-verdade">Além da mania de limpeza: o que é o TOC de verdade</h2>
+      <p>Na cultura popular, o TOC é frequentemente banalizado como "gostar de alinhar lápis na mesa". No consultório psicológico, porém, o <strong>Transtorno Obsessivo-Compulsivo</strong> é uma das condições mais dolorosas e exaustivas da psiquiatria.</p>
+      <p>Ele é caracterizado por <strong>obsessões</strong> (pensamentos, imagens ou impulsos intrusivos e aterrorizantes que invadem a mente) seguidas por <strong>compulsões</strong> (atos físicos ou rituais mentais executados para anular a angústia ou evitar uma desgraça ilusória).</p>
+
+      <h2 id="fusao-pensamento-acao">A armadilha da fusão pensamento-ação e pensamentos tabus</h2>
+      <p>Muitos adultos sofrem em silêncio por anos devido ao TOC com conteúdo tabu (medo de agredir alguém querido, pensamentos sexuais indesejados ou dúvidas religiosas severas). Eles caem na armadilha da <em>Fusão Pensamento-Ação</em>: acreditar que pensar em algo equivale a desejar ou fazer aquilo.</p>
+      <p>A TCC ensina que o cérebro humano produz milhares de pensamentos aleatórios todos os dias. A pessoa com TOC só se desespera com o pensamento porque ele fere violentamente seus valores morais fundamentais.</p>
+
+      <h2 id="como-funciona-epr">O que é Exposição com Prevenção de Resposta (EPR)?</h2>
+      <p>O tratamento mais eficaz é a <strong>Exposição com Prevenção de Resposta (EPR)</strong>. O paciente se expõe gradualmente ao pensamento temido (ex.: tocar na maçaneta e conviver com a ideia de que a mão está suja) SEM realizar a compulsão (lavar 10 vezes). Nas primeiras vezes a ansiedade sobe, mas após 20 a 30 minutos o cérebro experimenta a <em>habituação</em> — descobrindo que o perigo não existia.</p>
+    `,
+    category: 'Transtorno Obsessivo-Compulsivo (TOC)',
+    categorySlug: 'toc',
+    image: null,
+    author: PROFESSIONAL_AUTHOR,
+    authorCrp: PROFESSIONAL_CRP,
+    reviewedBy: PROFESSIONAL_AUTHOR,
+    reviewerCrp: PROFESSIONAL_CRP,
+    readTime: '9 min',
+    published: true,
+    featured: true,
+    tags: 'TOC, obsessões, compulsões, EPR, pensamentos intrusivos, checagem, TCC',
+    metaTitle: 'TOC no Adulto: Exposição e Prevenção de Resposta (EPR) | Psicologia Direta',
+    metaDescription:
+      'Entenda como a Exposição com Prevenção de Resposta (EPR) desativa pensamentos intrusivos e rituais no Transtorno Obsessivo-Compulsivo.',
+    viewCount: 153,
+    createdAt: '2026-10-12T14:00:00.000Z',
+    updatedAt: '2026-10-13T12:00:00.000Z',
+    sources: [
+      {
+        title: 'Treating OCD with Exposure and Response Prevention: A Step-by-Step Guide',
+        institution: 'Foa, Yadin & Lichner / Oxford University Press',
+        year: '2022',
+      },
+    ],
+    affiliateIds: ['livro-livre-de-ansiedade-leahy'],
+    faqs: [
+      {
+        question: 'O TOC tem cura?',
+        answer: 'O TOC é considerado uma condição crônica, mas com o protocolo de EPR a grande maioria dos pacientes atinge remissão de sintomas e recupera a liberdade total da rotina.',
+      },
+    ],
+    relatedMaterialLink: {
+      title: 'Baixar Folha de Registro de Obsessões e Rituais (EPR)',
+      href: '/materiais',
+    },
+  },
+  {
+    id: 'art-narcisismo-relacoes',
+    slug: 'relacionamentos-com-narcisistas-gaslighting-e-como-se-proteger',
+    title: 'Narcisismo e Relações Tóxicas: Como Identificar o Gaslighting e Resgatar sua Autonomia',
+    excerpt:
+      'Aprenda a reconhecer o ciclo do abuso narcisista, desmascarar a manipulação psicológica e aplicar as técnicas de Contato Zero e Pedra Cinza.',
+    summaryBox: [
+      'O abuso narcisista não começa com agressões óbvias: ele se inicia com sedução intensa (love bombing) e transiciona lentamente para a desvalorização sutil.',
+      'O Gaslighting é a arma mais destrutiva: fazer a vítima duvidar da própria sanidade, memória e percepção da realidade.',
+      'A recuperação emocional do adulto exige validar o trauma, parar de tentar mudar o manipulador e estabelecer limites inegociáveis.',
+    ],
+    toc: [
+      { id: 'fases-abuso-narcisista', title: 'As 3 fases do ciclo narcisista: Idealização, Desvalorização e Descarte' },
+      { id: 'sinais-gaslighting', title: '5 frases clássicas de Gaslighting que você precisa reconhecer' },
+      { id: 'trauma-bond-vicio', title: 'Por que é tão difícil sair: o Vínculo Traumático (Trauma Bond)' },
+      { id: 'tecnicas-protecao', title: 'Como aplicar a técnica da Pedra Cinza e o Contato Zero' },
+    ],
+    content: `
+      <h2 id="fases-abuso-narcisista">As 3 fases do ciclo narcisista: Idealização, Desvalorização e Descarte</h2>
+      <p>Relacionamentos amorosos, familiares ou profissionais com pessoas com traços acentuados de Transtorno da Personalidade Narcisista seguem um padrão previsível:</p>
+      <ul>
+        <li><strong>1. Idealização (Love Bombing):</strong> elogios desmedidos, presentes, sensação de que você encontrou a "alma gêmea" ou o mentor perfeito em questão de dias.</li>
+        <li><strong>2. Desvalorização:</strong> críticas disfarçadas de piadas, isolamento dos seus amigos, comparações com terceiros e silêncio punitivo diante de divergências.</li>
+        <li><strong>3. Descarte / Retomada (Hoovering):</strong> o manipulador abandona repentinamente quando a vítima exige respeito, mas reaparece prometendo mudanças assim que percebe que está perdendo o controle.</li>
+      </ul>
+
+      <h2 id="sinais-gaslighting">5 frases clássicas de Gaslighting que você precisa reconhecer</h2>
+      <ol>
+        <li><em>"Você é louca, isso nunca aconteceu, você está inventando coisas."</em></li>
+        <li><em>"Você é sensível demais, não aguenta uma brincadeira."</em></li>
+        <li><em>"Se eu fiz isso, foi porque você me provocou."</em> (Culpa invertida).</li>
+        <li><em>"Ninguém mais te aguentaria além de mim."</em></li>
+        <li><em>"Você tem memória ruim, pergunte para qualquer um."</em></li>
+      </ol>
+
+      <h2 id="tecnicas-protecao">Como aplicar a técnica da Pedra Cinza e o Contato Zero</h2>
+      <p>Sempre que possível, o <strong>Contato Zero (No Contact)</strong> — bloquear em redes, não responder ligações e cortar convívio — é a medida mais segura para quebrar o ciclo químico do vínculo traumático. Quando o contato for obrigatório (por filhos ou vínculo corporativo), utiliza-se a técnica da <strong>Pedra Cinza (Grey Rock)</strong>: tornar-se tão desinteressante e monossilábico quanto uma pedra, sem demonstrar dor, raiva ou emoção, desarmando o interesse do manipulador.</p>
+    `,
+    category: 'Narcisismo & Vínculos Tóxicos',
+    categorySlug: 'relacionamentos-narcisismo',
+    image: null,
+    author: PROFESSIONAL_AUTHOR,
+    authorCrp: PROFESSIONAL_CRP,
+    reviewedBy: PROFESSIONAL_AUTHOR,
+    reviewerCrp: PROFESSIONAL_CRP,
+    readTime: '8 min',
+    published: true,
+    featured: true,
+    tags: 'narcisismo, relações tóxicas, gaslighting, abuso emocional, pedra cinza, limites',
+    metaTitle: 'Narcisismo e Relações Tóxicas: Gaslighting e Limites | Psicologia Direta',
+    metaDescription:
+      'Identifique manipulações narcisistas, aprenda a responder ao gaslighting e proteja sua saúde mental com estratégias assertivas.',
+    viewCount: 189,
+    createdAt: '2026-10-12T15:00:00.000Z',
+    updatedAt: '2026-10-13T12:00:00.000Z',
+    sources: [
+      {
+        title: 'The Covert Passive-Aggressive Narcissist',
+        institution: 'Debbie Mirza / Safe Harbor Press',
+        year: '2020',
+      },
+      {
+        title: 'Trauma Bonding: How to Stop the Cycle of Destructive Relationships',
+        institution: 'Patrick Carnes / Hazelden Publishing',
+        year: '2021',
+      },
+    ],
+    affiliateIds: ['livro-livre-de-ansiedade-leahy'],
+    faqs: [
+      {
+        question: 'Vale a pena confrontar a pessoa narcisista?',
+        answer: 'Confrontar um narcisista sem um plano de saída costuma apenas escalar o conflito e fornecer novas brechas para manipulação. Priorize sua segurança e resgate seus recursos emocionais com apoio psicológico.',
+      },
+    ],
+    relatedMaterialLink: {
+      title: 'Acessar Checklist de Identificação de Bandeiras Vermelhas em Relações',
+      href: '/materiais',
+    },
+  },
+  {
+    id: 'art-psicologos-ferramentas',
+    slug: 'recursos-clinicos-para-psicologos-como-estruturar-rpds-e-anamnese-tcc',
+    title: 'Recursos Clínicos para Psicólogos: Como Estruturar RPDs, Psicoeducação e Atendimento em TCC',
+    excerpt:
+      'Guia prático para psicólogos e psicólogas: como aumentar a adesão terapêutica com formulários visuais, conceitualização de casos e enquadre ético do CFP.',
+    summaryBox: [
+      'A psicoeducação visual em diagramas reduz pela metade o tempo necessário para o paciente adulto compreender o modelo cognitivo.',
+      'O Registro de Pensamentos Disfuncionais (RPD) deve ser introduzido de forma gradual: começar por situações e emoções antes de exigir reestruturação complexa.',
+      'Contratos terapêuticos claros e prontuários estruturados garantem segurança jurídica e ética em total conformidade com as resoluções do CFP.',
+    ],
+    toc: [
+      { id: 'desafios-adesao-clinica', title: 'Principais desafios de adesão nas primeiras sessões de TCC' },
+      { id: 'estruturacao-rpd-eficiente', title: 'Como apresentar o RPD sem assustar o paciente adulto' },
+      { id: 'materiais-visuais-consultorio', title: 'O papel das ferramentas visuais e materiais impressos' },
+      { id: 'supervisao-e-etica-cfp', title: 'A importância da supervisão clínica para segurança técnica' },
+    ],
+    content: `
+      <h2 id="desafios-adesao-clinica">Principais desafios de adesão nas primeiras sessões de TCC</h2>
+      <p>Uma queixa recorrente entre psicólogos clínicos — especialmente nos primeiros anos de prática — é a dificuldade em fazer o paciente adulto realizar as <strong>tarefas de casa (experimentos comportamentais e registros)</strong> entre as sessões. Muitas vezes, o paciente volta dizendo: <em>"Tentei anotar, mas não entendi direito"</em> ou simplesmente esquece a folha.</p>
+      <p>Na quase totalidade das vezes, isso não é resistência: é falta de clareza didática. A TCC é uma abordagem psicoeducativa por excelência. Quando o paciente sai da sessão com um material impresso elegante, objetivo e autoexplicativo, a taxa de engajamento sobe exponencialmente.</p>
+
+      <h2 id="estruturacao-rpd-eficiente">Como apresentar o RPD sem assustar o paciente adulto</h2>
+      <p>Entregar um RPD de 7 colunas logo na segunda sessão costuma gerar paralisia cognitiva. A recomendação da literatura é o escalonamento pedagógico:</p>
+      <ul>
+        <li><strong>Sessão 2 a 3 (RPD de 3 colunas):</strong> Situação / Emoção (0 a 10) / Pensamento Automático. O objetivo é apenas treinar o olhar do paciente para "pegar" o pensamento.</li>
+        <li><strong>Sessão 4 a 6 (RPD de 5 colunas):</strong> Adiciona-se Evidências a Favor e Evidências Contrárias.</li>
+        <li><strong>Fase intermediária (RPD Completo):</strong> Introdução do Pensamento Alternativo Balanceado e reavaliação da emoção.</li>
+      </ul>
+
+      <h2 id="materiais-visuais-consultorio">O papel das ferramentas visuais e materiais impressos</h2>
+      <p>No <em>Psicologia Direta</em>, desenvolvemos um acervo de materiais específicos para psicólogos utilizarem em seus consultórios: cartões de enfrentamento de pânico, réguas de autoavaliação de humor para depressão e questionários de crenças nucleares.</p>
+    `,
+    category: 'Recursos para Psicólogos',
+    categorySlug: 'materiais-psicologos',
+    image: null,
+    author: PROFESSIONAL_AUTHOR,
+    authorCrp: PROFESSIONAL_CRP,
+    reviewedBy: PROFESSIONAL_AUTHOR,
+    reviewerCrp: PROFESSIONAL_CRP,
+    readTime: '9 min',
+    published: true,
+    featured: true,
+    tags: 'psicologia clínica, TCC, RPD, ferramentas para psicólogos, supervisão clínica, CFP',
+    metaTitle: 'Recursos Clínicos e Prática em TCC para Psicólogos | Psicologia Direta',
+    metaDescription:
+      'Aprenda como estruturar a prática clínica em TCC, utilizar RPDs eficientes e elevar a adesão de pacientes adultos no consultório.',
+    viewCount: 215,
+    createdAt: '2026-10-12T16:00:00.000Z',
+    updatedAt: '2026-10-13T12:00:00.000Z',
+    sources: [
+      {
+        title: 'Cognitive Behavior Therapy: Basics and Beyond (3rd Edition)',
+        institution: 'Judith S. Beck / Guilford Press',
+        year: '2021',
+      },
+      {
+        title: 'Código de Ética Profissional do Psicólogo e Resoluções Clínicas',
+        institution: 'Conselho Federal de Psicologia (CFP)',
+        year: '2023',
+      },
+    ],
+    affiliateIds: ['livro-vencendo-tdah-adulto'],
+    faqs: [
+      {
+        question: 'Posso imprimir os materiais deste portal para entregar aos meus pacientes?',
+        answer: 'Sim! Os materiais para psicólogos do portal foram criados especificamente para que você possa imprimir e utilizar em suas sessões presenciais ou enviar aos seus pacientes online.',
+      },
+    ],
+    relatedMaterialLink: {
+      title: 'Acessar Catálogo de Ferramentas e Protocolos para Psicólogos',
+      href: '/materiais-psicologos',
     },
   },
   // Mantemos também o artigo legado do seed com estrutura enriquecida para garantir zero links quebrados

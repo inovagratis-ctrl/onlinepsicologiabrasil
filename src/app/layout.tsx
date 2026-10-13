@@ -3,42 +3,46 @@ import Script from 'next/script'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import WhatsAppButton from '@/components/WhatsAppButton'
 import CookieBanner from '@/components/CookieBanner'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://psicologiadireta.com.br'),
   title: {
-    default: 'Psicologia Direta | Saúde Mental, Neurodesenvolvimento e Orientação para Famílias (CRP 24/02327)',
+    default: 'Psicologia Direta | Artigos, Guias Práticos e E-books de Saúde Mental (CRP 24/02327)',
     template: '%s | Psicologia Direta',
   },
   description:
-    'Portal de utilidade em saúde mental, TDAH, Autismo (TEA), Dislexia, Ansiedade e Orientação Parental, com atendimento psicológico online ético — Psicóloga Maria do Socorro Araujo Teixeira (CRP 24/02327).',
+    'Portal editorial de artigos, guias práticos, materiais imprimíveis e e-books sobre saúde mental, TDAH, Autismo (TEA), Dislexia, Ansiedade e Orientação Parental — Revisão Técnica: Psicóloga Maria do Socorro Araujo Teixeira (CRP 24/02327).',
   keywords: [
-    'psicologia online',
+    'artigos de psicologia',
     'saúde mental',
     'autismo',
     'TDAH',
     'dislexia',
     'orientação parental',
     'ansiedade',
-    'terapia cognitivo-comportamental',
+    'e-books de psicologia',
+    'materiais psicoeducativos',
     'CRP 24/02327',
     'Maria do Socorro Araujo Teixeira',
     'psicologia direta',
   ],
   icons: {
-    icon: '/favicon.png',
+    icon: [
+      { url: '/favicon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/assets/psicologia-direta/02-logo-mark-transparente.png', sizes: '192x192', type: 'image/png' },
+    ],
+    apple: '/assets/psicologia-direta/02-logo-mark-transparente.png',
   },
   openGraph: {
-    title: 'Psicologia Direta | Saúde Mental e Orientação para Famílias (CRP 24/02327)',
+    title: 'Psicologia Direta | Artigos, Guias Práticos e E-books (CRP 24/02327)',
     description:
-      'Guias práticos, ferramentas gratuitas e atendimento psicológico online com a Psicóloga Maria do Socorro Araujo Teixeira (CRP 24/02327).',
+      'Artigos aprofundados, ferramentas gratuitas, materiais imprimíveis e e-books revisados pela Psicóloga Maria do Socorro Araujo Teixeira (CRP 24/02327).',
     url: 'https://psicologiadireta.com.br',
     siteName: 'Psicologia Direta',
     locale: 'pt_BR',
     type: 'website',
-    images: ['/icone_base.png'],
+    images: ['/assets/psicologia-direta/03-hero-home.png'],
   },
 }
 
@@ -61,7 +65,6 @@ export default function RootLayout({
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
-        <WhatsAppButton />
         <CookieBanner />
       </body>
     </html>

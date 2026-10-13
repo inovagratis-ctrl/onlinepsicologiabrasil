@@ -3,52 +3,52 @@ import { Brain, Puzzle, Cloud, Zap, Users, BookOpen, ArrowRight, AlertTriangle }
 
 const services = [
   {
-    icon: Puzzle,
-    title: 'Orientação para Pais de Crianças Autistas (TEA)',
+    icon: Cloud,
+    title: 'Depressão no Adulto & Ativação Comportamental',
     description:
-      'Suporte estruturado aos pais para organização de rotina visual, comunicação funcional e manejo de crises no ambiente natural.',
-    href: '/autismo#servico-especializado',
-    color: 'bg-primary-100 text-primary-700',
+      'Protocolos da TCC para superar a anedonia, quebrar ciclos de inércia e desesperança e restabelecer a rotina com propósito.',
+    href: '/depressao#servico-especializado',
+    color: 'bg-indigo-100 text-indigo-700',
   },
   {
     icon: Zap,
-    title: 'Atendimento Psicológico para Adultos com TDAH',
+    title: 'Ansiedade, Preocupação Crônica & Pânico',
     description:
-      'Psicoterapia em TCC focada em funções executivas, organização de tarefas e ambiente, manejo de procrastinação e regulação emocional.',
-    href: '/tdah#servico-especializado',
-    color: 'bg-purple-100 text-purple-700',
-  },
-  {
-    icon: Cloud,
-    title: 'Atendimento para Ansiedade e Crises de Pânico',
-    description:
-      'Acompanhamento em Terapia Cognitivo-Comportamental para compreensão de gatilhos, regulação fisiológica e retomada gradual da autonomia.',
-    href: '/ansiedade#servico-especializado',
+      'Manejo de crises agudas, regulação do sistema nervoso simpático, quebra de pensamentos catastróficos e agorafobia.',
+    href: '/panico#servico-especializado',
     color: 'bg-blue-100 text-blue-700',
   },
   {
-    icon: Users,
-    title: 'Orientação Parental e Relação Família-Escola',
+    icon: Brain,
+    title: 'Compulsão Alimentar & Comer Emocional',
     description:
-      'Construção de combinados familiares sem recorrer a punições constantes e preparação técnica para reuniões e parceria com a escola.',
-    href: '/orientacao-parental#servico-especializado',
-    color: 'bg-accent-100 text-accent-700',
+      'Tratamento especializado do ciclo restrição-descontrole, fome emocional e técnicas de tolerância ao mal-estar da DBT.',
+    href: '/compulsao-alimentar#servico-especializado',
+    color: 'bg-rose-100 text-rose-700',
   },
   {
-    icon: BookOpen,
-    title: 'Apoio em Dislexia e Dificuldades de Aprendizagem',
+    icon: Puzzle,
+    title: 'TOC: Exposição e Prevenção de Resposta (EPR)',
     description:
-      'Orientação sobre adaptação de tarefas escolares em casa, fortalecimento da autoestima e manejo da ansiedade de desempenho.',
-    href: '/dislexia-aprendizagem#servico-especializado',
+      'Tratamento padrão-ouro para desarmar obsessões e rituais de checagem, contaminação, simetria e pensamentos intrusivos tabus.',
+    href: '/toc#servico-especializado',
     color: 'bg-amber-100 text-amber-700',
   },
   {
-    icon: Brain,
-    title: 'Psicoterapia Individual e Avaliação Inicial (Saúde Mental)',
+    icon: Users,
+    title: 'Narcisismo, Gaslighting & Relações Tóxicas',
     description:
-      'Escuta clínica ética e sigilosa para adultos e famílias que buscam compreender demandas emocionais e planejar cuidados baseados em evidências.',
-    href: '/saude-mental#servico-especializado',
-    color: 'bg-secondary-100 text-secondary-700',
+      'Espaço seguro para adultos superarem vínculos abusivos, romperem a culpa crônica e resgatarem a autonomia pessoal.',
+    href: '/relacionamentos-narcisismo#servico-especializado',
+    color: 'bg-purple-100 text-purple-700',
+  },
+  {
+    icon: BookOpen,
+    title: 'Acervo Clínico & Supervisão para Psicólogos',
+    description:
+      'Ferramentas práticas de consultório (RPDs, anamneses, pranchas visuais TCC) e supervisão clínica ética individual.',
+    href: '/materiais-psicologos#servico-especializado',
+    color: 'bg-emerald-100 text-emerald-700',
   },
 ]
 

@@ -54,47 +54,47 @@ const DEFAULT_ROUTINE_SLOTS = [
 
 const categories = [
   {
-    icon: Puzzle,
-    title: 'Habilidades Sociais',
-    description: 'Atividades para desenvolver interação e comunicação social',
-    color: 'bg-primary-100 text-primary-600',
-    materials: [
-      { name: 'Roteiro de Interação Social', type: 'PDF Imprimível', pages: 15, free: true, link: '/materiais/interacao-social' },
-      { name: 'Jogo de Regras Sociais', type: 'PDF Imprimível', pages: 10, free: true, link: '/materiais/regras-sociais' },
-      { name: 'Histórias Sociais para Crianças', type: 'PDF Completo', pages: 20, free: false, price: 14.9, link: '/materiais/historias-sociais' },
-    ],
-  },
-  {
-    icon: MessageCircle,
-    title: 'Comunicação Funcional',
-    description: 'Materiais para estimular a comunicação funcional no ambiente natural',
-    color: 'bg-secondary-100 text-secondary-600',
-    materials: [
-      { name: 'Quadro de Comunicação Funcional', type: 'PDF Imprimível', pages: 8, free: true, link: '/materiais/comunicacao-funcional' },
-      { name: 'PECS - Sistema de Comunicação por Figuras', type: 'PDF Completo', pages: 25, free: false, price: 17.9, link: '/materiais/pecs' },
-      { name: 'Atividades de Solicitação', type: 'PDF Completo', pages: 12, free: false, price: 9.9, link: '/materiais/atividades-solicitacao' },
-    ],
-  },
-  {
     icon: BookOpen,
-    title: 'Rotinas e Organização Visual',
-    description: 'Quadros e rotinas visuais para previsibilidade no dia a dia',
-    color: 'bg-accent-100 text-accent-600',
+    title: 'Ferramentas Clínicas para Psicólogos (TCC)',
+    description: 'Protocolos de consultório, RPDs, folhas de conceitualização e monitoramento clínico',
+    color: 'bg-emerald-100 text-emerald-700',
     materials: [
-      { name: 'Quadro de Rotina Diária', type: 'PDF Imprimível', pages: 5, free: true, link: '/materiais/quadro-rotina' },
-      { name: 'Sequência de Atividades', type: 'PDF Imprimível', pages: 10, free: true, link: '/materiais/sequencia-atividades' },
-      { name: 'Timer Visual para Transições', type: 'PDF Imprimível', pages: 3, free: true, link: '/materiais/timer-visual' },
+      { name: 'Registro de Pensamentos Disfuncionais (RPD 5 Colunas)', type: 'PDF Clínico Imprimível', pages: 8, free: true, link: '/materiais-psicologos' },
+      { name: 'Ficha de Anamnese Inicial do Adulto & Contrato Terapêutico (CFP)', type: 'PDF Clínico Imprimível', pages: 12, free: true, link: '/materiais-psicologos' },
+      { name: 'Protocolo de Ativação Comportamental para Depressão', type: 'Guia Clínico Completo', pages: 22, free: false, price: 19.9, link: '/materiais-psicologos' },
     ],
   },
   {
     icon: Heart,
-    title: 'Regulação Emocional',
-    description: 'Estratégias visuais para nomear emoções e acolher crises',
-    color: 'bg-purple-100 text-purple-600',
+    title: 'Manejo de Ansiedade, Pânico e TOC no Adulto',
+    description: 'Termômetros de sintomas, registros de crise e fichas de Exposição e Prevenção de Resposta',
+    color: 'bg-blue-100 text-blue-700',
     materials: [
-      { name: 'Termômetro de Emoções', type: 'PDF Imprimível', pages: 6, free: true, link: '/materiais/termometro-emocoes' },
-      { name: 'Cartões de Sentimentos', type: 'PDF Completo', pages: 15, free: false, price: 12.9, link: '/materiais/cartoes-sentimentos' },
-      { name: 'Estratégias de Regulação', type: 'PDF Completo', pages: 12, free: false, price: 9.9, link: '/materiais/estrategias-regulacao' },
+      { name: 'Diário de Registro de Crises de Ansiedade e Pânico', type: 'PDF Imprimível', pages: 6, free: true, link: '/materiais#registro-ansiedade' },
+      { name: 'Termômetro de Desativação Fisiológica (0 a 10)', type: 'PDF Imprimível', pages: 6, free: true, link: '/materiais/termometro-emocoes' },
+      { name: 'Hierarquia de Exposição e Prevenção de Resposta (TOC)', type: 'PDF Completo', pages: 18, free: false, price: 16.9, link: '/materiais-psicologos' },
+    ],
+  },
+  {
+    icon: Puzzle,
+    title: 'Compulsão Alimentar e Relações Tóxicas',
+    description: 'Diários de alimentação consciente e checklists de proteção contra manipulação narcisista',
+    color: 'bg-purple-100 text-purple-700',
+    materials: [
+      { name: 'Checklist de Identificação de Gaslighting e Limites Assertivos', type: 'PDF Imprimível', pages: 5, free: true, link: '/relacionamentos-narcisismo' },
+      { name: 'Diário de Alimentação Consciente (Mindful Eating)', type: 'PDF Imprimível', pages: 8, free: true, link: '/compulsao-alimentar' },
+      { name: 'Guia de Enfrentamento ao Vínculo Narcisista e Trauma Bond', type: 'PDF Completo', pages: 24, free: false, price: 19.9, link: '/relacionamentos-narcisismo' },
+    ],
+  },
+  {
+    icon: MessageCircle,
+    title: 'Recursos Terapêuticos Visuais (Apoio Clínico)',
+    description: 'Pranchas de comunicação, cartões emocionais e histórias estruturadas para uso no consultório',
+    color: 'bg-amber-100 text-amber-700',
+    materials: [
+      { name: 'Cartões de Sentimentos e Emoções', type: 'Cartões Terapêuticos A4', pages: 15, free: false, price: 12.9, link: '/materiais/cartoes-sentimentos' },
+      { name: 'Pranchas e Cartões de Apoio Visual (CAA)', type: 'Kit Completo A4', pages: 25, free: false, price: 17.9, link: '/materiais/pecs' },
+      { name: 'Histórias Sociais Estruturadas', type: 'E-book em PDF A4', pages: 20, free: false, price: 14.9, link: '/materiais/historias-sociais' },
     ],
   },
 ]
@@ -153,7 +153,7 @@ export default function Materiais() {
   }
 
   return (
-    <div className="min-h-screen bg-warm-50 py-12">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 py-12">
       <BreadcrumbJsonLd
         items={[
           { name: 'Início', url: '/' },
@@ -531,21 +531,32 @@ export default function Materiais() {
           </div>
         </section>
 
-        {/* SEÇÃO 2: Coleta Opcional de E-mail (LGPD Estrita — Sem Dados Clínicos) */}
-        <section className="bg-white rounded-3xl border border-primary-100 p-6 md:p-8 shadow-sm">
-          <div className="grid md:grid-cols-12 gap-6 items-center">
-            <div className="md:col-span-7 space-y-2">
-              <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary-700">
-                <ShieldCheck className="w-4 h-4" />
-                Comunicação Opcional e Ética (LGPD)
+        {/* SEÇÃO 2: Coleta Opcional de E-mail (LGPD Estrita) com Banner Oficial */}
+        <section className="bg-white rounded-3xl border border-stone-200 overflow-hidden shadow-sm">
+          {/* Banner do Kit Gratuito */}
+          <div className="w-full bg-slate-100 border-b border-slate-200">
+            <img
+              src="/assets/psicologia-direta/10-banner-kit-gratuito.png"
+              alt="Kit gratuito de rotina e emoções para crianças com quadro de rotina, termômetro das emoções e cartões visuais"
+              className="w-full h-auto max-h-72 object-cover object-center"
+              loading="lazy"
+            />
+          </div>
+
+          <div className="p-6 md:p-8">
+            <div className="grid md:grid-cols-12 gap-6 items-center">
+              <div className="md:col-span-7 space-y-2">
+                <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#236B78]">
+                  <ShieldCheck className="w-4 h-4 text-[#236B78]" />
+                  Comunicação Opcional e Ética (LGPD)
+                </div>
+                <h2 className="text-xl md:text-2xl font-bold text-slate-900">
+                  Deseja receber novos checklists e guias imprimíveis por e-mail?
+                </h2>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  O acesso às ferramentas acima é 100% aberto e não exige cadastro. Se quiser receber avisos quando publicarmos novos materiais gratuitos, informe apenas seu e-mail abaixo (nunca solicitamos informações clínicas em cadastros informativos).
+                </p>
               </div>
-              <h2 className="text-xl md:text-2xl font-bold text-gray-800">
-                Deseja receber novos checklists e guias imprimíveis por e-mail?
-              </h2>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                O acesso às ferramentas acima é 100% aberto e não exige cadastro. Se quiser receber avisos quando publicarmos novos materiais gratuitos, informe apenas seu e-mail abaixo (nunca solicitamos informações clínicas em cadastros informativos).
-              </p>
-            </div>
 
             <div className="md:col-span-5">
               {subscribed ? (
@@ -591,7 +602,8 @@ export default function Materiais() {
               )}
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
         {/* SEÇÃO 3: Acervo de Materiais Visuais em PDF (Gratuitos e Premium) */}
         <div className="space-y-8">

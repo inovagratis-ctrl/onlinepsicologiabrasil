@@ -16,7 +16,7 @@ export default function NotFound() {
   }
 
   return (
-    <div className="min-h-[80vh] bg-warm-50 py-16 px-4 flex items-center justify-center">
+    <div className="min-h-[80vh] bg-[#F8FAFC] py-16 px-4 flex items-center justify-center">
       <div className="max-w-3xl w-full bg-white rounded-3xl border border-gray-200 shadow-sm p-8 md:p-12 text-center space-y-8">
         <div>
           <span className="inline-block px-3.5 py-1 rounded-full bg-primary-50 text-primary-700 text-xs font-bold uppercase tracking-wider mb-3">

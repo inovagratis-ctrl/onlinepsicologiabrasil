@@ -1,3 +1,5 @@
+import { CategorySlug } from './categories'
+
 export interface AffiliateProduct {
   id: string
   title: string
@@ -9,7 +11,7 @@ export interface AffiliateProduct {
   affiliateUrl: string
   lastVerified: string
   active: boolean
-  relatedTopics: ('tdah' | 'autismo' | 'ansiedade' | 'dislexia-aprendizagem' | 'orientacao-parental' | 'saude-mental')[]
+  relatedTopics: CategorySlug[]
 }
 
 export const ETHICAL_AFFILIATE_DISCLAIMER =
@@ -173,7 +175,7 @@ export function getAffiliatesByIds(ids: string[]): AffiliateProduct[] {
 }
 
 export function getAffiliatesByTopic(
-  topic: 'tdah' | 'autismo' | 'ansiedade' | 'dislexia-aprendizagem' | 'orientacao-parental' | 'saude-mental'
+  topic: CategorySlug
 ): AffiliateProduct[] {
   return getAffiliateProducts().filter((p) => p.active && p.relatedTopics.includes(topic))
 }

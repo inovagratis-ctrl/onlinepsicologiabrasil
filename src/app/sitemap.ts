@@ -8,15 +8,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://psicologiadireta.com.br'
   const lastModified = new Date()
 
-  // Apenas páginas públicas de valor editorial, utilitário, institucional e legal (excluindo /admin, /area-paciente, /video, /download)
   const coreRoutes = [
     { path: '', priority: 1.0, changeFrequency: 'weekly' as const },
-    { path: '/servicos', priority: 0.9, changeFrequency: 'weekly' as const },
-    { path: '/materiais', priority: 0.9, changeFrequency: 'weekly' as const },
+    { path: '/materiais', priority: 0.95, changeFrequency: 'weekly' as const },
+    { path: '/materiais/historias-sociais', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/materiais/pecs', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/materiais/cartoes-sentimentos', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/materiais/estrategias-regulacao', priority: 0.85, changeFrequency: 'monthly' as const },
+    { path: '/materiais/atividades-solicitacao', priority: 0.85, changeFrequency: 'monthly' as const },
+    { path: '/materiais/quadro-rotina', priority: 0.85, changeFrequency: 'monthly' as const },
+    { path: '/materiais/termometro-emocoes', priority: 0.85, changeFrequency: 'monthly' as const },
+    { path: '/materiais/timer-visual', priority: 0.85, changeFrequency: 'monthly' as const },
     { path: '/blog', priority: 0.9, changeFrequency: 'daily' as const },
     { path: '/sobre', priority: 0.8, changeFrequency: 'monthly' as const },
     { path: '/metodologia-editorial', priority: 0.8, changeFrequency: 'monthly' as const },
-    { path: '/agendamento', priority: 0.8, changeFrequency: 'weekly' as const },
     { path: '/contato', priority: 0.8, changeFrequency: 'monthly' as const },
     { path: '/politica-de-privacidade', priority: 0.5, changeFrequency: 'yearly' as const },
     { path: '/politica-de-cookies', priority: 0.5, changeFrequency: 'yearly' as const },

@@ -11,9 +11,11 @@ import {
 } from '@/data/affiliates'
 import { buildUtmUrl, trackEvent } from '@/lib/analytics'
 
+import { CategorySlug } from '@/data/categories'
+
 interface AffiliateBoxProps {
   productIds?: string[]
-  topic?: 'tdah' | 'autismo' | 'ansiedade' | 'dislexia-aprendizagem' | 'orientacao-parental' | 'saude-mental'
+  topic?: CategorySlug
   campaign?: string
   title?: string
 }
