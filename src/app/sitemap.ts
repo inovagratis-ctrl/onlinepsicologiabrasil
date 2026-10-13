@@ -2,6 +2,8 @@ import { MetadataRoute } from 'next'
 import { EDITORIAL_ARTICLES } from '@/data/articles'
 import { CATEGORY_LIST } from '@/data/categories'
 
+export const dynamic = 'force-static'
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://psicologiadireta.com.br'
   const lastModified = new Date()
