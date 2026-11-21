@@ -77,11 +77,8 @@ export default function Navbar() {
               <span className="text-lg sm:text-xl font-extrabold tracking-tight text-[#0F5B5B] whitespace-nowrap">
                 Psicologia Direta
               </span>
-              <span className="hidden sm:block text-[9.5px] sm:text-[10.5px] font-bold uppercase tracking-wider text-slate-500 mt-1 whitespace-nowrap">
-                Psicologia &amp; Ferramentas Clínicas
-              </span>
-              <span className="sm:hidden text-[9px] font-bold uppercase tracking-wider text-slate-500 mt-0.5 whitespace-nowrap">
-                Ferramentas Clínicas
+              <span className="text-[11px] sm:text-xs font-medium text-slate-500 mt-1 whitespace-nowrap">
+                Ferramentas &amp; Psicoeducação
               </span>
             </div>
           </Link>

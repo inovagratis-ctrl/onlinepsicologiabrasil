@@ -26,8 +26,8 @@ export default function Footer() {
                 <span className="text-base sm:text-lg font-extrabold tracking-tight text-[#0F5B5B] whitespace-nowrap">
                   Psicologia Direta
                 </span>
-                <span className="text-[9.5px] font-bold uppercase tracking-wider text-slate-500 mt-1 whitespace-nowrap">
-                  Psicologia &amp; Ferramentas Clínicas
+                <span className="text-[11px] font-medium text-slate-500 mt-1 whitespace-nowrap">
+                  Ferramentas &amp; Psicoeducação
                 </span>
               </div>
             </Link>
