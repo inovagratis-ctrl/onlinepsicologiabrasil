@@ -13,6 +13,8 @@ import {
   X,
   PhoneCall,
   ShieldCheck,
+  Sparkles,
+  Scale,
 } from 'lucide-react'
 
 export default function Navbar() {
@@ -152,6 +154,24 @@ export default function Navbar() {
                   </Link>
 
                   <Link
+                    href="/ferramentas/plano-autocuidado"
+                    onClick={() => setToolsDropdown(false)}
+                    className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F5F8F6] transition group"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-800 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                      <Sparkles className="w-4 h-4 text-[#0F5B5B]" />
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-slate-900 block group-hover:text-[#0F5B5B]">
+                        Plano de Autocuidado
+                      </span>
+                      <span className="text-[11px] text-slate-500 block leading-tight">
+                        Roteiro pessoal com geração de PDF A4
+                      </span>
+                    </div>
+                  </Link>
+
+                  <Link
                     href="/ferramentas/gerador-documentos"
                     onClick={() => setToolsDropdown(false)}
                     className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F5F8F6] transition group"
@@ -165,6 +185,24 @@ export default function Navbar() {
                       </span>
                       <span className="text-[11px] text-slate-500 block leading-tight">
                         Modelos editáveis baseados na Res. CFP 06/2019
+                      </span>
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/ferramentas/checklist-documentos-cfp"
+                    onClick={() => setToolsDropdown(false)}
+                    className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F5F8F6] transition group"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-teal-50 text-teal-800 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                      <Scale className="w-4 h-4 text-[#0F5B5B]" />
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-slate-900 block group-hover:text-[#0F5B5B]">
+                        Checklist Ético CFP
+                      </span>
+                      <span className="text-[11px] text-slate-500 block leading-tight">
+                        Conferência de normas da Res. CFP 06/2019
                       </span>
                     </div>
                   </Link>
@@ -254,12 +292,28 @@ export default function Navbar() {
               Termômetro de Burnout
             </Link>
             <Link
+              href="/ferramentas/plano-autocuidado"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-2 px-2 py-2 text-sm text-slate-700 hover:text-[#0F5B5B]"
+            >
+              <Sparkles className="w-4 h-4 text-[#0F5B5B]" />
+              Plano de Autocuidado (PDF)
+            </Link>
+            <Link
               href="/ferramentas/gerador-documentos"
               onClick={() => setIsOpen(false)}
               className="flex items-center gap-2 px-2 py-2 text-sm text-slate-700 hover:text-[#0F5B5B]"
             >
               <FileSignature className="w-4 h-4 text-teal-600" />
               Gerador de Documentos CFP
+            </Link>
+            <Link
+              href="/ferramentas/checklist-documentos-cfp"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-2 px-2 py-2 text-sm text-slate-700 hover:text-[#0F5B5B]"
+            >
+              <Scale className="w-4 h-4 text-teal-600" />
+              Checklist Ético CFP
             </Link>
           </div>
 

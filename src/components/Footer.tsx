@@ -76,6 +76,15 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/ferramentas/plano-autocuidado"
+                  className="hover:text-white transition flex items-center gap-2"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#7BAE9B]"></span>
+                  Plano Pessoal de Autocuidado (PDF)
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/ferramentas"
                   className="hover:text-white transition flex items-center gap-2"
                 >
@@ -118,6 +127,15 @@ export default function Footer() {
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-[#7BAE9B]"></span>
                   Contrato Terapêutico Simples
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/ferramentas/checklist-documentos-cfp"
+                  className="hover:text-white transition flex items-center gap-2"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#7BAE9B]"></span>
+                  Checklist Ético CFP (Res. 06/2019)
                 </Link>
               </li>
             </ul>

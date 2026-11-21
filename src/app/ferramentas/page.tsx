@@ -99,7 +99,7 @@ export default function FerramentasHubPage() {
             <Users className="w-6 h-6 text-slate-400 hidden sm:block" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Card 1: GAD-7 */}
             <div className="bg-white rounded-3xl p-7 border border-slate-200 shadow-xs hover:shadow-md hover:border-[#7BAE9B] transition-all flex flex-col justify-between group">
               <div className="space-y-4">
@@ -117,18 +117,18 @@ export default function FerramentasHubPage() {
                     Rastreio de Ansiedade (Escala GAD-7)
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-                    Instrumento padrão de 7 perguntas elaborado por Spitzer et al. (2006) para avaliar frequência e intensidade de preocupações e sintomas ansiosos nas últimas duas semanas.
+                    Instrumento padrão de 7 perguntas elaborado por Spitzer et al. (2006) para avaliar frequência e intensidade de sintomas ansiosos.
                   </p>
                 </div>
 
                 <div className="space-y-2 pt-2 text-xs text-slate-600 border-t border-slate-100">
                   <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#0F5B5B]"></span>
-                    <span>Classificação por faixa: Mínima, Leve, Moderada ou Severa</span>
+                    <span>Pontuação de 0 a 21 por faixas</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#0F5B5B]"></span>
-                    <span>Relatório em PDF com gráfico e orientações informativas</span>
+                    <span>Relatório informativo em PDF</span>
                   </div>
                 </div>
               </div>
@@ -136,9 +136,9 @@ export default function FerramentasHubPage() {
               <div className="pt-6 mt-4 border-t border-slate-100">
                 <Link
                   href="/testes/ansiedade-gad7"
-                  className="w-full inline-flex items-center justify-center gap-2 bg-[#0F5B5B] hover:bg-[#123F42] text-white font-bold py-3.5 px-4 rounded-xl text-xs sm:text-sm transition shadow-xs"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-[#0F5B5B] hover:bg-[#123F42] text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition shadow-xs"
                 >
-                  <span>Iniciar Avaliação de Ansiedade</span>
+                  <span>Iniciar Avaliação</span>
                   <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -158,21 +158,21 @@ export default function FerramentasHubPage() {
 
                 <div>
                   <h3 className="text-xl font-bold text-[#123F42] group-hover:text-orange-700 transition">
-                    Termômetro de Estresse e Burnout (CID-11 QD85)
+                    Termômetro de Burnout (QD85)
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-                    Questionário educativo de autorreflexão laboral inspirado nas 3 dimensões da CID-11: exaustão de energia, despersonalização/cinismo e sensação de ineficácia.
+                    Questionário educativo de autorreflexão laboral inspirado nas 3 dimensões da CID-11: exaustão, cinismo e ineficácia.
                   </p>
                 </div>
 
                 <div className="space-y-2 pt-2 text-xs text-slate-600 border-t border-slate-100">
                   <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-orange-600"></span>
-                    <span>Pontuação dividida pelas 3 dimensões de sobrecarga</span>
+                    <span>Análise nas 3 dimensões de sobrecarga</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-orange-600"></span>
-                    <span>Relatório em PDF com recomendações de autorreflexão</span>
+                    <span>Relatório em PDF com orientações</span>
                   </div>
                 </div>
               </div>
@@ -180,9 +180,53 @@ export default function FerramentasHubPage() {
               <div className="pt-6 mt-4 border-t border-slate-100">
                 <Link
                   href="/testes/burnout"
-                  className="w-full inline-flex items-center justify-center gap-2 bg-[#123F42] hover:bg-[#0F5B5B] text-white font-bold py-3.5 px-4 rounded-xl text-xs sm:text-sm transition shadow-xs"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-[#123F42] hover:bg-[#0F5B5B] text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition shadow-xs"
                 >
-                  <span>Iniciar Avaliação de Burnout</span>
+                  <span>Iniciar Avaliação</span>
+                  <ChevronRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Card 3: Plano de Autocuidado */}
+            <div className="bg-white rounded-3xl p-7 border border-slate-200 shadow-xs hover:shadow-md hover:border-teal-300 transition-all flex flex-col justify-between group">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="w-12 h-12 rounded-2xl bg-teal-50 text-teal-800 flex items-center justify-center font-bold border border-teal-100">
+                    <Sparkles className="w-6 h-6 text-[#0F5B5B]" />
+                  </div>
+                  <span className="text-[11px] font-bold text-teal-800 bg-teal-50 border border-teal-200/70 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                    <Clock className="w-3.5 h-3.5" /> 5 min
+                  </span>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-bold text-[#123F42] group-hover:text-[#0F5B5B] transition">
+                    Plano Pessoal de Autocuidado
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                    Roteiro guiado para mapear sinais de alerta, âncoras de alívio, pessoas de confiança e rede de emergência.
+                  </p>
+                </div>
+
+                <div className="space-y-2 pt-2 text-xs text-slate-600 border-t border-slate-100">
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#0F5B5B]"></span>
+                    <span>100% privado, sem envio a servidores</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#0F5B5B]"></span>
+                    <span>Exportação de folha A4 em PDF</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-6 mt-4 border-t border-slate-100">
+                <Link
+                  href="/ferramentas/plano-autocuidado"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-[#0F5B5B] hover:bg-[#123F42] text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition shadow-xs"
+                >
+                  <span>Montar Meu Plano</span>
                   <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -245,6 +289,30 @@ export default function FerramentasHubPage() {
                 <ChevronRight className="w-4 h-4" />
               </Link>
             </div>
+          </div>
+
+          {/* Card Checklist Ético CFP */}
+          <div className="bg-white rounded-3xl p-7 sm:p-8 border border-slate-200 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-teal-800 bg-teal-50 px-2 py-0.5 rounded-md border border-teal-100">
+                  Conformidade Profissional
+                </span>
+              </div>
+              <h3 className="text-xl font-bold text-[#123F42]">
+                Checklist Ético de Emissão Documental (Resolução CFP nº 06/2019)
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
+                Lista interativa de conferência prévia para declarações, atestados, relatórios e recibos. Valide numeração de laudas, rubricas, vedações de diagnóstico e regras de arquivamento seguro por 5 anos.
+              </p>
+            </div>
+            <Link
+              href="/ferramentas/checklist-documentos-cfp"
+              className="inline-flex items-center justify-center gap-2 bg-[#123F42] hover:bg-[#0F5B5B] text-white font-bold py-3.5 px-6 rounded-xl text-xs sm:text-sm transition shadow-xs shrink-0 w-full sm:w-auto"
+            >
+              <span>Acessar Checklist CFP</span>
+              <ChevronRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
 
