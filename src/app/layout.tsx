@@ -8,7 +8,7 @@ import CookieBanner from '@/components/CookieBanner'
 export const metadata: Metadata = {
   metadataBase: new URL('https://psicologiadireta.com.br'),
   title: {
-    default: 'Psicologia Direta | Plataforma Digital de Triagem Psicoeducativa e Gestão Documental',
+    default: 'Psicologia Direta | Ferramentas & Psicoeducação',
     template: '%s | Psicologia Direta',
   },
   description:

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Activity, ShieldCheck, HeartHandshake, FileCheck, PhoneCall, Award } from 'lucide-react'
+import ManageCookiesLink from './ManageCookiesLink'
 
 export default function Footer() {
   return (
@@ -143,6 +144,9 @@ export default function Footer() {
                 <Link href="/politica-de-cookies" className="hover:text-white transition">
                   Política de Cookies
                 </Link>
+              </li>
+              <li>
+                <ManageCookiesLink />
               </li>
               <li>
                 <Link href="/termos-de-uso" className="hover:text-white transition">

@@ -28,17 +28,19 @@ import {
 import AdSenseSlot from '@/components/AdSenseSlot'
 
 export const metadata: Metadata = {
-  title: 'Psicologia Direta | Ferramentas de Rastreio em Saúde Mental e Modelos CFP',
+  title: {
+    absolute: 'Psicologia Direta | Ferramentas & Psicoeducação',
+  },
   description:
-    'Portal de ferramentas de rastreio psicométrico: Questionário de Ansiedade GAD-7 com relatório em PDF, Termômetro de Burnout e Modelos de Documentos para Psicólogos (Resolução CFP nº 06/2019).',
+    'Portal de ferramentas e rastreios psicológicos educativos (Ansiedade GAD-7, Questionário de Burnout) e modelos de documentos editáveis de apoio para psicólogos.',
   keywords: [
     'teste de ansiedade online gratuito',
     'escala gad-7 com relatorio pdf',
     'questionario de burnout educativo',
-    'rastreio de esgotamento profissional',
-    'gerador de declaracao de comparecimento psicologia cfp',
+    'rastreio de estresse ocupacional',
+    'declaracao de comparecimento psicologia cfp',
     'recibo carne leao psicologo valor por extenso',
-    'modelos para psicologos cfp',
+    'modelos de documentos para psicologos',
     'psicologia direta',
   ],
   alternates: {
@@ -415,6 +417,34 @@ export default function HomePage() {
               <PhoneCall className="w-5 h-5 text-emerald-700" />
               <span>Ligar Grátis 188 (CVV)</span>
             </a>
+          </div>
+        </section>
+
+        {/* ================= FONTES CIENTÍFICAS E NORMATIVAS ================= */}
+        <section className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-4">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-700">
+            <BookOpen className="w-4 h-4 text-[#0F5B5B]" />
+            <span>Fontes Científicas e Normativas de Consulta</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-600 leading-relaxed pt-2">
+            <div>
+              <p className="font-semibold text-slate-800">• Instrumentos Psicométricos &amp; Epidemiologia:</p>
+              <p className="mt-0.5">
+                Spitzer RL, et al. (2006). <em>A brief measure for assessing generalized anxiety disorder: the GAD-7</em>. Arch Intern Med. Validação brasileira: Moreno AL, et al. (2016). <em>Trends Psychiatry Psychother</em>.
+              </p>
+              <p className="mt-1">
+                Organização Mundial da Saúde (OMS). <em>Classificação Internacional de Doenças (CID-11, Código QD85)</em> e Relatório Mundial de Saúde Mental (2022).
+              </p>
+            </div>
+            <div>
+              <p className="font-semibold text-slate-800">• Legislação Profissional e Previdenciária:</p>
+              <p className="mt-0.5">
+                Conselho Federal de Psicologia (CFP). <em>Resolução CFP nº 06/2019</em> (Elaboração de documentos escritos produzidos pela psicóloga) e <em>Código de Ética Profissional do Psicólogo</em> (Resolução CFP nº 010/2005).
+              </p>
+              <p className="mt-1">
+                Legislação Federal: <em>Lei nº 8.213/1991</em> (Benefícios da Previdência Social, Arts. 19, 20 e 118) e Instrução Normativa PRES/INSS nº 128/2022.
+              </p>
+            </div>
           </div>
         </section>
 

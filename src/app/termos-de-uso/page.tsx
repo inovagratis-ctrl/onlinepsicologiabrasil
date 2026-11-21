@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Scale, ArrowLeft } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Termos e Condições de Uso | Psicologia Direta',
+  title: 'Termos e Condições de Uso',
   description:
     'Termos e condições para uso das ferramentas, rastreios clínicos e serviços informativos do portal Psicologia Direta.',
   alternates: { canonical: 'https://psicologiadireta.com.br/termos-de-uso' },

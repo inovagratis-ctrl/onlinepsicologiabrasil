@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { AlertTriangle, PhoneCall, ShieldAlert, HeartHandshake, ArrowLeft } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Isenção de Responsabilidade Médica e Ética | Psicologia Direta',
+  title: 'Isenção de Responsabilidade Médica e Ética',
   description:
     'Aviso legal sobre o caráter não diagnóstico dos testes psicométricos online e canais de emergência em saúde mental.',
   alternates: { canonical: 'https://psicologiadireta.com.br/isencao-de-responsabilidade' },

@@ -16,7 +16,7 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Sobre a Plataforma | Plataforma Digital de Triagem Psicoeducativa e Gestão Documental',
+  title: 'Sobre a Plataforma e Curadoria Técnica',
   description:
     'Conheça a proposta institucional do portal Psicologia Direta: ferramentas gratuitas de autoavaliação educativa e modelos administrativos para a prática da psicologia.',
   alternates: { canonical: 'https://psicologiadireta.com.br/sobre' },

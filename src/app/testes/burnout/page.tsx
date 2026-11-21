@@ -528,11 +528,41 @@ export default function BurnoutPage() {
           </section>
 
           <footer className="mt-8 pt-6 border-t border-slate-200 text-xs text-slate-500 flex flex-wrap items-center justify-between gap-4">
-            <div>
-              <strong>Fontes Oficiais de Consulta:</strong>
-              <p>• Organização Mundial da Saúde (OMS) - CID-11 (Código QD85: Síndrome de Burnout).</p>
-              <p>• Lei Federal nº 8.213/1991 (Planos de Benefícios da Previdência Social, Arts. 19, 20 e 118).</p>
-              <p>• Instrução Normativa PRES/INSS nº 128/2022 (Processamento pericial e administrativo de benefícios).</p>
+            <div className="space-y-1">
+              <strong>Fontes Oficiais de Consulta (Links Governamentais):</strong>
+              <p>
+                • Organização Mundial da Saúde (OMS) —{' '}
+                <a
+                  href="https://icd.who.int/browse/2024-01/mms/en#129180281"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-orange-700 underline font-semibold"
+                >
+                  CID-11 (Código QD85: Burn-out)
+                </a>
+              </p>
+              <p>
+                • Presidência da República —{' '}
+                <a
+                  href="https://www.planalto.gov.br/ccivil_03/leis/l8213cons.htm"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-orange-700 underline font-semibold"
+                >
+                  Lei Federal nº 8.213/1991 (Planos de Benefícios da Previdência Social)
+                </a>
+              </p>
+              <p>
+                • Diário Oficial da União (Imprensa Nacional) —{' '}
+                <a
+                  href="https://www.in.gov.br/en/web/dou/-/instrucao-normativa-pres/inss-n-128-de-28-de-marco-de-2022-389275441"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-orange-700 underline font-semibold"
+                >
+                  Instrução Normativa PRES/INSS nº 128/2022
+                </a>
+              </p>
             </div>
             <Link
               href="/testes/ansiedade-gad7"

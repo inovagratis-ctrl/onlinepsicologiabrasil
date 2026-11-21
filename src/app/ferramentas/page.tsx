@@ -19,7 +19,7 @@ import {
 import AdSenseSlot from '@/components/AdSenseSlot'
 
 export const metadata: Metadata = {
-  title: 'Central de Ferramentas Gratuitas | Psicologia Direta',
+  title: 'Central de Ferramentas e Rastreios Gratuitos',
   description:
     'Rastreios educativos (Ansiedade GAD-7, Questionário de Burnout) e modelos de documentos para psicólogos inspirados nas normas do CFP (Resolução 06/2019).',
   keywords: [

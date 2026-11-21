@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { ShieldCheck, Lock, Eye, Cookie, ArrowLeft } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Política de Privacidade e Proteção de Dados | Psicologia Direta',
+  title: 'Política de Privacidade e Proteção de Dados (LGPD)',
   description:
     'Diretrizes de privacidade, proteção de dados (LGPD), uso de cookies e publicidade Google AdSense no portal Psicologia Direta.',
   alternates: { canonical: 'https://psicologiadireta.com.br/politica-de-privacidade' },

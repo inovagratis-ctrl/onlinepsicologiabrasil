@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Mail, MessageSquare, Clock, MapPin, ArrowLeft, ShieldCheck, CheckCircle2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Contato & Ouvidoria | Psicologia Direta',
+  title: 'Canal de Atendimento e Ouvidoria',
   description:
     'Entre em contato com a equipe editorial e técnica do portal Psicologia Direta para dúvidas, sugestões ou suporte às ferramentas gratuitas.',
   alternates: { canonical: 'https://psicologiadireta.com.br/contato' },

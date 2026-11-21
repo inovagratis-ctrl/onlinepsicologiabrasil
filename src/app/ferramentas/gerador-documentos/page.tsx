@@ -110,10 +110,10 @@ export default function GeradorDocumentosPage() {
                 Apoio Administrativo para Clínicas e Consultórios
               </span>
               <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1">
-                Modelos de Documentos Psicológicos Padronizados
+                Modelos Editáveis de Apoio Documental para Psicólogos
               </h1>
               <p className="text-sm text-slate-600 mt-2 leading-relaxed">
-                Ferramenta com modelos editáveis de apoio para emissão de declarações de comparecimento, recibos fiscais com conversor por extenso para o Carnê-Leão e termos de acordo terapêutico. <strong>O processamento ocorre integralmente no seu navegador</strong>: nenhum dado de clientes ou valores é transmitido para servidores remotos.
+                Modelos editáveis de apoio para declarações de comparecimento, recibos fiscais com conversor por extenso para o Carnê-Leão e termos de acordo terapêutico. <strong>Sujeitos à revisão, conferência e adequação técnica individual de cada profissional</strong> conforme a Resolução CFP nº 06/2019. O processamento ocorre 100% no seu navegador, sem envio de dados a servidores.
               </p>
             </div>
           </div>

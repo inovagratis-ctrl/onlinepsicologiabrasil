@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Cookie, ArrowLeft, ShieldCheck, Info } from 'lucide-react'
+import ManageCookiesLink from '@/components/ManageCookiesLink'
 
 export const metadata: Metadata = {
-  title: 'Política de Cookies | Psicologia Direta',
+  title: 'Política de Cookies e Gestão de Consentimento',
   description:
     'Informações transparentes sobre como cookies e tecnologias semelhantes são utilizados no portal Psicologia Direta e na veiculação de anúncios do Google.',
   alternates: { canonical: 'https://psicologiadireta.com.br/politica-de-cookies' },
@@ -90,7 +91,22 @@ export default function PoliticaCookiesPage() {
               4. Como Você Pode Controlar ou Desativar Cookies
             </h2>
             <p>
-              Você pode, a qualquer momento, desativar a veiculação de publicidade personalizada ou gerenciar cookies diretamente nas configurações do seu navegador ou através dos seguintes portais oficiais:
+              Você pode, a qualquer momento, revisar suas escolhas, recusar cookies opcionais ou alterar suas preferências diretamente neste portal:
+            </p>
+
+            <div className="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div className="text-xs text-slate-700">
+                <strong className="block font-bold text-slate-900 mb-0.5">Painel de Consentimento (LGPD)</strong>
+                Reabra o banner de preferências para aceitar ou recusar cookies analíticos e de publicidade.
+              </div>
+              <ManageCookiesLink
+                label="Abrir Painel de Preferências"
+                className="px-4 py-2 bg-[#0F5B5B] hover:bg-[#123F42] text-white text-xs font-bold rounded-xl transition shadow-xs inline-flex items-center gap-1.5 shrink-0"
+              />
+            </div>
+
+            <p className="text-xs text-slate-600 pt-2">
+              Você também pode desativar o rastreamento ou a personalização de anúncios diretamente nos portais oficiais dos provedores:
             </p>
             <ul className="list-disc pl-5 space-y-1 text-xs text-slate-600">
               <li>
