@@ -1,607 +1,429 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
-import Image from 'next/image'
 import {
-  BookOpen,
-  FileText,
+  Activity,
   ArrowRight,
-  CheckCircle2,
-  Shield,
-  Sparkles,
-  ExternalLink,
-  Calendar,
-  Layers,
-  Heart,
+  Award,
+  BookOpen,
   Brain,
-  Smile,
-  Compass,
-  ShoppingBag,
-  Clock
+  CheckCircle2,
+  Clock,
+  Coins,
+  FileCheck,
+  FileSignature,
+  FileText,
+  Flame,
+  HeartHandshake,
+  HeartPulse,
+  HelpCircle,
+  PhoneCall,
+  Scale,
+  ShieldAlert,
+  ShieldCheck,
+  Sparkles,
+  Stethoscope,
+  Users,
+  Wrench,
 } from 'lucide-react'
-import { EDITORIAL_ARTICLES, PROFESSIONAL_AUTHOR, PROFESSIONAL_CRP } from '@/data/articles'
-import { OrganizationJsonLd } from '@/components/JsonLd'
-import LeadMagnetSection from '@/components/LeadMagnetSection'
-import ConsultationCallout from '@/components/ConsultationCallout'
+import AdSenseSlot from '@/components/AdSenseSlot'
 
-// 3 MATERIAIS MAIS VENDIDOS
-const TOP_3_MATERIALS = [
-  {
-    title: 'Histórias Sociais Ilustradas para Crianças',
-    badge: '20 Páginas A4 • Mais Vendido',
-    desc: 'Contos estruturados para ensinar previsibilidade, regras de convivência e transições do dia a dia sem crises.',
-    price: 'R$ 14,90',
-    href: '/materiais/historias-sociais',
-    accentColor: 'from-[#236B78] to-[#18313B]',
-    tag: 'Previsibilidade & Rotina',
-    pages: '20 págs.',
-    previewSnippets: ['Rotina na escola', 'Esperar a vez', 'Lidar com mudanças'],
-    image: '/assets/psicologia-direta/07-mockup-historias-sociais.png',
-    imageAlt: 'Mockup de um material impresso de histórias sociais e cartões visuais para crianças',
+export const metadata: Metadata = {
+  title: 'Psicologia Direta | Ferramentas de Rastreio em Saúde Mental e Modelos CFP',
+  description:
+    'Portal de ferramentas de rastreio psicométrico: Questionário de Ansiedade GAD-7 com relatório em PDF, Termômetro de Burnout e Modelos de Documentos para Psicólogos (Resolução CFP nº 06/2019).',
+  keywords: [
+    'teste de ansiedade online gratuito',
+    'escala gad-7 com relatorio pdf',
+    'questionario de burnout educativo',
+    'rastreio de esgotamento profissional',
+    'gerador de declaracao de comparecimento psicologia cfp',
+    'recibo carne leao psicologo valor por extenso',
+    'modelos para psicologos cfp',
+    'psicologia direta',
+  ],
+  alternates: {
+    canonical: 'https://psicologiadireta.com.br',
   },
-  {
-    title: 'Pranchas e Cartões de Comunicação Visual (CAA)',
-    badge: '25 Páginas A4 • Kit Completo',
-    desc: 'Pranchas temáticas e cartões para estimular a comunicação funcional, autonomia e reduzir a frustração.',
-    price: 'R$ 17,90',
-    href: '/materiais/pecs',
-    accentColor: 'from-[#236B78] to-[#2F5360]',
-    tag: 'Comunicação Alternativa (CAA)',
-    pages: '25 págs.',
-    previewSnippets: ['Alimentos & Lanches', 'Brinquedos & Escola', 'Tiras de frases "Eu quero"'],
-    image: '/assets/psicologia-direta/09-mockup-kit-rotina.png',
-    imageAlt: 'Kit visual de pranchas e cartões de comunicação e rotina diária',
-  },
-  {
-    title: 'Cartões de Sentimentos e Emoções',
-    badge: '15 Páginas A4 • Psicoeducação',
-    desc: 'Recurso lúdico para ajudar crianças a identificar, nomear e comunicar o que sentem no corpo e na mente.',
-    price: 'R$ 12,90',
-    href: '/materiais/cartoes-sentimentos',
-    accentColor: 'from-[#C9785B] to-[#9E523A]',
-    tag: 'Regulação Emocional',
-    pages: '15 págs.',
-    previewSnippets: ['Raiva & Frustração', 'Medo & Ansiedade', 'Estratégias de Calma'],
-    image: '/assets/psicologia-direta/08-mockup-cartoes-emocoes.png',
-    imageAlt: 'Cartões visuais de emoções e termômetro de sentimentos organizados para uso educativo',
-  },
-]
+}
 
-// 3 TEMAS PRINCIPAIS (ADULTOS & PSICÓLOGOS)
-const TOP_3_THEMES = [
-  {
-    slug: '/depressao',
-    title: 'Depressão & Ativação Comportamental',
-    desc: 'Protocolos em TCC para quebrar o ciclo da anedonia e inércia no adulto, restaurando a energia e a motivação diária.',
-    icon: Brain,
-    color: 'bg-indigo-50 text-indigo-800 border-indigo-200',
-    count: 'Artigos & Protocolos',
-    image: '/assets/psicologia-direta/05-categoria-neurodesenvolvimento.png',
-    imageAlt: 'Materiais de apoio clínico e protocolos para depressão',
-  },
-  {
-    slug: '/panico',
-    title: 'Síndrome do Pânico & Crises Agudas',
-    desc: 'Compreenda a curva da adrenalina, técnicas de desativação fisiológica e como desarmar a catastrofização corporal.',
-    icon: Heart,
-    color: 'bg-rose-50 text-rose-800 border-rose-200',
-    count: 'Manejo de Crises & TCC',
-    image: '/assets/psicologia-direta/06-categoria-emocoes-ansiedade.png',
-    imageAlt: 'Termômetro de ansiedade e estratégias para pânico',
-  },
-  {
-    slug: '/materiais-psicologos',
-    title: 'Área do Psicólogo: Acervo Clínico',
-    desc: 'Registros de pensamentos disfuncionais (RPDs), fichas de anamnese, contratos e ferramentas de intervenção em TCC.',
-    icon: Sparkles,
-    color: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-    count: 'Ferramentas de Consultório',
-    image: '/assets/psicologia-direta/04-categoria-orientacao-parental.png',
-    imageAlt: 'Ferramentas e protocolos para psicólogos',
-  },
-]
-
-// LIVROS COMPLEMENTARES RECOMENDADOS (AFILIADOS ÉTICOS)
-const CURATED_BOOKS = [
-  {
-    title: 'Vencendo o TDAH Adulto',
-    author: 'Russell A. Barkley',
-    desc: 'Guia definitivo com estratégias comprovadas pela ciência para gerenciar tempo e atenção.',
-    url: 'https://www.amazon.com.br/s?k=vencendo+o+tdah+adulto+russell+barkley&tag=psicologiadir-20',
-  },
-  {
-    title: 'O Cérebro da Criança',
-    author: 'Daniel J. Siegel & Tina Payne Bryson',
-    desc: 'Como ajudar a mente infantil a integrar razão e emoção sem recorrer a punições.',
-    url: 'https://www.amazon.com.br/s?k=o+cerebro+da+crianca+daniel+siegel&tag=psicologiadir-20',
-  },
-  {
-    title: 'Livre de Ansiedade',
-    author: 'Robert L. Leahy',
-    desc: 'Abordagem prática da Terapia Cognitivo-Comportamental para vencer preocupações.',
-    url: 'https://www.amazon.com.br/s?k=livre+de+ansiedade+robert+leahy&tag=psicologiadir-20',
-  },
-]
-
-export default function Home() {
-  // EXATAMENTE OS 3 ARTIGOS PRINCIPAIS MAIS BUSCADOS (ADULTOS & PSICÓLOGOS)
-  const top3Articles = EDITORIAL_ARTICLES.filter((a) =>
-    [
-      'depressao-em-adultos-ativacao-comportamental-tcc',
-      'sindrome-do-panico-como-desarmar-o-ataque-e-perder-o-medo',
-      'recursos-clinicos-para-psicologos-como-estruturar-rpds-e-anamnese-tcc',
-    ].includes(a.slug)
-  ).slice(0, 3)
-
+export default function HomePage() {
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 selection:bg-blue-100 selection:text-blue-900">
-      <OrganizationJsonLd />
+    <div className="bg-slate-50 min-h-screen">
+      {/* ================= HERO PRINCIPAL ================= */}
+      <section className="relative overflow-hidden py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b border-slate-200/90 bg-[#F5F8F6]">
+        {/* Textura Botânica Suave de Fundo */}
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-70 pointer-events-none"
+          style={{ backgroundImage: `url('/header-bg.jpg')` }}
+        />
+        <div className="absolute inset-0 bg-white/40 backdrop-blur-[1px] pointer-events-none" />
 
-      {/* 1. HERO COM FOTO PROFISSIONAL, IMAGEM DE MATERIAIS E CLAREZA DE PROPÓSITO */}
-      <section className="bg-white border-b border-slate-200 py-10 lg:py-14">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-            {/* Texto de Apresentação e Chamadas */}
-            <div className="lg:col-span-7 space-y-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#DCEFF2] border border-[#B9DCCF] text-[#236B78] text-xs font-bold">
-                <Shield className="w-3.5 h-3.5 text-[#236B78]" />
-                Psicoterapia para Adultos & Recursos para Psicólogos • {PROFESSIONAL_CRP}
+        <div className="relative max-w-5xl mx-auto text-center space-y-6">
+          {/* Badge Institucional */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-[#7BAE9B]/50 text-[#0F5B5B] text-xs font-bold tracking-wide uppercase shadow-xs">
+            <ShieldCheck className="w-4 h-4 text-[#0F5B5B]" />
+            <span>Psicologia Direta • Plataforma Digital de Triagem Psicoeducativa e Gestão Documental</span>
+          </div>
+
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-[#123F42] max-w-4xl mx-auto leading-tight">
+            Ferramentas Clínicas, Rastreios Psicoeducativos &amp; Modelos de Apoio
+          </h1>
+
+          <p className="text-slate-700 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            Acesso gratuito a instrumentos de rastreio amplamente referenciados na literatura (escala GAD-7), questionário educativo de estresse ocupacional baseado na CID-11 e modelos de documentos editáveis de apoio para psicólogos.
+          </p>
+
+          <p className="text-xs text-[#0F5B5B] font-medium max-w-xl mx-auto">
+            Curadoria técnico-clínica: <strong>Psicóloga Maria do Socorro Araujo Teixeira (CRP 24/02327)</strong>
+          </p>
+
+          {/* Quick CTA Buttons */}
+          <div className="pt-4 flex flex-wrap justify-center items-center gap-3 text-sm font-bold">
+            <Link
+              href="/testes/ansiedade-gad7"
+              className="inline-flex items-center gap-2 bg-[#0F5B5B] hover:bg-[#123F42] text-white px-6 py-3.5 rounded-xl shadow-md transition group"
+            >
+              <Activity className="w-4 h-4 group-hover:scale-110 transition" />
+              <span>Fazer Teste de Ansiedade (GAD-7)</span>
+            </Link>
+            <Link
+              href="/testes/burnout"
+              className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-[#123F42] border border-slate-300 px-6 py-3.5 rounded-xl shadow-xs transition"
+            >
+              <Flame className="w-4 h-4 text-orange-600" />
+              <span>Termômetro de Burnout</span>
+            </Link>
+            <Link
+              href="/ferramentas/gerador-documentos"
+              className="inline-flex items-center gap-2 bg-emerald-800 hover:bg-emerald-900 text-white px-6 py-3.5 rounded-xl shadow-xs transition"
+            >
+              <FileSignature className="w-4 h-4 text-emerald-200" />
+              <span>Emissor para Psicólogos</span>
+            </Link>
+          </div>
+
+          {/* Indicadores de Segurança e Privacidade */}
+          <div className="pt-6 flex flex-wrap justify-center items-center gap-6 text-xs text-slate-600 border-t border-slate-200/80">
+            <span className="flex items-center gap-1.5 font-medium">
+              <CheckCircle2 className="w-4 h-4 text-[#0F5B5B]" />
+              Sem cadastro obrigatório
+            </span>
+            <span className="flex items-center gap-1.5 font-medium">
+              <CheckCircle2 className="w-4 h-4 text-[#0F5B5B]" />
+              Processamento local no navegador (LGPD)
+            </span>
+            <span className="flex items-center gap-1.5 font-medium">
+              <CheckCircle2 className="w-4 h-4 text-[#0F5B5B]" />
+              Relatórios e documentos em PDF prontos
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* Publicidade Superior */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-8">
+        <AdSenseSlot slot="home_top" />
+      </div>
+
+      {/* ================= SUÍTE DE FERRAMENTAS PRINCIPAIS ================= */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+        
+        {/* Bloco 1: Rastreios de Saúde Mental (B2C) */}
+        <div>
+          <div className="flex items-end justify-between border-b border-slate-200 pb-4 mb-8">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md">
+                Triagem Psicométrica Preliminar
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">
+                Escalas de Autoavaliação com Relatório em PDF
+              </h2>
+            </div>
+            <Link
+              href="/ferramentas"
+              className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 transition"
+            >
+              Ver todas <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Card Ansiedade GAD-7 */}
+            <div className="bg-white rounded-3xl p-7 border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-300 transition-all flex flex-col justify-between group">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold border border-emerald-200">
+                    <Activity className="w-6 h-6" />
+                  </div>
+                  <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full flex items-center gap-1">
+                    <Clock className="w-3.5 h-3.5" /> 2 a 3 minutos
+                  </span>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition">
+                    Rastreio de Ansiedade (Escala GAD-7)
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                    Instrumento padrão de 7 perguntas elaborado por Spitzer et al. (2006) para mensurar a frequência e intensidade de sintomas ansiosos nas últimas duas semanas.
+                  </p>
+                </div>
+
+                <ul className="space-y-2 pt-2 text-xs text-slate-600 border-t border-slate-100">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Classificação por faixa: Mínima, Leve, Moderada ou Severa</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Geração de relatório A4 em PDF para imprimir ou salvar</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Técnicas educativas de autorregulação e higiene do sono</span>
+                  </li>
+                </ul>
               </div>
 
-              <h1 className="text-3xl sm:text-5xl font-extrabold text-[#18313B] leading-tight tracking-tight">
-                Saúde mental no adulto e ferramentas práticas para a clínica psicológica.
-              </h1>
-
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                Psicoterapia baseada em evidências para adultos com <strong>Depressão</strong>, <strong>Ansiedade</strong>, <strong>Síndrome do Pânico</strong>, <strong>TOC</strong>, <strong>Compulsão Alimentar</strong> e <strong>Narcisismo</strong> — além de acervo completo de materiais e protocolos clínicos para psicólogos.
-              </p>
-
-              <div className="flex flex-wrap gap-2.5 pt-1">
+              <div className="pt-6 mt-6 border-t border-slate-100">
                 <Link
-                  href="/materiais"
-                  className="inline-flex items-center gap-2 bg-[#236B78] hover:bg-[#18313B] text-white px-5 py-3 rounded-xl font-extrabold text-xs sm:text-sm transition-all shadow-md shadow-[#236B78]/20"
+                  href="/testes/ansiedade-gad7"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl text-xs sm:text-sm transition shadow-sm"
                 >
-                  <FileText className="w-4 h-4" />
-                  Ver E-books e Materiais em PDF
+                  <span>Iniciar Avaliação de Ansiedade (GAD-7)</span>
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
-                <Link
-                  href="/blog"
-                  className="inline-flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-800 px-5 py-3 rounded-xl font-bold text-xs sm:text-sm transition-colors border border-slate-200"
-                >
-                  <BookOpen className="w-4 h-4" />
-                  Ler Artigos do Blog
-                </Link>
-              </div>
-
-              <div className="pt-2 text-xs text-slate-500 flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Revisão Técnica: {PROFESSIONAL_AUTHOR} ({PROFESSIONAL_CRP})</span>
               </div>
             </div>
 
-            {/* Coluna Visual: Imagem dos Materiais (03-hero-home) + Card de Autoria */}
-            <div className="lg:col-span-5 space-y-4">
-              {/* Imagem dos Materiais da Home */}
-              <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-md bg-slate-100">
-                <img
-                  src="/assets/psicologia-direta/03-hero-home.png"
-                  alt="Materiais visuais de rotina e emoções organizados sobre uma mesa para apoiar famílias e crianças"
-                  className="w-full h-56 sm:h-64 object-cover object-center"
-                  width="1200"
-                  height="800"
-                  fetchPriority="high"
-                />
-                <div className="absolute bottom-2.5 left-2.5 right-2.5 bg-white/95 backdrop-blur-xs rounded-xl px-3 py-1.5 border border-white/60 shadow-xs flex items-center justify-between text-[11px] text-[#18313B]">
-                  <span className="font-bold flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-[#236B78]" />
-                    Recursos Visuais Prontos para Imprimir
+            {/* Card Burnout */}
+            <div className="bg-white rounded-3xl p-7 border border-slate-200 shadow-sm hover:shadow-md hover:border-orange-300 transition-all flex flex-col justify-between group">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="w-12 h-12 rounded-2xl bg-orange-50 text-orange-700 flex items-center justify-center font-bold border border-orange-200">
+                    <Flame className="w-6 h-6" />
+                  </div>
+                  <span className="text-[11px] font-bold text-orange-700 bg-orange-50 px-2.5 py-1 rounded-full flex items-center gap-1">
+                    <Clock className="w-3.5 h-3.5" /> 3 a 4 minutos
                   </span>
-                  <span className="text-slate-500">PDFs A4</span>
                 </div>
-              </div>
 
-              {/* Card Compacto da Psicóloga Responsável */}
-              <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs flex items-center gap-4">
-                <div className="relative w-16 h-16 rounded-2xl overflow-hidden border-2 border-white shadow-xs shrink-0 bg-slate-200">
-                  <Image
-                    src="/psicologa-maria-do-socorro.png"
-                    alt={PROFESSIONAL_AUTHOR}
-                    fill
-                    className="object-cover object-top"
-                    sizes="64px"
-                  />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <h2 className="text-sm font-extrabold text-[#18313B] truncate">
-                    {PROFESSIONAL_AUTHOR}
-                  </h2>
-                  <span className="text-[11px] font-bold text-[#236B78] bg-[#DCEFF2] px-2 py-0.5 rounded-full inline-block mt-0.5">
-                    Psicóloga Clínica • {PROFESSIONAL_CRP}
-                  </span>
-                  <p className="text-[11px] text-slate-600 mt-1 line-clamp-1">
-                    Psicoterapia individual para adultos e recursos clínicos para psicólogos.
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 group-hover:text-orange-700 transition">
+                    Termômetro de Estresse e Burnout
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                    Questionário educativo inspirado nos 3 eixos conceituais da CID-11 (QD85): exaustão de energia, despersonalização/cinismo e sensação de ineficácia profissional.
                   </p>
                 </div>
+
+                <ul className="space-y-2 pt-2 text-xs text-slate-600 border-t border-slate-100">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-orange-600 shrink-0" />
+                    <span>Pontuação dividida pelas 3 dimensões de sobrecarga</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-orange-600 shrink-0" />
+                    <span>Relatório em PDF com orientações de autorreflexão e pausas</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-orange-600 shrink-0" />
+                    <span>Informações gerais sobre requisitos de perícia e direitos</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="pt-6 mt-6 border-t border-slate-100">
                 <Link
-                  href="/sobre"
-                  className="text-xs font-bold text-[#236B78] hover:text-[#18313B] shrink-0"
-                  title="Conhecer a psicóloga"
+                  href="/testes/burnout"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 px-4 rounded-xl text-xs sm:text-sm transition shadow-sm"
                 >
-                  Sobre →
+                  <span>Iniciar Avaliação de Burnout (QD85)</span>
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Publicidade Intermediária 1 */}
+        <AdSenseSlot slot="home_mid1" />
+
+        {/* Bloco 2: Suíte de Documentos para Psicólogos (B2B) */}
+        <div>
+          <div className="flex items-end justify-between border-b border-slate-200 pb-4 mb-8">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-teal-800 bg-teal-50 px-2.5 py-1 rounded-md">
+                Gestão Clínica &amp; Prática Profissional
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">
+                Central de Emissão de Documentos Éticos (Normas CFP)
+              </h2>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-br from-white via-slate-50 to-teal-50/50 rounded-3xl p-7 sm:p-10 border border-slate-200 shadow-sm space-y-8">
+            <div className="max-w-3xl">
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
+                Padronize suas Declarações, Recibos e Contratos Terapêuticos
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                Desenvolvido especialmente para psicólogos clínicos autônomos e clínicas. Preencha os campos no navegador e obtenha instantaneamente documentos em formato A4 timbrado, com cálculo automático de valores por extenso para o Carnê-Leão e salvaguarda do sigilo profissional.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              {/* Doc 1 */}
+              <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
+                <div>
+                  <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center mb-3">
+                    <FileText className="w-5 h-5" />
+                  </div>
+                  <h4 className="font-bold text-slate-900 text-sm">
+                    Declaração de Comparecimento
+                  </h4>
+                  <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                    Comprova presença na sessão para abono de faltas no trabalho ou faculdade, em conformidade estrita com a Resolução CFP nº 06/2019 (sem revelar diagnóstico).
+                  </p>
+                </div>
+              </div>
+
+              {/* Doc 2 */}
+              <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
+                <div>
+                  <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center mb-3">
+                    <Coins className="w-5 h-5" />
+                  </div>
+                  <h4 className="font-bold text-slate-900 text-sm">
+                    Recibo IRPF / Carnê-Leão
+                  </h4>
+                  <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                    Conversão instantânea de valor numérico para valor por extenso em reais. Formatação exigida para dedução de despesas médicas na declaração de imposto de renda.
+                  </p>
+                </div>
+              </div>
+
+              {/* Doc 3 */}
+              <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
+                <div>
+                  <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center mb-3">
+                    <FileCheck className="w-5 h-5" />
+                  </div>
+                  <h4 className="font-bold text-slate-900 text-sm">
+                    Contrato Terapêutico Simples
+                  </h4>
+                  <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                    Acordo claro de enquadre: regras de desmarcação com 24h de antecedência, periodicidade, honorários e cláusula de sigilo ético (Art. 9º do Código de Ética).
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-200">
+              <div className="flex items-center gap-2 text-xs text-slate-500">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                <span>Privacidade total: nenhuma informação de paciente é transmitida ou gravada externamente.</span>
+              </div>
+              <Link
+                href="/ferramentas/gerador-documentos"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-teal-700 hover:bg-teal-800 text-white font-bold py-3.5 px-6 rounded-xl text-xs sm:text-sm transition shadow-sm"
+              >
+                <span>Acessar Gerador de Documentos CFP</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Publicidade Intermediária 2 */}
+        <AdSenseSlot slot="home_mid2" />
+
+        {/* ================= CONTEÚDO EDITORIAL PROFUNDO (BLINDAGEM ADSENSE E-E-A-T) ================= */}
+        <section className="bg-white rounded-3xl p-7 sm:p-12 border border-slate-200 shadow-sm space-y-8 text-slate-700">
+          <header className="border-b border-slate-200 pb-6">
+            <span className="text-xs uppercase font-bold text-emerald-700 tracking-wider">
+              Artigo Científico &amp; Diretrizes Metodológicas
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1">
+              A Importância das Escalas Psicométricas na Triagem e Psicoeducação em Saúde Mental
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 mt-2">
+              Por Equipe Editorial do Psicologia Direta — Plataforma Digital de Triagem Psicoeducativa e Gestão Documental.
+            </p>
+          </header>
+
+          <div className="prose max-w-none space-y-6 text-xs sm:text-sm leading-relaxed">
+            <h3 className="text-base sm:text-lg font-bold text-slate-900">
+              1. Por que Rastreios Estruturados São Cruciais na Atenção à Saúde?
+            </h3>
+            <p>
+              Estudos epidemiológicos conduzidos pela Organização Mundial da Saúde (OMS) apontam que o Brasil lidera os índices mundiais de prevalência de transtornos de ansiedade, atingindo aproximadamente 9,3% da população. No entanto, uma das maiores barreiras para o tratamento precoce reside na <strong>dificuldade que a própria pessoa tem em reconhecer que seus sintomas fisiológicos e cognitivos configuram um quadro clínico</strong>, e não apenas um traço de personalidade ou fraqueza passageira.
+            </p>
+            <p>
+              Instrumentos de triagem como o <strong>GAD-7 (Generalized Anxiety Disorder 7-item scale)</strong> e os questionários de Burnout fundamentados na <strong>CID-11 (Código QD85)</strong> atuam como pontes psicoeducativas. Ao traduzir sensações difusas em indicadores quantitativos objetivos, eles fornecem à pessoa e aos profissionais de saúde uma visão clara da intensidade dos sintomas, encorajando a busca oportuna por intervenção profissional antes que o quadro evolua para incapacitação laboral ou sofrimento psíquico crônico.
+            </p>
+
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 pt-2">
+              2. Como os Resultados Devem Ser Compreendidos?
+            </h3>
+            <p>
+              É imperativo destacar a diferença conceitual entre <strong>triagem psicométrica</strong> e <strong>diagnóstico clínico</strong>:
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                <strong className="text-slate-900 block mb-1">O que a Triagem Faz:</strong>
+                <p className="text-slate-600 text-xs">
+                  Mapeia a frequência de comportamentos e sintomas nas últimas semanas, sinalizando faixas de risco (mínimo, leve, moderado ou severo) para subsidiar a tomada de decisão do paciente e do clínico.
+                </p>
+              </div>
+              <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                <strong className="text-slate-900 block mb-1">O que o Diagnóstico Exige:</strong>
+                <p className="text-slate-600 text-xs">
+                  Anamnese aprofundada, análise do contexto sociocultural e histórico de vida, exclusão de causas orgânicas/médicas (como distúrbios da tireoide) e escuta técnica qualificada por psicólogo(a) ou psiquiatra.
+                </p>
+              </div>
+            </div>
+
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 pt-2">
+              3. Padronização Ética e Documental na Prática do Psicólogo
+            </h3>
+            <p>
+              Para além do suporte ao público geral, o <strong>Psicologia Direta</strong> nasceu com a missão de valorizar a prática profissional da psicologia. A elaboração de documentos escritos é uma das atividades mais rotineiras e, ao mesmo tempo, mais fiscalizadas pelos Conselhos Regionais de Psicologia. A <strong>Resolução CFP nº 06/2019</strong> estabelece diretrizes rigorosas sobre linguagem, estrutura e guarda documental. Disponibilizar modelos automatizados e seguros previne infrações éticas e garante que os pacientes recebam comprovantes idôneos para fins trabalhistas e fiscais.
+            </p>
+          </div>
+        </section>
+
+        {/* ================= APOIO IMEDIATO À VIDA (CVV 188) ================= */}
+        <section className="bg-emerald-950 text-white rounded-3xl p-7 sm:p-10 border border-emerald-800 shadow-md">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="space-y-2 text-center sm:text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-800/80 text-emerald-300 text-xs font-bold uppercase tracking-wider">
+                <HeartHandshake className="w-4 h-4 text-emerald-400" />
+                Apoio Emocional Gratuito 24 Horas
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-bold tracking-tight">
+                Você não precisa enfrentar tudo sozinho(a)
+              </h3>
+              <p className="text-xs sm:text-sm text-emerald-200 max-w-xl leading-relaxed">
+                Se você está vivenciando sofrimento psíquico intenso, desespero ou pensamentos de autoagressão, ligue para o Centro de Valorização da Vida (CVV). O atendimento é 100% gratuito, confidencial e disponível 24 horas por dia por telefone ou chat online.
+              </p>
+            </div>
+            <a
+              href="tel:188"
+              className="inline-flex items-center gap-3 bg-white hover:bg-emerald-50 text-emerald-950 font-black px-6 py-4 rounded-2xl shadow-lg transition hover:scale-105 shrink-0 text-sm sm:text-base"
+            >
+              <PhoneCall className="w-5 h-5 text-emerald-700" />
+              <span>Ligar Grátis 188 (CVV)</span>
+            </a>
+          </div>
+        </section>
+
       </section>
 
-      {/* CONTAINER PRINCIPAL OTIMIZADO PARA DESKTOP E MOBILE */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14 space-y-14">
-        {/* 2. CAPTURA DE E-MAIL (LEAD MAGNET): KIT DE ROTINA E EMOÇÕES */}
-        <LeadMagnetSection />
-
-        {/* 3. OS 3 MATERIAIS MAIS VENDIDOS COM IMAGENS/PRÉVIAS REAIS */}
-        <section>
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-600 flex items-center gap-1">
-                <ShoppingBag className="w-3.5 h-3.5" />
-                Destaques Mais Procurados
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-0.5">
-                E-books e Materiais Imprimíveis
-              </h2>
-            </div>
-            <Link
-              href="/materiais"
-              className="text-xs sm:text-sm font-bold text-blue-600 hover:text-blue-800 inline-flex items-center gap-1"
-            >
-              Ver catálogo completo com todos os PDFs →
-            </Link>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {TOP_3_MATERIALS.map((mat, idx) => (
-              <div
-                key={idx}
-                className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs hover:border-[#236B78] hover:shadow-md transition-all flex flex-col justify-between"
-              >
-                <div>
-                  {/* Capa com Mockup Real do E-book / Material */}
-                  <div className="relative h-48 sm:h-52 w-full bg-slate-100 overflow-hidden border-b border-slate-100">
-                    <img
-                      src={mat.image}
-                      alt={mat.imageAlt}
-                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy"
-                    />
-                    <div className="absolute top-3 left-3">
-                      <span className="text-[11px] font-bold uppercase tracking-wider bg-[#236B78] text-white px-3 py-1 rounded-full shadow-xs">
-                        {mat.tag}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Título e Amostras das Páginas */}
-                  <div className="p-5 space-y-3">
-                    <div>
-                      <h3 className="font-extrabold text-base sm:text-lg text-[#18313B] leading-snug">
-                        {mat.title}
-                      </h3>
-                      <span className="text-xs text-slate-500 block mt-0.5">
-                        {mat.pages} em Alta Resolução A4
-                      </span>
-                    </div>
-
-                    <p className="text-xs text-slate-600 leading-relaxed">
-                      {mat.desc}
-                    </p>
-
-                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1.5">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
-                        Amostras inclusas:
-                      </span>
-                      {mat.previewSnippets.map((snip, sIdx) => (
-                        <div key={sIdx} className="text-xs text-slate-700 flex items-center gap-1.5">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                          <span>{snip}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Preço e Botão */}
-                <div className="p-5 pt-0 border-t border-slate-100 mt-2">
-                  <div className="flex items-baseline justify-between mb-3 pt-3">
-                    <div>
-                      <span className="text-[10px] text-slate-400 uppercase font-bold block">
-                        Preço Único
-                      </span>
-                      <span className="text-2xl font-black text-slate-900">
-                        {mat.price}
-                      </span>
-                    </div>
-                    <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md">
-                      Download Imediato
-                    </span>
-                  </div>
-
-                  <Link
-                    href={mat.href}
-                    className="w-full bg-[#236B78] hover:bg-[#18313B] text-white font-extrabold text-xs py-3 px-4 rounded-xl transition-colors flex items-center justify-center gap-1.5"
-                  >
-                    Ver Detalhes e Baixar PDF
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* 4. OS 3 TEMAS PRINCIPAIS COM IMAGENS DAS CATEGORIAS */}
-        <section>
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#236B78] flex items-center gap-1">
-                <Compass className="w-3.5 h-3.5" />
-                Navegação Orientada
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#18313B] mt-0.5">
-                Principais Áreas de Orientação
-              </h2>
-            </div>
-            <Link
-              href="/blog"
-              className="text-xs sm:text-sm font-bold text-[#236B78] hover:text-[#18313B]"
-            >
-              Explorar todas as 6 categorias editoriais →
-            </Link>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-5">
-            {TOP_3_THEMES.map((theme, idx) => {
-              const Icon = theme.icon
-              return (
-                <Link
-                  key={idx}
-                  href={theme.slug}
-                  className="bg-white rounded-3xl border border-slate-200 overflow-hidden hover:border-[#236B78] hover:shadow-md transition-all flex flex-col justify-between group"
-                >
-                  <div>
-                    {/* Imagem de Categoria */}
-                    <div className="relative h-44 w-full bg-slate-100 overflow-hidden">
-                      <img
-                        src={theme.image}
-                        alt={theme.imageAlt}
-                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
-                        loading="lazy"
-                      />
-                      <div className="absolute top-3 left-3">
-                        <div className={`w-9 h-9 rounded-xl flex items-center justify-center bg-white/90 backdrop-blur-xs border shadow-xs ${theme.color}`}>
-                          <Icon className="w-4 h-4" />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="p-5 space-y-2">
-                      <h3 className="font-extrabold text-base text-[#18313B] group-hover:text-[#236B78] transition-colors">
-                        {theme.title}
-                      </h3>
-                      <p className="text-xs text-slate-600 leading-relaxed">
-                        {theme.desc}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="p-5 pt-0">
-                    <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#236B78]">
-                      <span>Acessar guia e artigos</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
-        </section>
-
-        {/* 5. OS 3 ARTIGOS PRINCIPAIS */}
-        <section>
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-600 flex items-center gap-1">
-                <BookOpen className="w-3.5 h-3.5" />
-                Leituras Mais Úteis
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-0.5">
-                Artigos e Orientações em Destaque
-              </h2>
-            </div>
-            <Link
-              href="/blog"
-              className="text-xs sm:text-sm font-bold text-blue-600 hover:text-blue-800"
-            >
-              Ver todos os 10 artigos no blog →
-            </Link>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {top3Articles.map((art) => (
-              <Link
-                key={art.id}
-                href={`/blog/${art.slug}`}
-                className="bg-white rounded-3xl border border-slate-200 p-6 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group"
-              >
-                <div>
-                  <div className="flex items-center justify-between text-[11px] text-slate-500 mb-2">
-                    <span className="font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full">
-                      {art.category}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-3 h-3" /> {art.readTime}
-                    </span>
-                  </div>
-
-                  <h3 className="font-extrabold text-slate-900 text-base group-hover:text-blue-600 transition-colors leading-snug mb-2">
-                    {art.title}
-                  </h3>
-
-                  <p className="text-xs text-slate-600 leading-relaxed line-clamp-3">
-                    {art.excerpt}
-                  </p>
-                </div>
-
-                <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                  <span className="text-slate-500 text-[11px]">Revisado por Psicóloga</span>
-                  <span className="font-bold text-blue-600 inline-flex items-center gap-1">
-                    Ler artigo <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        {/* 6. 1 BLOCO DE FERRAMENTAS GRATUITAS */}
-        <section className="bg-slate-50 rounded-3xl border border-slate-200 p-6 sm:p-8 lg:p-10">
-          <div className="grid lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-5 space-y-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-600 flex items-center gap-1">
-                <Sparkles className="w-3.5 h-3.5" />
-                Utilitários Gratuitos no Navegador
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-                Ferramentas Práticas para o Cotidiano
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Recursos interativos desenvolvidos para apoiar a organização do tempo, identificação de sentimentos e diálogo com a escola:
-              </p>
-              <div className="pt-1">
-                <Link
-                  href="/materiais#ferramentas-interativas"
-                  className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-3 px-5 rounded-xl transition-colors"
-                >
-                  Abrir Central de Ferramentas
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
-
-            <div className="lg:col-span-7 grid sm:grid-cols-2 gap-3.5">
-              <Link
-                href="/materiais/quadro-rotina"
-                className="bg-white p-4 rounded-2xl border border-slate-200 hover:border-blue-300 hover:shadow-xs transition-all block"
-              >
-                <div className="flex items-center gap-2 text-xs font-bold text-slate-900 mb-1">
-                  <Calendar className="w-4 h-4 text-blue-600" />
-                  Quadro de Rotina Visual
-                </div>
-                <p className="text-[11px] text-slate-500 leading-snug">
-                  Personalize tarefas de manhã, tarde e noite e imprima em folha A4.
-                </p>
-              </Link>
-
-              <Link
-                href="/materiais/termometro-emocoes"
-                className="bg-white p-4 rounded-2xl border border-slate-200 hover:border-blue-300 hover:shadow-xs transition-all block"
-              >
-                <div className="flex items-center gap-2 text-xs font-bold text-slate-900 mb-1">
-                  <Heart className="w-4 h-4 text-rose-600" />
-                  Termômetro das Emoções
-                </div>
-                <p className="text-[11px] text-slate-500 leading-snug">
-                  Escala lúdica para ajudar a criança a expressar a intensidade do que sente.
-                </p>
-              </Link>
-
-              <Link
-                href="/materiais/timer-visual"
-                className="bg-white p-4 rounded-2xl border border-slate-200 hover:border-blue-300 hover:shadow-xs transition-all block"
-              >
-                <div className="flex items-center gap-2 text-xs font-bold text-slate-900 mb-1">
-                  <Clock className="w-4 h-4 text-amber-600" />
-                  Timer Visual com Disco
-                </div>
-                <p className="text-[11px] text-slate-500 leading-snug">
-                  Relógio analógico sem som para apoiar tarefas escolares e transições.
-                </p>
-              </Link>
-
-              <Link
-                href="/materiais#perguntas-reuniao"
-                className="bg-white p-4 rounded-2xl border border-slate-200 hover:border-blue-300 hover:shadow-xs transition-all block"
-              >
-                <div className="flex items-center gap-2 text-xs font-bold text-slate-900 mb-1">
-                  <FileText className="w-4 h-4 text-emerald-600" />
-                  Roteiro de Reunião Escolar
-                </div>
-                <p className="text-[11px] text-slate-500 leading-snug">
-                  Perguntas práticas para transformar o encontro com a escola em parceria.
-                </p>
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* 7. 1 CHAMADA PARA ATENDIMENTO PSICOLÓGICO ONLINE */}
-        <ConsultationCallout />
-
-        {/* 8. AFILIADOS ÉTICOS: LIVROS COMPLEMENTARES RECOMENDADOS */}
-        <section className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
-            <div>
-              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
-                Curadoria Editorial de Leituras
-              </span>
-              <h3 className="font-extrabold text-base text-slate-900">
-                Livros Fundamentais Recomendados para Famílias
-              </h3>
-            </div>
-            <span className="text-[11px] text-slate-400">
-              Links verificados Amazon • Transparência de Afiliados
-            </span>
-          </div>
-
-          <p className="text-xs text-slate-600 leading-relaxed">
-            Obras de referência escritas por pesquisadores e clínicos para apoiar o entendimento do comportamento e das emoções no lar:
-          </p>
-
-          <div className="grid md:grid-cols-3 gap-4">
-            {CURATED_BOOKS.map((book, idx) => (
-              <a
-                key={idx}
-                href={book.url}
-                target="_blank"
-                rel="sponsored nofollow noopener noreferrer"
-                className="bg-slate-50 hover:bg-slate-100/80 p-4 rounded-2xl border border-slate-200 transition-all flex flex-col justify-between group"
-              >
-                <div>
-                  <span className="text-[10px] font-bold text-blue-700 bg-blue-100/70 px-2 py-0.5 rounded-md inline-block mb-1.5">
-                    Recomendação de Leitura
-                  </span>
-                  <h4 className="font-bold text-xs text-slate-900 group-hover:text-blue-600 transition-colors">
-                    {book.title}
-                  </h4>
-                  <span className="text-[11px] text-slate-500 block mb-1">
-                    {book.author}
-                  </span>
-                  <p className="text-[11px] text-slate-600 leading-snug">
-                    {book.desc}
-                  </p>
-                </div>
-
-                <span className="text-[11px] font-bold text-blue-600 inline-flex items-center gap-1 mt-3 pt-2 border-t border-slate-200/60">
-                  Ver livro na Amazon <ExternalLink className="w-3 h-3 opacity-80" />
-                </span>
-              </a>
-            ))}
-          </div>
-
-          <p className="text-[10px] text-slate-400 pt-1 leading-relaxed">
-            * Aviso de Transparência: Como afiliados, podemos receber uma comissão caso você decida adquirir os livros indicados, sem custo adicional para você. Recomendamos apenas obras com base científica consolidada.
-          </p>
-        </section>
-      </main>
+      {/* Publicidade Inferior */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-12">
+        <AdSenseSlot slot="home_bottom" />
+      </div>
     </div>
   )
 }

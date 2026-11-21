@@ -2,37 +2,29 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import { Menu, X, Shield, MessageSquare, ChevronDown, BookOpen, Sparkles, FileText, Heart } from 'lucide-react'
-import { PROFESSIONAL_AUTHOR, PROFESSIONAL_CRP } from '@/data/articles'
-
-const THEME_DROPDOWN_ITEMS = [
-  { href: '/depressao', label: 'Depressão no Adulto', desc: 'Ativação comportamental e humor' },
-  { href: '/ansiedade', label: 'Ansiedade & Preocupação', desc: 'Regulação fisiológica e TCC' },
-  { href: '/panico', label: 'Síndrome do Pânico', desc: 'Manejo de crises e agorafobia' },
-  { href: '/compulsao-alimentar', label: 'Compulsão Alimentar', desc: 'Comer emocional e ciclo da culpa' },
-  { href: '/toc', label: 'TOC (Obsessões & Rituais)', desc: 'Prevenção de resposta (EPR)' },
-  { href: '/relacionamentos-narcisismo', label: 'Narcisismo & Vínculos Tóxicos', desc: 'Gaslighting e resgate da autonomia' },
-  { href: '/tdah-adulto', label: 'TDAH em Adultos', desc: 'Organização, foco e procrastinação' },
-  { href: '/materiais-psicologos', label: 'Recursos para Psicólogos', desc: 'Protocolos clínicos, RPDs e ferramentas' },
-]
-
-const MAIN_NAV_ITEMS = [
-  { href: '/blog', label: 'Artigos' },
-  { href: '/materiais', label: 'E-books & Ferramentas' },
-  { href: '/materiais-psicologos', label: 'Área do Psicólogo' },
-  { href: '/sobre', label: 'Sobre a Psicóloga' },
-  { href: '/contato', label: 'Psicoterapia para Adultos' },
-]
+import Image from 'next/image'
+import {
+  ChevronDown,
+  Activity,
+  Flame,
+  FileSignature,
+  Wrench,
+  Menu,
+  X,
+  PhoneCall,
+  ShieldCheck,
+} from 'lucide-react'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
-  const [themesOpen, setThemesOpen] = useState(false)
+  const [toolsDropdown, setToolsDropdown] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
+  // Fechar dropdown ao clicar fora
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setThemesOpen(false)
+        setToolsDropdown(false)
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
@@ -40,173 +32,280 @@ export default function Navbar() {
   }, [])
 
   return (
-    <header className="bg-white border-b border-slate-200 sticky top-0 z-40">
-      <div className="bg-slate-50 border-b border-slate-200 text-slate-700 text-xs py-2 px-4">
+    <header className="sticky top-0 z-50 bg-[#F5F8F6]/95 backdrop-blur-md border-b border-slate-200/80">
+      {/* Top Banner Suave de Apoio e Emergência */}
+      <div className="bg-[#123F42] text-emerald-100 text-[11px] py-1 px-4">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
-          <span className="flex items-center gap-1.5 font-medium">
-            <Shield className="w-3.5 h-3.5 text-[#236B78]" />
-            Portal Editorial e E-books • Revisão Técnica: {PROFESSIONAL_AUTHOR} (<strong>{PROFESSIONAL_CRP}</strong>)
-          </span>
-          <div className="hidden sm:flex items-center gap-4 text-slate-600 text-xs">
-            <Link href="/metodologia-editorial" className="hover:text-[#236B78] font-medium">
-              Metodologia Editorial
-            </Link>
-            <span>•</span>
-            <Link href="/materiais" className="hover:text-[#236B78] font-medium">
-              E-books & Materiais em PDF
-            </Link>
-            <span>•</span>
-            <Link href="/contato" className="hover:text-[#236B78] font-semibold text-[#236B78]">
-              Atendimento Online ({PROFESSIONAL_CRP})
-            </Link>
+          <div className="flex items-center gap-1.5 font-medium">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#7BAE9B]" />
+            <span>
+              Psicologia Direta • Plataforma Digital de Triagem Psicoeducativa e Gestão Documental
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-slate-300">Apoio emocional gratuito:</span>
+            <a
+              href="tel:188"
+              className="inline-flex items-center gap-1 bg-[#0F5B5B] hover:bg-[#184e4e] text-white font-semibold px-2 py-0.5 rounded transition"
+              title="Centro de Valorização da Vida"
+            >
+              <PhoneCall className="w-3 h-3" />
+              Ligue 188 (CVV 24h)
+            </a>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20 sm:h-24">
-          <Link href="/" className="flex items-center gap-3 shrink-0 py-1.5 group">
-            <img
-              src="/assets/psicologia-direta/01-logo-horizontal.png"
-              alt="Psicologia Direta — Artigos, Guias e Recursos para Saúde Mental e Neurodesenvolvimento"
-              className="h-14 sm:h-18 md:h-20 w-auto object-contain transition-transform group-hover:scale-[1.02]"
-              width="360"
-              height="72"
-            />
+      {/* Main Header Container */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xs border border-slate-200/90 px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-4">
+          
+          {/* Logo Oficial com Ícone + Tipografia + Subtítulo */}
+          <Link href="/" className="flex items-center gap-3 sm:gap-4 group shrink-0">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 relative shrink-0 group-hover:scale-105 transition-transform">
+              <Image
+                src="/logo-icon.png"
+                alt="Psicologia Direta Logo"
+                fill
+                sizes="44px"
+                className="object-contain"
+                priority
+              />
+            </div>
+            
+            <div className="flex items-center gap-3">
+              <div className="flex flex-col leading-tight">
+                <span className="text-base sm:text-lg font-extrabold tracking-tight text-[#0F5B5B]">
+                  Psicologia
+                </span>
+                <span className="text-base sm:text-lg font-extrabold tracking-tight text-[#0F5B5B] -mt-1">
+                  Direta
+                </span>
+              </div>
+
+              {/* Divisor Vertical e Subtítulo */}
+              <div className="hidden sm:flex items-center gap-3 border-l border-slate-300 pl-3">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 leading-tight max-w-[130px]">
+                  Psicologia &amp;<br />Ferramentas Clínicas
+                </span>
+              </div>
+            </div>
           </Link>
 
-          {/* Navegação Desktop com Tipografia Aumentada e Legível */}
-          <nav className="hidden lg:flex items-center gap-1.5 xl:gap-2" aria-label="Navegação Principal">
-            {/* Dropdown de Temas */}
+          {/* Menu Desktop */}
+          <nav className="hidden lg:flex items-center gap-1 xl:gap-2 text-sm font-medium text-[#123F42]">
+            <Link
+              href="/"
+              className="px-3.5 py-2 rounded-xl hover:text-[#0F5B5B] hover:bg-[#F5F8F6] transition"
+            >
+              Início
+            </Link>
+
+            {/* Dropdown de Ferramentas */}
             <div className="relative" ref={dropdownRef}>
               <button
                 type="button"
-                onClick={() => setThemesOpen(!themesOpen)}
-                className={`inline-flex items-center gap-1.5 font-bold text-sm xl:text-[15px] px-3.5 py-2.5 rounded-xl transition-all cursor-pointer ${
-                  themesOpen
-                    ? 'text-[#236B78] bg-[#DCEFF2]/60'
-                    : 'text-slate-700 hover:text-[#236B78] hover:bg-slate-50'
+                onClick={() => setToolsDropdown(!toolsDropdown)}
+                className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl transition ${
+                  toolsDropdown
+                    ? 'text-[#0F5B5B] bg-[#F5F8F6] font-semibold'
+                    : 'hover:text-[#0F5B5B] hover:bg-[#F5F8F6]'
                 }`}
-                aria-expanded={themesOpen}
+                aria-expanded={toolsDropdown}
               >
-                <span>Temas & Guias</span>
-                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${themesOpen ? 'rotate-180 text-[#236B78]' : 'text-slate-400'}`} />
+                <span>Ferramentas</span>
+                <ChevronDown
+                  className={`w-4 h-4 transition-transform duration-200 ${
+                    toolsDropdown ? 'rotate-180 text-[#0F5B5B]' : 'text-slate-400'
+                  }`}
+                />
               </button>
 
-              {themesOpen && (
-                <div className="absolute top-full left-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-slate-200 p-2.5 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                  <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400 px-3 py-1.5">
-                    Áreas de Especialidade
-                  </div>
-                  <div className="space-y-1">
-                    {THEME_DROPDOWN_ITEMS.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={() => setThemesOpen(false)}
-                        className="block p-2.5 rounded-xl hover:bg-slate-50 transition-colors group"
-                      >
-                        <div className="font-bold text-sm text-slate-900 group-hover:text-[#236B78] transition-colors">
-                          {item.label}
-                        </div>
-                        <div className="text-xs text-slate-500 mt-0.5">
-                          {item.desc}
-                        </div>
-                      </Link>
-                    ))}
+              {/* Menu Dropdown Suspenso */}
+              {toolsDropdown && (
+                <div className="absolute top-full left-0 mt-2 w-72 bg-white rounded-2xl shadow-xl border border-slate-200 p-2 space-y-1 animate-in fade-in zoom-in-95 duration-150 z-50">
+                  <Link
+                    href="/testes/ansiedade-gad7"
+                    onClick={() => setToolsDropdown(false)}
+                    className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F5F8F6] transition group"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                      <Activity className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-slate-900 block group-hover:text-[#0F5B5B]">
+                        Teste GAD-7 (Ansiedade)
+                      </span>
+                      <span className="text-[11px] text-slate-500 block leading-tight">
+                        Rastreio de 7 itens com resumo de pontuação
+                      </span>
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/testes/burnout"
+                    onClick={() => setToolsDropdown(false)}
+                    className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F5F8F6] transition group"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-orange-50 text-orange-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                      <Flame className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-slate-900 block group-hover:text-orange-700">
+                        Termômetro de Burnout
+                      </span>
+                      <span className="text-[11px] text-slate-500 block leading-tight">
+                        Autorreflexão nos 3 eixos da CID-11 (QD85)
+                      </span>
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/ferramentas/gerador-documentos"
+                    onClick={() => setToolsDropdown(false)}
+                    className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F5F8F6] transition group"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                      <FileSignature className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-slate-900 block group-hover:text-teal-700">
+                        Gerador de Documentos
+                      </span>
+                      <span className="text-[11px] text-slate-500 block leading-tight">
+                        Modelos editáveis baseados na Res. CFP 06/2019
+                      </span>
+                    </div>
+                  </Link>
+
+                  <div className="pt-1 border-t border-slate-100">
+                    <Link
+                      href="/ferramentas"
+                      onClick={() => setToolsDropdown(false)}
+                      className="flex items-center gap-2 p-2 rounded-xl text-xs font-bold text-[#0F5B5B] hover:bg-[#F5F8F6] transition"
+                    >
+                      <Wrench className="w-3.5 h-3.5" />
+                      <span>Ver todas as ferramentas gratuitas</span>
+                    </Link>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Links Principais com Fonte Maior */}
-            {MAIN_NAV_ITEMS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-slate-700 hover:text-[#236B78] hover:bg-slate-50 font-bold text-sm xl:text-[15px] px-3.5 py-2.5 rounded-xl transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
-
-            {/* Botão de Destaque para Atendimento Online */}
-            <a
-              href="https://wa.me/5568999035300?text=Ol%C3%A1%20Psic%C3%B3loga%20Maria%20do%20Socorro!%20Vim%20pelo%20portal%20Psicologia%20Direta%20e%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20atendimento%20psicol%C3%B3gico%20online."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-2 inline-flex items-center gap-2 bg-[#236B78] hover:bg-[#18313B] text-white px-5 py-3 rounded-xl font-extrabold text-sm transition-all shadow-md shadow-[#236B78]/20 cursor-pointer hover:scale-[1.02]"
+            <Link
+              href="/ferramentas/gerador-documentos"
+              className="px-3.5 py-2 rounded-xl hover:text-[#0F5B5B] hover:bg-[#F5F8F6] transition"
             >
-              <MessageSquare className="w-4 h-4" />
-              Atendimento Online
-            </a>
+              Para profissionais
+            </Link>
+
+            <Link
+              href="/sobre"
+              className="px-3.5 py-2 rounded-xl hover:text-[#0F5B5B] hover:bg-[#F5F8F6] transition"
+            >
+              Sobre
+            </Link>
           </nav>
 
-          {/* Botão Mobile */}
-          <button
-            type="button"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Abrir menu de navegação"
-            className="lg:hidden p-2.5 text-slate-700 hover:bg-slate-100 rounded-xl cursor-pointer"
-          >
-            {isOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
-          </button>
-        </div>
-
-        {/* Menu Mobile Expandido e Agradável */}
-        {isOpen && (
-          <div className="lg:hidden pb-6 border-t border-slate-100 pt-4 space-y-4">
-            <div>
-              <div className="text-xs font-bold uppercase tracking-wider text-[#236B78] mb-2 px-1">
-                Temas & Cadernos
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                {THEME_DROPDOWN_ITEMS.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className="py-2.5 px-3.5 text-xs font-bold text-slate-800 bg-slate-50 hover:bg-[#DCEFF2] hover:text-[#236B78] rounded-xl border border-slate-200/80 transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div className="pt-2 border-t border-slate-100">
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 px-1">
-                Navegação
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                {MAIN_NAV_ITEMS.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className="py-2.5 px-3.5 text-sm font-bold text-slate-800 bg-white hover:bg-slate-50 rounded-xl border border-slate-200 transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div className="pt-2">
-              <a
-                href="https://wa.me/5568999035300?text=Ol%C3%A1%20Psic%C3%B3loga%20Maria%20do%20Socorro!%20Vim%20pelo%20portal%20Psicologia%20Direta%20e%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20atendimento%20psicol%C3%B3gico%20online."
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setIsOpen(false)}
-                className="w-full inline-flex items-center justify-center gap-2 bg-[#236B78] hover:bg-[#18313B] text-white py-3.5 px-4 rounded-xl font-extrabold text-sm transition-all shadow-md shadow-[#236B78]/20"
-              >
-                <MessageSquare className="w-4 h-4" />
-                Falar com a Psicóloga no WhatsApp
-              </a>
-            </div>
+          {/* CTA Desktop em Destaque Oficial */}
+          <div className="hidden lg:flex items-center">
+            <Link
+              href="/ferramentas"
+              className="inline-flex items-center justify-center bg-[#0F5B5B] hover:bg-[#123F42] text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition shadow-sm hover:shadow"
+            >
+              Acessar ferramentas
+            </Link>
           </div>
-        )}
+
+          {/* Botão Menu Mobile */}
+          <div className="flex lg:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="w-10 h-10 rounded-xl bg-[#F5F8F6] border border-slate-200 text-[#0F5B5B] flex items-center justify-center hover:bg-slate-100 transition"
+              aria-label="Abrir menu de navegação"
+              aria-expanded={isOpen}
+            >
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+        </div>
       </div>
+
+      {/* Menu Mobile Recolhido / Expandido */}
+      {isOpen && (
+        <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-4 pb-6 space-y-3 shadow-lg">
+          <Link
+            href="/"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center px-3 py-2.5 rounded-xl text-base font-semibold text-slate-800 hover:bg-[#F5F8F6] hover:text-[#0F5B5B]"
+          >
+            Início
+          </Link>
+
+          <div className="space-y-1 pl-3 border-l-2 border-[#7BAE9B]/50 ml-2">
+            <span className="text-[11px] uppercase font-bold text-slate-400 tracking-wider block px-2 py-1">
+              Ferramentas &amp; Rastreios
+            </span>
+            <Link
+              href="/testes/ansiedade-gad7"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-2 px-2 py-2 text-sm text-slate-700 hover:text-[#0F5B5B]"
+            >
+              <Activity className="w-4 h-4 text-emerald-600" />
+              Teste GAD-7 (Ansiedade)
+            </Link>
+            <Link
+              href="/testes/burnout"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-2 px-2 py-2 text-sm text-slate-700 hover:text-[#0F5B5B]"
+            >
+              <Flame className="w-4 h-4 text-orange-600" />
+              Termômetro de Burnout
+            </Link>
+            <Link
+              href="/ferramentas/gerador-documentos"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-2 px-2 py-2 text-sm text-slate-700 hover:text-[#0F5B5B]"
+            >
+              <FileSignature className="w-4 h-4 text-teal-600" />
+              Gerador de Documentos CFP
+            </Link>
+          </div>
+
+          <Link
+            href="/ferramentas/gerador-documentos"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center px-3 py-2.5 rounded-xl text-base font-semibold text-slate-800 hover:bg-[#F5F8F6] hover:text-[#0F5B5B]"
+          >
+            Para profissionais
+          </Link>
+
+          <Link
+            href="/sobre"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center px-3 py-2.5 rounded-xl text-base font-semibold text-slate-800 hover:bg-[#F5F8F6] hover:text-[#0F5B5B]"
+          >
+            Sobre
+          </Link>
+
+          <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
+            <Link
+              href="/ferramentas"
+              onClick={() => setIsOpen(false)}
+              className="w-full text-center py-3 bg-[#0F5B5B] hover:bg-[#123F42] text-white rounded-xl font-bold text-sm shadow"
+            >
+              Acessar ferramentas
+            </Link>
+            <a
+              href="tel:188"
+              className="w-full text-center py-2.5 border border-[#7BAE9B] text-[#0F5B5B] rounded-xl font-medium text-xs flex items-center justify-center gap-1.5"
+            >
+              <PhoneCall className="w-3.5 h-3.5" />
+              Central de Apoio CVV: Ligue 188
+            </a>
+          </div>
+        </div>
+      )}
     </header>
   )
 }

@@ -1,91 +1,158 @@
 import Link from 'next/link'
-import { Shield, Info } from 'lucide-react'
-import { CATEGORY_LIST } from '@/data/categories'
-import { PROFESSIONAL_AUTHOR, PROFESSIONAL_CRP } from '@/data/articles'
+import { Activity, ShieldCheck, HeartHandshake, FileCheck } from 'lucide-react'
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-100 text-slate-700 border-t border-slate-200">
-      <div className="bg-amber-50 border-b border-amber-200 py-3 px-4">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-amber-900">
-          <span className="flex items-center gap-2">
-            <Info className="w-4 h-4 text-amber-700 flex-shrink-0" />
-            <span>
-              <strong>Aviso Editorial:</strong> Todo o conteúdo deste portal (artigos, e-books e materiais) tem caráter exclusivamente educativo e informativo.
-            </span>
-          </span>
-          <span>
-            Em caso de crise emocional aguda, ligue gratuitamente para o <strong>CVV (188 — 24h)</strong>.
-          </span>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div>
-            <Link href="/" className="inline-block mb-4 group">
-              <img
-                src="/assets/psicologia-direta/01-logo-horizontal.png"
-                alt="Psicologia Direta — Artigos, Guias e Recursos para Saúde Mental e Neurodesenvolvimento"
-                className="h-12 sm:h-14 w-auto object-contain transition-transform group-hover:scale-[1.02]"
-                width="280"
-                height="56"
-              />
-            </Link>
-            <p className="text-slate-600 text-xs mb-3 leading-relaxed">
-              Portal especializado em psicoterapia para adultos (depressão, ansiedade, pânico, TOC, compulsão alimentar e narcisismo) e acervo de materiais e ferramentas clínicas para psicólogos.
+    <footer className="bg-slate-900 text-slate-300 pt-16 pb-12 border-t border-slate-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+          {/* Coluna 1: Marca & Missão */}
+          <div className="space-y-4 md:col-span-1">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white">
+                <Activity className="w-4 h-4" />
+              </div>
+              <span className="text-xl font-bold text-white tracking-tight">
+                Psicologia<span className="text-emerald-400">Direta</span>
+              </span>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Plataforma digital dedicada a democratizar o acesso a instrumentos de rastreio em saúde mental e otimizar a prática profissional de psicólogos em conformidade com as normas do Conselho Federal de Psicologia (CFP).
             </p>
-            <div className="text-xs text-slate-700 flex items-center gap-1.5 font-semibold">
-              <Shield className="w-4 h-4 text-blue-600" />
-              <span>Revisão Técnica: {PROFESSIONAL_AUTHOR} ({PROFESSIONAL_CRP})</span>
+            <div className="p-3 bg-slate-800/80 rounded-lg border border-slate-700/80 text-[11px] text-slate-300 space-y-1">
+              <div className="flex items-center gap-1.5 font-semibold text-emerald-400">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                Propósito Institucional
+              </div>
+              <p className="font-medium text-slate-200">Plataforma Digital de Triagem Psicoeducativa e Gestão Documental</p>
+              <p className="text-slate-400">Curadoria Técnica: <strong>Psicóloga Maria do Socorro Araujo Teixeira (CRP 24/02327)</strong></p>
             </div>
           </div>
 
+          {/* Coluna 2: Ferramentas de Rastreio */}
           <div>
-            <h3 className="font-bold mb-3 text-xs uppercase tracking-wider text-slate-900">
-              Temas e Guias
+            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+              <Activity className="w-4 h-4 text-emerald-400" />
+              Rastreios Educativos
             </h3>
-            <ul className="space-y-2 text-xs">
-              {CATEGORY_LIST.map((hub) => (
-                <li key={hub.slug}>
-                  <Link href={`/${hub.slug}`} className="text-slate-600 hover:text-blue-600">
-                    {hub.shortTitle}
-                  </Link>
-                </li>
-              ))}
+            <ul className="space-y-2.5 text-xs">
+              <li>
+                <Link
+                  href="/testes/ansiedade-gad7"
+                  className="hover:text-emerald-400 transition flex items-center gap-1.5"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  Escala de Ansiedade GAD-7 (Relatório PDF)
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/testes/burnout"
+                  className="hover:text-emerald-400 transition flex items-center gap-1.5"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  Questionário de Burnout (CID-11 QD85)
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/ferramentas"
+                  className="hover:text-emerald-400 transition flex items-center gap-1.5"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  Central de Escalas e Testes Gratuitos
+                </Link>
+              </li>
             </ul>
           </div>
 
+          {/* Coluna 3: Ferramentas para Profissionais */}
           <div>
-            <h3 className="font-bold mb-3 text-xs uppercase tracking-wider text-slate-900">
-              Publicações & Recursos
+            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+              <FileCheck className="w-4 h-4 text-emerald-400" />
+              Para Psicólogos
             </h3>
-            <ul className="space-y-2 text-xs">
-              <li><Link href="/blog" className="text-slate-600 hover:text-blue-600">Todos os Artigos e Guias</Link></li>
-              <li><Link href="/materiais" className="text-slate-600 hover:text-blue-600">E-books, Apostilas e PDFs</Link></li>
-              <li><Link href="/materiais#ferramentas-interativas" className="text-slate-600 hover:text-blue-600">Quadros de Rotina e Checklists</Link></li>
-              <li><Link href="/sobre" className="text-slate-600 hover:text-blue-600">Sobre o Portal e Autoria</Link></li>
-              <li><Link href="/contato" className="text-slate-600 hover:text-blue-600">Contato Editorial e Parcerias</Link></li>
+            <ul className="space-y-2.5 text-xs">
+              <li>
+                <Link
+                  href="/ferramentas/gerador-documentos"
+                  className="hover:text-emerald-400 transition flex items-center gap-1.5"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal-500"></span>
+                  Declaração de Comparecimento (Res. 06/2019)
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/ferramentas/gerador-documentos"
+                  className="hover:text-emerald-400 transition flex items-center gap-1.5"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal-500"></span>
+                  Recibo IRPF / Carnê-Leão (Valor por Extenso)
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/ferramentas/gerador-documentos"
+                  className="hover:text-emerald-400 transition flex items-center gap-1.5"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal-500"></span>
+                  Contrato Terapêutico Simples
+                </Link>
+              </li>
             </ul>
           </div>
 
+          {/* Coluna 4: Institucional & Conformidade */}
           <div>
-            <h3 className="font-bold mb-3 text-xs uppercase tracking-wider text-slate-900">
-              Transparência e Legal
+            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+              <HeartHandshake className="w-4 h-4 text-emerald-400" />
+              Institucional & Legal
             </h3>
-            <ul className="space-y-2 text-xs">
-              <li><Link href="/metodologia-editorial" className="text-slate-600 hover:text-blue-600">Metodologia e Revisão Técnica</Link></li>
-              <li><Link href="/transparencia-afiliados" className="text-slate-600 hover:text-blue-600">Transparência de Afiliados</Link></li>
-              <li><Link href="/politica-de-privacidade" className="text-slate-600 hover:text-blue-600">Política de Privacidade (LGPD)</Link></li>
-              <li><Link href="/politica-de-cookies" className="text-slate-600 hover:text-blue-600">Política de Cookies</Link></li>
-              <li><Link href="/termos-de-uso" className="text-slate-600 hover:text-blue-600">Termos de Uso</Link></li>
+            <ul className="space-y-2.5 text-xs">
+              <li>
+                <Link href="/sobre" className="hover:text-white transition">
+                  Sobre a Plataforma
+                </Link>
+              </li>
+              <li>
+                <Link href="/politica-de-privacidade" className="hover:text-white transition">
+                  Política de Privacidade
+                </Link>
+              </li>
+              <li>
+                <Link href="/politica-de-cookies" className="hover:text-white transition">
+                  Política de Cookies
+                </Link>
+              </li>
+              <li>
+                <Link href="/termos-de-uso" className="hover:text-white transition">
+                  Termos e Condições de Uso
+                </Link>
+              </li>
+              <li>
+                <Link href="/isencao-de-responsabilidade" className="hover:text-white transition">
+                  Isenção de Responsabilidade Médica
+                </Link>
+              </li>
+              <li>
+                <Link href="/contato" className="hover:text-white transition">
+                  Canal de Atendimento & Ouvidoria
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
-          <p>&copy; 2026 Psicologia Direta — Portal de Artigos e E-books ({PROFESSIONAL_AUTHOR} — {PROFESSIONAL_CRP}). Todos os direitos reservados.</p>
-          <p><Link href="/sitemap.xml" className="hover:text-blue-600">Sitemap XML</Link> • <Link href="/robots.txt" className="hover:text-blue-600">Robots.txt</Link></p>
+        {/* Aviso Ético e de Emergência Obrigatório */}
+        <div className="border-t border-slate-800 pt-8 pb-6 text-xs text-slate-400 space-y-3">
+          <div className="p-4 bg-slate-800/50 rounded-xl border border-slate-700/60 leading-relaxed">
+            <strong className="text-slate-200">Aviso Ético e Clínico Importante:</strong> As ferramentas, calculadoras e escalas psicométricas (GAD-7 e Termômetro de Burnout) disponibilizadas neste portal possuem finalidade estritamente psicoeducativa e de rastreio inicial. Elas <strong className="text-slate-200">não configuram laudo psicológico pericial, consulta médica ou diagnóstico definitivo</strong>. Caso esteja enfrentando sofrimento psíquico intenso, ideação suicida ou crises agudas, busque atendimento presencial em uma Unidade de Pronto Atendimento (UPA), CAPS ou entre em contato imediatamente com o <strong>Centro de Valorização da Vida (CVV) pelo telefone 188</strong> (ligação gratuita em todo o território nacional, disponível 24 horas por dia).
+          </div>
+          <div className="flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 pt-4 gap-2">
+            <p>© 2026 Psicologia Direta (psicologiadireta.com.br). Todos os direitos reservados.</p>
+            <p>Em conformidade com a LGPD (Lei nº 13.709/2018) e Código de Ética Profissional do Psicólogo.</p>
+          </div>
         </div>
       </div>
     </footer>

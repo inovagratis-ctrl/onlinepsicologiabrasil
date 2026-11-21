@@ -7,6 +7,16 @@ export default {
       return Response.redirect(`https://${url.hostname}${url.pathname}${url.search}`, 301);
     }
 
+    // 2. Endpoint ads.txt oficial para validação imediata do Google AdSense
+    if (url.pathname === "/ads.txt") {
+      return new Response("google.com, pub-3922432751903141, DIRECT, f08c47fec0942fa0\n", {
+        headers: {
+          "Content-Type": "text/plain; charset=UTF-8",
+          "Cache-Control": "public, max-age=3600",
+        },
+      });
+    }
+
     // 2. Busca arquivos estáticos via env.ASSETS
     let response = await env.ASSETS.fetch(request);
 

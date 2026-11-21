@@ -1,73 +1,79 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { PROFESSIONAL_AUTHOR, PROFESSIONAL_CRP } from '@/data/articles'
-import { BreadcrumbJsonLd } from '@/components/JsonLd'
+import { Scale, ArrowLeft } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Termos de Uso e Aviso Médico-Psicológico | Psicologia Direta',
+  title: 'Termos e Condições de Uso | Psicologia Direta',
   description:
-    'Termos e condições de uso do portal Psicologia Direta, limites do conteúdo psicoeducativo e regras éticas do atendimento psicológico online.',
+    'Termos e condições para uso das ferramentas, rastreios clínicos e serviços informativos do portal Psicologia Direta.',
   alternates: { canonical: 'https://psicologiadireta.com.br/termos-de-uso' },
 }
 
-export default function TermosDeUsoPage() {
+export default function TermosUsoPage() {
   return (
-    <div className="min-h-screen bg-warm-50 py-12">
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Início', url: '/' },
-          { name: 'Termos de Uso', url: '/termos-de-uso' },
-        ]}
-      />
-      <div className="max-w-4xl mx-auto px-4">
-        <div className="bg-white rounded-3xl border border-gray-200 p-8 md:p-12 space-y-6 text-gray-700 leading-relaxed">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
-            Termos de Uso
-          </h1>
-          <p className="text-xs text-gray-500">Última atualização: 10 de outubro de 2026</p>
+    <div className="bg-slate-50 min-h-screen py-10 sm:py-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 hover:text-emerald-800 mb-6 transition"
+        >
+          <ArrowLeft className="w-3.5 h-3.5" />
+          Voltar para a página inicial
+        </Link>
 
-          <p>
-            Bem-vindo(a) ao portal <strong>Psicologia Direta</strong> (<code>psicologiadireta.com.br</code>), sob responsabilidade técnica da <strong>{PROFESSIONAL_AUTHOR} ({PROFESSIONAL_CRP})</strong>. Ao acessar este site e utilizar nossos artigos, checklists e serviços de agendamento, você concorda com os termos descritos abaixo.
-          </p>
+        <article className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm text-slate-700 space-y-6 text-xs sm:text-sm leading-relaxed">
+          <header className="border-b border-slate-200 pb-6">
+            <span className="text-xs uppercase font-bold text-emerald-700 tracking-wider">
+              Termos Legais &amp; Uso Aceitável
+            </span>
+            <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
+              Termos e Condições de Uso da Plataforma
+            </h1>
+            <p className="text-xs text-slate-500 mt-2">
+              Última atualização: Novembro de 2026.
+            </p>
+          </header>
 
-          <h2 className="text-xl font-bold text-gray-800 pt-2">
-            1. Caráter Educativo dos Artigos e Ferramentas Gratuitas
-          </h2>
-          <p>
-            Todo o conteúdo aberto publicado no Blog, nos Guias de Categorias e na seção de Materiais Gratuitos possui finalidade estritamente <strong>educativa, informativa e de apoio à organização cotidiana</strong>. A leitura de artigos ou o preenchimento de checklists interativos não estabelece vínculo psicoterapêutico nem substitui avaliação clínica individualizada (psicológica, médica, fonoaudiológica ou multidisciplinar).
-          </p>
+          <section className="space-y-4">
+            <h2 className="text-base sm:text-lg font-bold text-slate-900">
+              1. Aceitação dos Termos
+            </h2>
+            <p>
+              Ao acessar e utilizar os recursos do portal <strong>Psicologia Direta</strong> (<code>psicologiadireta.com.br</code>), você expressa sua plena concordância com os presentes Termos e Condições de Uso. Caso não concorde com qualquer disposição, solicitamos que não utilize os instrumentos e serviços disponibilizados.
+            </p>
 
-          <h2 className="text-xl font-bold text-gray-800 pt-2">
-            2. Condições do Atendimento Psicológico Online
-          </h2>
-          <p>
-            A prestação de serviços psicológicos por meio de tecnologia da informação e comunicação segue rigorosamente a <strong>Resolução CFP nº 11/2018</strong> e o Código de Ética Profissional do Psicólogo:
-          </p>
-          <ul className="list-disc pl-6 space-y-2 text-sm">
-            <li>O atendimento para crianças e adolescentes requer autorização expressa e participação inicial de pelo menos um responsável legal;</li>
-            <li>É vedada a gravação de áudio ou imagem das sessões por qualquer uma das partes sem consentimento formal específico;</li>
-            <li>O atendimento online com hora marcada não configura plantão de urgência ou emergência. Em caso de crise aguda, procure o <strong>CVV (188)</strong> ou o <strong>SAMU (192)</strong>.</li>
-          </ul>
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 pt-2">
+              2. Natureza Exclusivamente Informativa e Psicoeducativa dos Testes
+            </h2>
+            <p>
+              As ferramentas de rastreio sintomático (incluindo a <strong>Escala GAD-7</strong> e o <strong>Termômetro de Burnout</strong>) são disponibilizadas com finalidade meramente educativa, preventiva e de autoavaliação inicial. Os resultados obtidos <strong>não constituem laudo psicológico, parecer pericial ou diagnóstico nosológico médico-psiquiátrico</strong>.
+            </p>
+            <p>
+              A tomada de decisões clínicas, terapêuticas ou ocupacionais não deve se basear unicamente nas pontuações geradas por estes questionários, sendo indispensável a consulta com um psicólogo inscrito no Conselho Regional de Psicologia (CRP) ou médico psiquiatra (CRM).
+            </p>
 
-          <h2 className="text-xl font-bold text-gray-800 pt-2">
-            3. Propriedade Intelectual
-          </h2>
-          <p>
-            Os textos, tabelas, checklists e materiais em PDF disponibilizados neste site podem ser impressos gratuitamente para uso pessoal, familiar ou escolar não comercial, desde que mantida a citação da fonte e autoria ({PROFESSIONAL_AUTHOR} — {PROFESSIONAL_CRP}). É proibida a reprodução integral para fins comerciais ou revenda sem autorização prévia.
-          </p>
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 pt-2">
+              3. Uso do Gerador de Documentos para Psicólogos
+            </h2>
+            <p>
+              O gerador de modelos de declaração, recibo e contrato é uma ferramenta de apoio administrativo. A responsabilidade técnica, a veracidade das informações inseridas e a assinatura dos documentos emitidos recaem integral e exclusivamente sobre o profissional que os preenche e assina, cabendo-lhe atuar em estrita conformidade com o <strong>Código de Ética Profissional do Psicólogo</strong> e a <strong>Resolução CFP nº 06/2019</strong>.
+            </p>
 
-          <div className="pt-4 border-t border-gray-100 text-sm">
-            Consulte também nossa{' '}
-            <Link href="/politica-de-privacidade" className="text-primary-600 underline">
-              Política de Privacidade
-            </Link>{' '}
-            e nossa{' '}
-            <Link href="/transparencia-afiliados" className="text-primary-600 underline">
-              Política de Transparência e Afiliados
-            </Link>
-            .
-          </div>
-        </div>
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 pt-2">
+              4. Propriedade Intelectual e Gratuidade
+            </h2>
+            <p>
+              O acesso aos questionários, relatórios e modelos de documentos deste portal é oferecido de forma 100% gratuita a qualquer cidadão ou profissional. É vedada a comercialização, cobrança de taxa de acesso ou republicação desautorizada do código-fonte ou layout da plataforma.
+            </p>
+
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 pt-2">
+              5. Foro de Eleição
+            </h2>
+            <p>
+              Estes Termos são regidos e interpretados em conformidade com a legislação da República Federativa do Brasil, elegendo-se o foro da comarca competente para dirimir quaisquer eventuais controvérsias decorrentes do uso da plataforma.
+            </p>
+          </section>
+        </article>
       </div>
     </div>
   )

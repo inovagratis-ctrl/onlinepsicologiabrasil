@@ -1,101 +1,62 @@
-'use client'
-
-import { useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { Search, Compass, BookOpen, FileText, Home, Calendar, ArrowRight } from 'lucide-react'
-import { CATEGORY_LIST } from '@/data/categories'
+import { Activity, ArrowRight, FileSignature, Flame, Home, Wrench } from 'lucide-react'
 
 export default function NotFound() {
-  const [query, setQuery] = useState('')
-  const router = useRouter()
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
-    router.push('/blog')
-  }
-
   return (
-    <div className="min-h-[80vh] bg-[#F8FAFC] py-16 px-4 flex items-center justify-center">
-      <div className="max-w-3xl w-full bg-white rounded-3xl border border-gray-200 shadow-sm p-8 md:p-12 text-center space-y-8">
-        <div>
-          <span className="inline-block px-3.5 py-1 rounded-full bg-primary-50 text-primary-700 text-xs font-bold uppercase tracking-wider mb-3">
-            Página não encontrada (404)
-          </span>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">
-            Não encontramos este endereço, mas podemos ajudar você a achar o que procura
-          </h1>
-          <p className="text-gray-600 text-sm md:text-base max-w-xl mx-auto">
-            Utilize a busca abaixo para explorar nossos artigos revisados ou acesse diretamente um dos nossos guias especializados:
-          </p>
-        </div>
+    <div className="min-h-[75vh] bg-slate-50 py-16 px-4 flex items-center justify-center">
+      <div className="max-w-2xl w-full bg-white rounded-3xl border border-slate-200 shadow-sm p-8 sm:p-12 text-center space-y-6">
+        <span className="inline-block px-3.5 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold uppercase tracking-wider">
+          Página Não Encontrada (404)
+        </span>
+        <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          O endereço que você procura não existe ou foi atualizado
+        </h1>
+        <p className="text-sm text-slate-600 max-w-lg mx-auto">
+          Nosso portal foi totalmente reformulado com uma nova suíte de ferramentas clínicas e documentos para psicólogos. Escolha uma das opções abaixo:
+        </p>
 
-        <form onSubmit={handleSearch} className="max-w-lg mx-auto flex gap-2">
-          <div className="relative flex-1">
-            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Buscar por TDAH, rotina visual, ansiedade, escola..."
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-primary-500"
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-primary-600 hover:bg-primary-700 text-white px-5 py-3 rounded-xl text-sm font-semibold transition-colors"
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4 text-left">
+          <Link
+            href="/testes/ansiedade-gad7"
+            className="p-4 rounded-xl border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/40 transition group"
           >
-            Buscar
-          </button>
-        </form>
+            <Activity className="w-5 h-5 text-emerald-600 mb-2" />
+            <span className="font-bold text-xs text-slate-900 block group-hover:text-emerald-700">
+              Teste GAD-7 (Ansiedade)
+            </span>
+            <span className="text-[11px] text-slate-500">Laudo completo em PDF</span>
+          </Link>
 
-        <div className="text-left">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3 flex items-center gap-1.5">
-            <Compass className="w-4 h-4 text-primary-600" />
-            Guias Especializados por Tema
-          </h2>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2.5">
-            {CATEGORY_LIST.map((hub) => (
-              <Link
-                key={hub.slug}
-                href={`/${hub.slug}`}
-                className="p-3 rounded-xl bg-gray-50 hover:bg-primary-50 border border-gray-200 hover:border-primary-300 text-xs font-semibold text-gray-800 flex items-center justify-between transition-colors"
-              >
-                <span>{hub.shortTitle}</span>
-                <ArrowRight className="w-3.5 h-3.5 text-primary-600 flex-shrink-0" />
-              </Link>
-            ))}
-          </div>
+          <Link
+            href="/testes/burnout"
+            className="p-4 rounded-xl border border-slate-200 hover:border-orange-300 hover:bg-orange-50/40 transition group"
+          >
+            <Flame className="w-5 h-5 text-orange-600 mb-2" />
+            <span className="font-bold text-xs text-slate-900 block group-hover:text-orange-700">
+              Termômetro Burnout
+            </span>
+            <span className="text-[11px] text-slate-500">Critérios CID-11 QD85</span>
+          </Link>
+
+          <Link
+            href="/ferramentas/gerador-documentos"
+            className="p-4 rounded-xl border border-slate-200 hover:border-teal-300 hover:bg-teal-50/40 transition group"
+          >
+            <FileSignature className="w-5 h-5 text-teal-600 mb-2" />
+            <span className="font-bold text-xs text-slate-900 block group-hover:text-teal-700">
+              Emissor de Documentos
+            </span>
+            <span className="text-[11px] text-slate-500">Declarações e Recibos</span>
+          </Link>
         </div>
 
-        <div className="pt-4 border-t border-gray-100 flex flex-wrap justify-center gap-3">
+        <div className="pt-4 border-t border-slate-100">
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-semibold transition-colors"
+            className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-bold px-6 py-3 rounded-xl text-xs sm:text-sm transition shadow-sm"
           >
             <Home className="w-4 h-4" />
-            Página Inicial
-          </Link>
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-primary-50 hover:bg-primary-100 text-primary-800 text-xs font-semibold transition-colors"
-          >
-            <BookOpen className="w-4 h-4" />
-            Artigos do Blog
-          </Link>
-          <Link
-            href="/materiais"
-            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-accent-50 hover:bg-accent-100 text-accent-800 text-xs font-semibold transition-colors"
-          >
-            <FileText className="w-4 h-4" />
-            Materiais Gratuitos
-          </Link>
-          <Link
-            href="/agendamento"
-            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white text-xs font-semibold transition-colors"
-          >
-            <Calendar className="w-4 h-4" />
-            Agendar Conversa
+            <span>Voltar para a Página Inicial</span>
           </Link>
         </div>
       </div>

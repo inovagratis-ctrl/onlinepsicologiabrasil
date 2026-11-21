@@ -8,41 +8,40 @@ import CookieBanner from '@/components/CookieBanner'
 export const metadata: Metadata = {
   metadataBase: new URL('https://psicologiadireta.com.br'),
   title: {
-    default: 'Psicologia Direta | Artigos, Guias Práticos e E-books de Saúde Mental (CRP 24/02327)',
+    default: 'Psicologia Direta | Plataforma Digital de Triagem Psicoeducativa e Gestão Documental',
     template: '%s | Psicologia Direta',
   },
   description:
-    'Portal editorial de artigos, guias práticos, materiais imprimíveis e e-books sobre saúde mental, TDAH, Autismo (TEA), Dislexia, Ansiedade e Orientação Parental — Revisão Técnica: Psicóloga Maria do Socorro Araujo Teixeira (CRP 24/02327).',
+    'Portal de ferramentas e rastreios psicológicos educativos (Ansiedade GAD-7, Questionário de Burnout) e modelos de documentos para psicólogos (Resolução CFP nº 06/2019) — Plataforma Digital de Triagem Psicoeducativa e Gestão Documental.',
   keywords: [
-    'artigos de psicologia',
-    'saúde mental',
-    'autismo',
-    'TDAH',
-    'dislexia',
-    'orientação parental',
-    'ansiedade',
-    'e-books de psicologia',
-    'materiais psicoeducativos',
-    'CRP 24/02327',
-    'Maria do Socorro Araujo Teixeira',
+    'teste de ansiedade online gratuito',
+    'escala gad-7 com relatorio pdf',
+    'questionario de burnout educativo',
+    'rastreio de estresse ocupacional',
+    'gerador de declaracao de comparecimento psicologia cfp',
+    'recibo carne leao psicologo valor por extenso',
+    'contrato terapeutico psicologia',
+    'ferramentas clinicas gratuitas',
     'psicologia direta',
+    'gestao documental psicologia',
   ],
   icons: {
     icon: [
       { url: '/favicon.png', sizes: '32x32', type: 'image/png' },
-      { url: '/assets/psicologia-direta/02-logo-mark-transparente.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
     ],
-    apple: '/assets/psicologia-direta/02-logo-mark-transparente.png',
+    apple: '/apple-touch-icon.png',
   },
   openGraph: {
-    title: 'Psicologia Direta | Artigos, Guias Práticos e E-books (CRP 24/02327)',
+    title: 'Psicologia Direta | Plataforma Digital de Triagem Psicoeducativa e Gestão Documental',
     description:
-      'Artigos aprofundados, ferramentas gratuitas, materiais imprimíveis e e-books revisados pela Psicóloga Maria do Socorro Araujo Teixeira (CRP 24/02327).',
+      'Escalas educativas de rastreio, relatórios em PDF e modelos de documentos profissionais para psicólogos — Plataforma Digital de Triagem Psicoeducativa e Gestão Documental.',
     url: 'https://psicologiadireta.com.br',
     siteName: 'Psicologia Direta',
     locale: 'pt_BR',
     type: 'website',
-    images: ['/assets/psicologia-direta/03-hero-home.png'],
+    images: ['/logo-psicologia-direta.png'],
   },
 }
 
@@ -55,13 +54,13 @@ export default function RootLayout({
     <html lang="pt-BR">
       <head>
         <meta name="google-adsense-account" content="ca-pub-3922432751903141" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3922432751903141"
+          crossOrigin="anonymous"
+        />
       </head>
       <body className="min-h-screen flex flex-col">
-        <Script
-          id="adsbygoogle"
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3922432751903141"
-          strategy="afterInteractive"
-        />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

@@ -1,76 +1,128 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { BreadcrumbJsonLd } from '@/components/JsonLd'
+import { Cookie, ArrowLeft, ShieldCheck, Info } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Política de Cookies | Psicologia Direta',
   description:
-    'Entenda como utilizamos cookies essenciais, analíticos e de publicidade contextual no portal Psicologia Direta e como gerenciar seu consentimento.',
+    'Informações transparentes sobre como cookies e tecnologias semelhantes são utilizados no portal Psicologia Direta e na veiculação de anúncios do Google.',
   alternates: { canonical: 'https://psicologiadireta.com.br/politica-de-cookies' },
 }
 
-export default function PoliticaDeCookiesPage() {
+export default function PoliticaCookiesPage() {
   return (
-    <div className="min-h-screen bg-warm-50 py-12">
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Início', url: '/' },
-          { name: 'Política de Cookies', url: '/politica-de-cookies' },
-        ]}
-      />
-      <div className="max-w-4xl mx-auto px-4">
-        <div className="bg-white rounded-3xl border border-gray-200 p-8 md:p-12 space-y-6 text-gray-700 leading-relaxed">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
-            Política de Cookies
-          </h1>
-          <p className="text-xs text-gray-500">Última atualização: 10 de outubro de 2026</p>
+    <div className="bg-slate-50 min-h-screen py-10 sm:py-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 hover:text-emerald-800 mb-6 transition"
+        >
+          <ArrowLeft className="w-3.5 h-3.5" />
+          Voltar para a página inicial
+        </Link>
 
-          <p>
-            Esta Política de Cookies explica o que são cookies, quais categorias são utilizadas em <strong>psicologiadireta.com.br</strong> e como você pode controlar suas preferências em conformidade com a Lei Geral de Proteção de Dados (LGPD) e o Google Consent Mode.
-          </p>
+        <article className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm text-slate-700 space-y-6 text-xs sm:text-sm leading-relaxed">
+          <header className="border-b border-slate-200 pb-6">
+            <span className="text-xs uppercase font-bold text-emerald-700 tracking-wider">
+              Transparência &amp; Privacidade Digital
+            </span>
+            <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
+              Política de Cookies e Tecnologias de Rastreamento
+            </h1>
+            <p className="text-xs text-slate-500 mt-2">
+              Última atualização: Novembro de 2026.
+            </p>
+          </header>
 
-          <h2 className="text-xl font-bold text-gray-800 pt-2">
-            1. O Que São Cookies?
-          </h2>
-          <p>
-            Cookies são pequenos arquivos de texto armazenados no seu navegador para garantir o funcionamento correto das páginas, lembrar suas escolhas de privacidade e compreender de forma agregada como os conteúdos educativos são acessados.
-          </p>
+          <section className="space-y-4">
+            <h2 className="text-base sm:text-lg font-bold text-slate-900">
+              1. O que são Cookies?
+            </h2>
+            <p>
+              Cookies são pequenos arquivos de texto enviados pelo servidor web e armazenados no seu navegador ou dispositivo quando você visita uma página da internet. Eles permitem que o site reconheça o seu dispositivo, armazene suas preferências e viabilize determinadas funcionalidades.
+            </p>
 
-          <h2 className="text-xl font-bold text-gray-800 pt-2">
-            2. Categorias de Cookies que Utilizamos
-          </h2>
-          <div className="space-y-4 text-sm">
-            <div className="p-4 rounded-xl bg-gray-50 border border-gray-100">
-              <h3 className="font-bold text-gray-800 mb-1">Cookies Estritamente Necessários (Essenciais)</h3>
-              <p>
-                Indispensáveis para a segurança do site, funcionamento dos checklists interativos locais e armazenamento da sua escolha no banner de consentimento (chave <code>pd_cookie_consent_v1</code>). Não coletam informações pessoais identificáveis.
-              </p>
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 pt-2">
+              2. Como Utilizamos Cookies no Psicologia Direta
+            </h2>
+            <p>
+              O portal Psicologia Direta utiliza cookies classificados nas seguintes categorias:
+            </p>
+
+            <div className="space-y-3 pt-2">
+              <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                <strong className="text-slate-900 block text-xs font-bold uppercase mb-1">
+                  a) Cookies Estritamente Necessários
+                </strong>
+                <p className="text-xs text-slate-600">
+                  Fundamentais para o funcionamento técnico básico do site, como navegação segura, integridade de sessões e armazenamento do seu próprio consentimento sobre cookies. Sem estes cookies, o site não opera adequadamente.
+                </p>
+              </div>
+
+              <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                <strong className="text-slate-900 block text-xs font-bold uppercase mb-1">
+                  b) Cookies de Publicidade e Redes Parceiras (Google AdSense)
+                </strong>
+                <p className="text-xs text-slate-600">
+                  O Google e seus parceiros veiculam anúncios neste site para manter o acesso gratuito a todas as ferramentas. Esses parceiros podem usar cookies (como os cookies de publicidade do Google e cookies DART) para veicular anúncios com base nas visitas anteriores do usuário a este ou a outros sites na internet.
+                </p>
+              </div>
             </div>
-            <div className="p-4 rounded-xl bg-gray-50 border border-gray-100">
-              <h3 className="font-bold text-gray-800 mb-1">Cookies Analíticos e de Desempenho</h3>
-              <p>
-                Ajudam a entender quais artigos e guias práticos recebem mais leituras, permitindo melhorar a clareza do portal. Nenhum dado clínico ou conteúdo de formulário é enviado para ferramentas de análise.
-              </p>
-            </div>
-            <div className="p-4 rounded-xl bg-gray-50 border border-gray-100">
-              <h3 className="font-bold text-gray-800 mb-1">Cookies de Publicidade Contextual (Google AdSense)</h3>
-              <p>
-                Quando habilitados e consentidos pelo usuário, permitem a exibição de anúncios identificados como "Publicidade" exclusivamente em páginas informativas/editoriais elegíveis. Páginas de agendamento, contato e atendimento são estritamente isentas de publicidade.
-              </p>
-            </div>
-          </div>
 
-          <h2 className="text-xl font-bold text-gray-800 pt-2">
-            3. Como Alterar ou Revogar Seu Consentimento
-          </h2>
-          <p>
-            Você pode limpar os dados de navegação do seu navegador a qualquer momento para reabrir o banner de preferências no rodapé da página, ou desativar cookies diretamente nas configurações do seu navegador. Consulte também nossa{' '}
-            <Link href="/politica-de-privacidade" className="text-primary-600 underline">
-              Política de Privacidade
-            </Link>
-            .
-          </p>
-        </div>
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 pt-2">
+              3. Compartilhamento de Informações com o Google
+            </h2>
+            <p>
+              Ao navegar em páginas que contêm tags de publicidade do Google, determinadas informações técnicas (como a URL da página acessada e o seu endereço IP) podem ser compartilhadas automaticamente com o Google para fins de entrega e medição de anúncios. Para saber detalhadamente como o Google gerencia dados ao usar sites parceiros, consulte a página oficial do Google:
+            </p>
+            <p>
+              👉 <a
+                href="https://policies.google.com/technologies/partner-sites?hl=pt-BR"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-emerald-700 underline font-semibold"
+              >
+                Como o Google usa informações de sites ou apps que utilizam nossos serviços
+              </a>.
+            </p>
+
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 pt-2">
+              4. Como Você Pode Controlar ou Desativar Cookies
+            </h2>
+            <p>
+              Você pode, a qualquer momento, desativar a veiculação de publicidade personalizada ou gerenciar cookies diretamente nas configurações do seu navegador ou através dos seguintes portais oficiais:
+            </p>
+            <ul className="list-disc pl-5 space-y-1 text-xs text-slate-600">
+              <li>
+                <a
+                  href="https://adssettings.google.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-emerald-700 underline font-medium"
+                >
+                  Configurações de Anúncios do Google
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.aboutads.info/choices/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-emerald-700 underline font-medium"
+                >
+                  Digital Advertising Alliance (AboutAds.info)
+                </a>
+              </li>
+            </ul>
+
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 pt-2">
+              5. Respostas dos Questionários e Sigilo
+            </h2>
+            <p>
+              Reafirmamos que nenhuma resposta dada aos questionários de autoavaliação (como o GAD-7 ou o termômetro de burnout) nem os dados preenchidos no gerador documental são salvos em cookies, logs de servidor ou enviados para redes de publicidade. O processamento dessas ferramentas é integralmente executado na memória local do seu navegador.
+            </p>
+          </section>
+        </article>
       </div>
     </div>
   )
