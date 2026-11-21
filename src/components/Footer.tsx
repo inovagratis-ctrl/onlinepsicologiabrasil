@@ -13,29 +13,22 @@ export default function Footer() {
               href="/"
               className="inline-flex items-center gap-3 bg-white rounded-2xl p-2.5 pr-4 border border-slate-200 shadow-sm hover:opacity-95 transition group"
             >
-              <div className="w-10 h-10 relative shrink-0">
+              <div className="w-11 h-11 relative shrink-0">
                 <Image
                   src="/logo-icon.png"
                   alt="Psicologia Direta Logo"
-                  width={40}
-                  height={40}
+                  width={44}
+                  height={44}
                   className="object-contain"
                 />
               </div>
-              <div className="flex items-center gap-2.5">
-                <div className="flex flex-col leading-tight text-left">
-                  <span className="text-sm font-extrabold tracking-tight text-[#0F5B5B]">
-                    Psicologia
-                  </span>
-                  <span className="text-sm font-extrabold tracking-tight text-[#0F5B5B] -mt-1">
-                    Direta
-                  </span>
-                </div>
-                <div className="flex items-center border-l border-slate-300 pl-2.5">
-                  <span className="text-[9px] font-bold uppercase tracking-wider text-slate-500 leading-tight">
-                    Psicologia &amp;<br />Ferramentas Clínicas
-                  </span>
-                </div>
+              <div className="flex flex-col justify-center leading-none text-left">
+                <span className="text-base sm:text-lg font-extrabold tracking-tight text-[#0F5B5B] whitespace-nowrap">
+                  Psicologia Direta
+                </span>
+                <span className="text-[9.5px] font-bold uppercase tracking-wider text-slate-500 mt-1 whitespace-nowrap">
+                  Psicologia &amp; Ferramentas Clínicas
+                </span>
               </div>
             </Link>
 

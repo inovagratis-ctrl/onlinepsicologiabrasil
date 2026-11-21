@@ -61,34 +61,28 @@ export default function Navbar() {
         <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xs border border-slate-200/90 px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-4">
           
           {/* Logo Oficial com Ícone + Tipografia + Subtítulo */}
-          <Link href="/" className="flex items-center gap-3 sm:gap-4 group shrink-0">
-            <div className="w-10 h-10 sm:w-11 sm:h-11 relative shrink-0 group-hover:scale-105 transition-transform">
+          <Link href="/" className="flex items-center gap-3 sm:gap-3.5 group shrink-0">
+            <div className="w-11 h-11 sm:w-12 sm:h-12 relative shrink-0 group-hover:scale-105 transition-transform">
               <Image
                 src="/logo-icon.png"
                 alt="Psicologia Direta Logo"
                 fill
-                sizes="44px"
+                sizes="48px"
                 className="object-contain"
                 priority
               />
             </div>
             
-            <div className="flex items-center gap-3">
-              <div className="flex flex-col leading-tight">
-                <span className="text-base sm:text-lg font-extrabold tracking-tight text-[#0F5B5B]">
-                  Psicologia
-                </span>
-                <span className="text-base sm:text-lg font-extrabold tracking-tight text-[#0F5B5B] -mt-1">
-                  Direta
-                </span>
-              </div>
-
-              {/* Divisor Vertical e Subtítulo */}
-              <div className="hidden sm:flex items-center gap-3 border-l border-slate-300 pl-3">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 leading-tight max-w-[130px]">
-                  Psicologia &amp;<br />Ferramentas Clínicas
-                </span>
-              </div>
+            <div className="flex flex-col justify-center leading-none">
+              <span className="text-lg sm:text-xl font-extrabold tracking-tight text-[#0F5B5B] whitespace-nowrap">
+                Psicologia Direta
+              </span>
+              <span className="hidden sm:block text-[9.5px] sm:text-[10.5px] font-bold uppercase tracking-wider text-slate-500 mt-1 whitespace-nowrap">
+                Psicologia &amp; Ferramentas Clínicas
+              </span>
+              <span className="sm:hidden text-[9px] font-bold uppercase tracking-wider text-slate-500 mt-0.5 whitespace-nowrap">
+                Ferramentas Clínicas
+              </span>
             </div>
           </Link>
 
