@@ -149,98 +149,134 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Card Ansiedade GAD-7 */}
-            <div className="bg-white rounded-3xl p-7 border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-300 transition-all flex flex-col justify-between group">
+            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-300 transition-all flex flex-col justify-between group">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold border border-emerald-200">
-                    <Activity className="w-6 h-6" />
+                  <div className="w-11 h-11 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold border border-emerald-200">
+                    <Activity className="w-5 h-5" />
                   </div>
                   <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5" /> 2 a 3 minutos
+                    <Clock className="w-3.5 h-3.5" /> 2 a 3 min
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition">
-                    Rastreio de Ansiedade (Escala GAD-7)
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition">
+                    Rastreio de Ansiedade (GAD-7)
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-                    Instrumento padrão de 7 perguntas elaborado por Spitzer et al. (2006) para mensurar a frequência e intensidade de sintomas ansiosos nas últimas duas semanas.
+                    Instrumento padrão de 7 perguntas elaborado por Spitzer et al. (2006) para mensurar a frequência e intensidade de sintomas ansiosos.
                   </p>
                 </div>
 
                 <ul className="space-y-2 pt-2 text-xs text-slate-600 border-t border-slate-100">
                   <li className="flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Classificação por faixa: Mínima, Leve, Moderada ou Severa</span>
+                    <span>Classificação por faixa (0 a 21 pontos)</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Geração de relatório A4 em PDF para imprimir ou salvar</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Técnicas educativas de autorregulação e higiene do sono</span>
+                    <span>Geração de relatório A4 em PDF</span>
                   </li>
                 </ul>
               </div>
 
-              <div className="pt-6 mt-6 border-t border-slate-100">
+              <div className="pt-6 mt-4 border-t border-slate-100">
                 <Link
                   href="/testes/ansiedade-gad7"
-                  className="w-full inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl text-xs sm:text-sm transition shadow-sm"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-[#0F5B5B] hover:bg-[#123F42] text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition shadow-sm"
                 >
-                  <span>Iniciar Avaliação de Ansiedade (GAD-7)</span>
+                  <span>Iniciar Avaliação GAD-7</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
 
             {/* Card Burnout */}
-            <div className="bg-white rounded-3xl p-7 border border-slate-200 shadow-sm hover:shadow-md hover:border-orange-300 transition-all flex flex-col justify-between group">
+            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm hover:shadow-md hover:border-orange-300 transition-all flex flex-col justify-between group">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-2xl bg-orange-50 text-orange-700 flex items-center justify-center font-bold border border-orange-200">
-                    <Flame className="w-6 h-6" />
+                  <div className="w-11 h-11 rounded-2xl bg-orange-50 text-orange-700 flex items-center justify-center font-bold border border-orange-200">
+                    <Flame className="w-5 h-5" />
                   </div>
                   <span className="text-[11px] font-bold text-orange-700 bg-orange-50 px-2.5 py-1 rounded-full flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5" /> 3 a 4 minutos
+                    <Clock className="w-3.5 h-3.5" /> 3 a 4 min
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 group-hover:text-orange-700 transition">
-                    Termômetro de Estresse e Burnout
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 group-hover:text-orange-700 transition">
+                    Termômetro de Burnout (QD85)
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-                    Questionário educativo inspirado nos 3 eixos conceituais da CID-11 (QD85): exaustão de energia, despersonalização/cinismo e sensação de ineficácia profissional.
+                    Questionário educativo inspirado nos 3 eixos da CID-11: exaustão de energia, despersonalização/cinismo e sensação de ineficácia.
                   </p>
                 </div>
 
                 <ul className="space-y-2 pt-2 text-xs text-slate-600 border-t border-slate-100">
                   <li className="flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-orange-600 shrink-0" />
-                    <span>Pontuação dividida pelas 3 dimensões de sobrecarga</span>
+                    <span>Pontuação dividida pelas 3 dimensões</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-orange-600 shrink-0" />
-                    <span>Relatório em PDF com orientações de autorreflexão e pausas</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-orange-600 shrink-0" />
-                    <span>Informações gerais sobre requisitos de perícia e direitos</span>
+                    <span>Relatório em PDF com orientações</span>
                   </li>
                 </ul>
               </div>
 
-              <div className="pt-6 mt-6 border-t border-slate-100">
+              <div className="pt-6 mt-4 border-t border-slate-100">
                 <Link
                   href="/testes/burnout"
-                  className="w-full inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 px-4 rounded-xl text-xs sm:text-sm transition shadow-sm"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition shadow-sm"
                 >
-                  <span>Iniciar Avaliação de Burnout (QD85)</span>
+                  <span>Iniciar Avaliação QD85</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Card Novo: Plano Pessoal de Autocuidado */}
+            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm hover:shadow-md hover:border-[#7BAE9B] transition-all flex flex-col justify-between group">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="w-11 h-11 rounded-2xl bg-teal-50 text-[#0F5B5B] flex items-center justify-center font-bold border border-teal-200">
+                    <Sparkles className="w-5 h-5 text-[#0F5B5B]" />
+                  </div>
+                  <span className="text-[11px] font-bold text-[#0F5B5B] bg-emerald-50 px-2.5 py-1 rounded-full flex items-center gap-1">
+                    <ShieldCheck className="w-3.5 h-3.5" /> 100% Privado
+                  </span>
+                </div>
+
+                <div>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 group-hover:text-[#0F5B5B] transition">
+                    Plano Pessoal de Autocuidado
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                    Roteiro estruturado de segurança emocional para mapear sinais de alerta, estratégias individuais de alívio e contatos de socorro.
+                  </p>
+                </div>
+
+                <ul className="space-y-2 pt-2 text-xs text-slate-600 border-t border-slate-100">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#0F5B5B] shrink-0" />
+                    <span>5 âncoras terapêuticas de prevenção</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#0F5B5B] shrink-0" />
+                    <span>Impressão/PDF limpo para guardar</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="pt-6 mt-4 border-t border-slate-100">
+                <Link
+                  href="/ferramentas/plano-autocuidado"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-[#0F5B5B] hover:bg-[#123F42] text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition shadow-sm"
+                >
+                  <span>Preencher Meu Plano</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -274,7 +310,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {/* Doc 1 */}
               <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
                 <div>
@@ -285,7 +321,7 @@ export default function HomePage() {
                     Declaração de Comparecimento
                   </h4>
                   <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                    Comprova presença na sessão para abono de faltas no trabalho ou faculdade, em conformidade estrita com a Resolução CFP nº 06/2019 (sem revelar diagnóstico).
+                    Comprova presença na sessão para abono de faltas no trabalho ou faculdade, em conformidade com a Resolução CFP nº 06/2019 (sem revelar diagnóstico).
                   </p>
                 </div>
               </div>
@@ -300,7 +336,7 @@ export default function HomePage() {
                     Recibo IRPF / Carnê-Leão
                   </h4>
                   <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                    Conversão instantânea de valor numérico para valor por extenso em reais. Formatação exigida para dedução de despesas médicas na declaração de imposto de renda.
+                    Conversão instantânea de valor numérico para valor por extenso em reais. Formatação exigida pela Receita Federal para dedução médica.
                   </p>
                 </div>
               </div>
@@ -315,8 +351,37 @@ export default function HomePage() {
                     Contrato Terapêutico Simples
                   </h4>
                   <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                    Acordo claro de enquadre: regras de desmarcação com 24h de antecedência, periodicidade, honorários e cláusula de sigilo ético (Art. 9º do Código de Ética).
+                    Acordo claro de enquadre: regras de desmarcação com 24h de antecedência, periodicidade, honorários e cláusula de sigilo ético (Art. 9º).
                   </p>
+                </div>
+              </div>
+
+              {/* Doc 4: Checklist Ético CFP */}
+              <div className="p-5 bg-white rounded-2xl border border-teal-200 bg-teal-50/30 shadow-xs flex flex-col justify-between">
+                <div>
+                  <div className="w-10 h-10 rounded-xl bg-teal-100 text-[#0F5B5B] flex items-center justify-center mb-3">
+                    <Scale className="w-5 h-5 text-[#0F5B5B]" />
+                  </div>
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-teal-100 text-teal-800">
+                      Novo
+                    </span>
+                    <h4 className="font-bold text-slate-900 text-sm">
+                      Checklist Ético CFP
+                    </h4>
+                  </div>
+                  <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                    Roteiro de checagem para conferir requisitos obrigatórios e vedações da Resolução CFP nº 06/2019 antes da assinatura.
+                  </p>
+                </div>
+                <div className="pt-3">
+                  <Link
+                    href="/ferramentas/checklist-documentos-cfp"
+                    className="text-xs font-bold text-[#0F5B5B] hover:text-[#123F42] flex items-center gap-1 transition"
+                  >
+                    <span>Abrir Checklist</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
                 </div>
               </div>
             </div>
@@ -326,13 +391,22 @@ export default function HomePage() {
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 <span>Privacidade total: nenhuma informação de paciente é transmitida ou gravada externamente.</span>
               </div>
-              <Link
-                href="/ferramentas/gerador-documentos"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-teal-700 hover:bg-teal-800 text-white font-bold py-3.5 px-6 rounded-xl text-xs sm:text-sm transition shadow-sm"
-              >
-                <span>Acessar Gerador de Documentos CFP</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+              <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                <Link
+                  href="/ferramentas/checklist-documentos-cfp"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-[#123F42] border border-slate-300 font-bold py-3 px-5 rounded-xl text-xs sm:text-sm transition shadow-xs"
+                >
+                  <Scale className="w-4 h-4 text-[#0F5B5B]" />
+                  <span>Checklist Ético CFP</span>
+                </Link>
+                <Link
+                  href="/ferramentas/gerador-documentos"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#0F5B5B] hover:bg-[#123F42] text-white font-bold py-3 px-5 rounded-xl text-xs sm:text-sm transition shadow-sm"
+                >
+                  <span>Modelos de Documentos</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>

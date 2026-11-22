@@ -15,118 +15,231 @@ import {
   Scale,
   FileText,
   BadgeCheck,
+  Briefcase,
+  Calendar,
+  AlertCircle,
+  HelpCircle,
 } from 'lucide-react'
 
-type DocType = 'declaracao' | 'atestado' | 'relatorio' | 'recibo'
+// Modalidades Oficiais CFP (Resolução CFP nº 06/2019) + Documento Fiscal Separado
+type DocType = 'declaracao' | 'atestado' | 'relatorio' | 'laudo' | 'recibo_fiscal'
+
+type ItemCategory = 'normativo_cfp' | 'vedacao_cfp' | 'fiscal_rfb' | 'recomendacao'
 
 interface ChecklistItem {
   id: string
   text: string
   detail: string
-  artigoCfp: string
-  critical?: boolean
+  fonteNormativa: string
+  categoria: ItemCategory
 }
 
-const CHECKLIST_GERAL: ChecklistItem[] = [
+// Requisitos formais gerais comuns a todos os documentos psicológicos (Art. 5º e 6º da Resolução CFP nº 06/2019)
+const CHECKLIST_GERAL_CFP: ChecklistItem[] = [
   {
-    id: 'num_paginas',
-    text: 'Numeração contínua de páginas',
-    detail: 'Todas as laudas estão numeradas indicando a página atual e o total de páginas (exemplo: folha 1 de 2, folha 2 de 2).',
-    artigoCfp: 'Resolução CFP nº 06/2019, Art. 5º, § 1º',
+    id: 'num_paginas_rubrica',
+    text: 'Numeração contínua de laudas e rubrica (Art. 5º, § 8º)',
+    detail:
+      'Todas as laudas devem ser numeradas (ex: 1/2, 2/2) e rubricadas da primeira até a penúltima lauda, reservando a última lauda para assinatura formal.',
+    fonteNormativa: 'Resolução CFP nº 06/2019, Art. 5º, § 8º',
+    categoria: 'normativo_cfp',
   },
   {
-    id: 'rubrica_assinatura',
-    text: 'Rubrica em todas as folhas e assinatura completa ao final',
-    detail: 'Todas as laudas intermediárias contêm rubrica manual ou digital, e a última lauda traz assinatura, carimbo profissional e número de registro no CRP.',
-    artigoCfp: 'Resolução CFP nº 06/2019, Art. 5º, § 2º',
+    id: 'assinatura_identificacao',
+    text: 'Identificação profissional completa e carimbo/assinatura',
+    detail:
+      'A última lauda contém nome completo do(a) psicólogo(a), número de registro com a sigla do Conselho Regional de Psicologia (CRP) e assinatura física ou certificação digital ICP-Brasil.',
+    fonteNormativa: 'Resolução CFP nº 06/2019, Art. 5º, § 8º',
+    categoria: 'normativo_cfp',
   },
   {
     id: 'linguagem_tecnica',
-    text: 'Linguagem rigorosa, impessoal e técnica',
-    detail: 'A redação é clara, objetiva, sustentada em dados e fatos observados, sem adjetivações excessivas ou juízos morais de valor.',
-    artigoCfp: 'Resolução CFP nº 06/2019, Art. 3º',
+    text: 'Redação impessoal, técnica e rigor metodológico',
+    detail:
+      'A linguagem deve ser precisa, concisa e sustentada em referencial teórico e metodológico reconhecido pela ciência psicológica, sem adjetivações excessivas ou juízos morais de valor.',
+    fonteNormativa: 'Resolução CFP nº 06/2019, Art. 6º, caput e §§ 3º e 4º',
+    categoria: 'normativo_cfp',
   },
   {
     id: 'guarda_documental',
-    text: 'Previsão de arquivamento pelo prazo mínimo de 5 anos',
-    detail: 'Uma via idêntica ou cópia digital arquivada em prontuário seguro, sob sigilo profissional, mantida pelo prazo legal de cinco anos.',
-    artigoCfp: 'Resolução CFP nº 06/2019, Art. 15',
+    text: 'Guarda documental em prontuário pelo prazo mínimo de 5 anos',
+    detail:
+      'Cópia fidedigna do documento emitido deve ser arquivada em prontuário psicológico físico ou digital com garantia de sigilo, pelo prazo mínimo de 5 (cinco) anos.',
+    fonteNormativa: 'Resolução CFP nº 01/2009 e Resolução CFP nº 06/2019, Art. 15',
+    categoria: 'normativo_cfp',
   },
 ]
 
-const CHECKLIST_ESPECIFICO: Record<DocType, ChecklistItem[]> = {
+// Itens específicos por modalidade da Resolução CFP nº 06/2019
+const CHECKLIST_ESPECIFICO_CFP: Record<'declaracao' | 'atestado' | 'relatorio' | 'laudo', ChecklistItem[]> = {
   declaracao: [
     {
-      id: 'dec_sem_sintomas',
-      text: 'VEDAÇÃO: Sem registro de sintomas, CID ou diagnóstico',
-      detail: 'A declaração NUNCA deve conter menção a sintomas, estado mental, hipótese diagnóstica ou código de CID.',
-      artigoCfp: 'Resolução CFP nº 06/2019, Art. 9º, § 2º',
-      critical: true,
+      id: 'dec_finalidade',
+      text: 'Finalidade restrita de registro de comparecimento ou acompanhamento',
+      detail:
+        'A declaração visa exclusivamente certificar comparecimento do atendido ou acompanhante, dias e horários das sessões ou indicar que a pessoa está sob acompanhamento psicológico.',
+      fonteNormativa: 'Resolução CFP nº 06/2019, Art. 9º, § 1º',
+      categoria: 'normativo_cfp',
     },
     {
-      id: 'dec_finalidade',
-      text: 'Finalidade estrita de comparecimento ou acompanhamento',
-      detail: 'O texto limita-se a atestar que o cliente compareceu ou está em atendimento no serviço de psicologia com data e horário.',
-      artigoCfp: 'Resolução CFP nº 06/2019, Art. 9º, § 1º',
+      id: 'dec_vedacao_sintomas',
+      text: 'VEDAÇÃO ABSOLUTA: Proibido registrar sintomas, CID ou diagnóstico',
+      detail:
+        'A declaração NUNCA pode conter menção a sintomas, estado mental, evolução clínica, hipótese diagnóstica ou código de Classificação Internacional de Doenças (CID).',
+      fonteNormativa: 'Resolução CFP nº 06/2019, Art. 9º, § 2º',
+      categoria: 'vedacao_cfp',
     },
   ],
   atestado: [
     {
       id: 'atest_processo_previo',
-      text: 'Resultado de processo prévio de avaliação psicológica',
-      detail: 'O atestado psicológico fundamenta-se obrigatoriamente em avaliação psicológica concluída ou processo continuado devidamente registrado.',
-      artigoCfp: 'Resolução CFP nº 06/2019, Art. 10, caput',
-      critical: true,
+      text: 'Fundamentado em processo de avaliação psicológica prévia',
+      detail:
+        'O atestado psicológico decorre obrigatoriamente de processo prévio de avaliação psicológica concluída ou processo continuado registrado em prontuário.',
+      fonteNormativa: 'Resolução CFP nº 06/2019, Art. 10, caput',
+      categoria: 'normativo_cfp',
     },
     {
       id: 'atest_finalidade_estrita',
-      text: 'Informação restrita ao estritamente necessário para o solicitante',
-      detail: 'Informa apenas a condição de aptidão ou inaptidão para a finalidade requerida, resguardando o sigilo quanto a detalhes íntimos da vida do paciente.',
-      artigoCfp: 'Resolução CFP nº 06/2019, Art. 10, § 1º',
+      text: 'Informação restrita ao solicitado e resguardo do sigilo',
+      detail:
+        'Deve atestar unicamente a condição de aptidão, inaptidão ou justificativa necessária para a finalidade requerida, resguardando o sigilo de informações íntimas que não dizem respeito ao solicitante.',
+      fonteNormativa: 'Resolução CFP nº 06/2019, Art. 10, § 1º',
+      categoria: 'normativo_cfp',
     },
     {
       id: 'atest_cid_autorizado',
-      text: 'Inclusão de CID somente com autorização expressa do atendido',
-      detail: 'O código de diagnóstico (CID) só pode ser grafado se o paciente (ou responsável legal) solicitar formalmente por escrito.',
-      artigoCfp: 'Resolução CFP nº 06/2019, Art. 10, § 3º',
-      critical: true,
+      text: 'Inserção de CID condicionada à solicitação expressa do atendido',
+      detail:
+        'O código de diagnóstico (CID) só pode ser aposto no atestado psicológico se houver solicitação expressa e formalizada pelo próprio paciente ou por seu representante legal.',
+      fonteNormativa: 'Resolução CFP nº 06/2019, Art. 10, § 3º',
+      categoria: 'normativo_cfp',
+    },
+    {
+      id: 'atest_vedacao_generica',
+      text: 'VEDAÇÃO: Proibido atestar sem fundamentação técnica sólida',
+      detail:
+        'É vedado emitir atestado psicológico com base em impressões leigas, sem métodos de avaliação psicológica ou para fins estranhos à prática profissional.',
+      fonteNormativa: 'Código de Ética do Psicólogo e Resolução CFP nº 06/2019, Art. 10',
+      categoria: 'vedacao_cfp',
     },
   ],
   relatorio: [
     {
-      id: 'rel_estrutura_4partes',
-      text: 'Estrutura formal em 4 partes obrigatórias',
-      detail: 'O relatório psicológico contém: I - Identificação; II - Descrição da Demanda; III - Procedimento; IV - Análise; V - Conclusão.',
-      artigoCfp: 'Resolução CFP nº 06/2019, Art. 11, § 1º',
+      id: 'rel_estrutura_5partes',
+      text: 'Estrutura formal em 5 partes obrigatórias (Art. 11, § 1º)',
+      detail:
+        'O relatório psicológico deve conter impreterivelmente os 5 itens: I - Identificação; II - Descrição da demanda; III - Procedimento; IV - Análise; V - Conclusão.',
+      fonteNormativa: 'Resolução CFP nº 06/2019, Art. 11, § 1º',
+      categoria: 'normativo_cfp',
     },
     {
       id: 'rel_fundamentacao_tecnica',
-      text: 'Descrição fundamentada dos instrumentos e técnicas',
-      detail: 'O relatório cita claramente as entrevistas, instrumentos psicométricos (SATEPSI) ou observações clínicas utilizadas no procedimento.',
-      artigoCfp: 'Resolução CFP nº 06/2019, Art. 11, § 4º',
+      text: 'Discriminação de instrumentos, entrevistas e referencial teórico',
+      detail:
+        'No item Procedimento, devem ser citadas as fontes fundamentais utilizadas (testes validados no SATEPSI, número de sessões e técnicas clínicas observadas).',
+      fonteNormativa: 'Resolução CFP nº 06/2019, Art. 11, § 4º',
+      categoria: 'normativo_cfp',
+    },
+    {
+      id: 'rel_analise_demanda',
+      text: 'Análise articulada e restrita aos objetivos da demanda',
+      detail:
+        'A análise deve integrar os dados colhidos sem exposição desnecessária da vida privada do paciente, limitando-se ao que fundamenta a conclusão técnica.',
+      fonteNormativa: 'Resolução CFP nº 06/2019, Art. 11, § 5º',
+      categoria: 'normativo_cfp',
+    },
+    {
+      id: 'rel_conclusao_encaminhamento',
+      text: 'Conclusão clara com eventuais encaminhamentos ou intervenções',
+      detail:
+        'A conclusão sintetiza o processo sem juízo de valor leigo, podendo sugerir continuidade de intervenções terapêuticas ou encaminhamentos multiprofissionais.',
+      fonteNormativa: 'Resolução CFP nº 06/2019, Art. 11, § 6º',
+      categoria: 'normativo_cfp',
     },
   ],
-  recibo: [
+  laudo: [
     {
-      id: 'rec_valor_extenso',
-      text: 'Valor em algarismos numéricos e por extenso em reais',
-      detail: 'O recibo discrimina o montante numérico e a escrita completa por extenso em moeda corrente para validade perante a Receita Federal.',
-      artigoCfp: 'Instrução Normativa RFB nº 1500/2014 (Carnê-Leão)',
+      id: 'laudo_estrutura_5partes',
+      text: 'Estrutura formal em 5 partes obrigatórias de laudo pericial (Art. 13, § 1º)',
+      detail:
+        'O laudo psicológico possui estrutura com: I - Identificação; II - Descrição da demanda; III - Procedimento; IV - Análise; V - Conclusão, decorrente de processo pericial ou diagnóstico aprofundado.',
+      fonteNormativa: 'Resolução CFP nº 06/2019, Art. 13, § 1º',
+      categoria: 'normativo_cfp',
     },
     {
-      id: 'rec_cpf_cnpj',
-      text: 'Identificação completa de CPF e dados de ambas as partes',
-      detail: 'Constam o CPF e nome do psicólogo prestador e o CPF e nome do paciente/responsável financeiro para dedução correta do IRPF.',
-      artigoCfp: 'Receita Federal do Brasil / Livro Caixa Digital',
+      id: 'laudo_rigor_psicometrico',
+      text: 'Rigor psicométrico e fundamentação em testes com parecer favorável do SATEPSI',
+      detail:
+        'Uso obrigatório de testes psicológicos válidos com padronização brasileira aprovada pelo CFP, descritos com fidedignidade metodológica.',
+      fonteNormativa: 'Resolução CFP nº 09/2018 e Resolução CFP nº 06/2019, Art. 13, § 4º',
+      categoria: 'normativo_cfp',
+    },
+    {
+      id: 'laudo_vedacao_rotulacao',
+      text: 'VEDAÇÃO: Proibido rotulações deterministas e estigmatizantes',
+      detail:
+        'O laudo não deve reduzir a pessoa a uma categoria diagnóstica estática, contextualizando os achados com a dinâmica histórica, social e psíquica do sujeito.',
+      fonteNormativa: 'Resolução CFP nº 06/2019, Art. 6º, § 4º',
+      categoria: 'vedacao_cfp',
     },
   ],
 }
+
+// Checklist específico para Recibo Fiscal (Âmbito Tributário / Receita Federal — Não é documento clínico do CFP)
+const CHECKLIST_RECIBO_FISCAL: ChecklistItem[] = [
+  {
+    id: 'rfb_valor_extenso',
+    text: 'Valor discriminado em algarismos numéricos e por extenso em reais',
+    detail:
+      'O valor deve ser expresso numericamente (R$ XX,XX) e transcrito por extenso em língua portuguesa, requisito indispensável para validade fiscal perante a Receita Federal.',
+    fonteNormativa: 'Instrução Normativa RFB nº 1500/2014 e Código Civil (Art. 319)',
+    categoria: 'fiscal_rfb',
+  },
+  {
+    id: 'rfb_cpf_partes',
+    text: 'Identificação completa de CPF do prestador e do paciente/pagador',
+    detail:
+      'Constam nome completo e CPF do(a) psicólogo(a) e nome completo e CPF do paciente beneficiário (ou do responsável financeiro, no caso de dependentes).',
+    fonteNormativa: 'Instrução Normativa RFB nº 1500/2014, Art. 96',
+    categoria: 'fiscal_rfb',
+  },
+  {
+    id: 'rfb_discriminacao_servico',
+    text: 'Discriminação do serviço: "Sessões de Atendimento Psicológico"',
+    detail:
+      'Especificar a natureza médica/psicológica dos serviços prestados, indicando a quantidade de atendimentos ou o período de referência (mês/ano).',
+    fonteNormativa: 'Regulamento do Imposto de Renda (RIR/2018)',
+    categoria: 'fiscal_rfb',
+  },
+  {
+    id: 'rfb_carne_leao',
+    text: 'Lançamento obrigatório no Livro Caixa / Carnê-Leão Digital',
+    detail:
+      'Para psicólogos autônomos pessoa física (PF), os recebimentos mensais devem ser escriturados no sistema Carnê-Leão da Receita Federal com o CPF de cada atendido.',
+    fonteNormativa: 'Receita Federal do Brasil — Livro Caixa Digital',
+    categoria: 'fiscal_rfb',
+  },
+  {
+    id: 'rfb_sigilo_fiscal',
+    text: 'VEDAÇÃO: Proibido colocar dados clínicos ou CID em recibo fiscal',
+    detail:
+      'O recibo é um documento contábil que transita por contabilidades e Receita Federal. NUNCA mencione queixas, diagnóstico ou códigos de CID no recibo.',
+    fonteNormativa: 'Código de Ética Profissional do Psicólogo (Art. 9º - Sigilo)',
+    categoria: 'vedacao_cfp',
+  },
+]
 
 export default function ChecklistCfpPage() {
   const [docType, setDocType] = useState<DocType>('declaracao')
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({})
 
-  const currentItems = [...CHECKLIST_GERAL, ...CHECKLIST_ESPECIFICO[docType]]
+  // Determinar lista de itens de acordo com a seleção
+  const isReciboFiscal = docType === 'recibo_fiscal'
+  const currentItems = isReciboFiscal
+    ? CHECKLIST_RECIBO_FISCAL
+    : [...CHECKLIST_GERAL_CFP, ...CHECKLIST_ESPECIFICO_CFP[docType]]
+
   const totalCount = currentItems.length
   const completedCount = currentItems.filter((item) => checkedItems[item.id]).length
   const progressPercent = Math.round((completedCount / totalCount) * 100)
@@ -164,19 +277,19 @@ export default function ChecklistCfpPage() {
           <span className="text-slate-800 font-semibold">Checklist Ético CFP</span>
         </nav>
 
-        {/* Header */}
+        {/* Header Oficial da Ferramenta */}
         <header className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/90 shadow-xs mb-8 print:hidden">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="space-y-2">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 text-teal-800 text-xs font-bold tracking-wide uppercase border border-teal-100">
                 <Scale className="w-3.5 h-3.5 text-[#0F5B5B]" />
-                Conformidade Profissional CFP
+                Conformidade Profissional &amp; Ética Documental
               </span>
               <h1 className="text-2xl sm:text-3xl font-extrabold text-[#123F42] tracking-tight">
-                Checklist Ético de Emissão Documental (Resolução CFP nº 06/2019)
+                Checklist Ético de Emissão Documental
               </h1>
               <p className="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
-                Lista de conferência prévia para psicólogos revisarem itens obrigatórios, requisitos formais e vedações éticas antes da entrega de documentos clínicos a pacientes ou instituições.
+                Roteiro de conferência prévia para psicólogos revisarem os requisitos normativos, estrutura formal e vedações éticas da <strong>Resolução CFP nº 06/2019</strong> antes da entrega de documentos clínicos a pacientes ou instituições.
               </p>
             </div>
             <div className="shrink-0 flex sm:flex-col gap-2 w-full sm:w-auto">
@@ -199,71 +312,110 @@ export default function ChecklistCfpPage() {
             </div>
           </div>
 
-          {/* Abas de Tipos de Documento */}
-          <div className="mt-8 pt-6 border-t border-slate-100">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-3">
-              Selecione o documento que você vai emitir:
-            </span>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-              <button
-                type="button"
-                onClick={() => setDocType('declaracao')}
-                className={`px-3 py-2.5 rounded-xl font-bold text-xs transition border flex items-center justify-center gap-1.5 ${
-                  docType === 'declaracao'
-                    ? 'bg-[#123F42] text-white border-[#123F42] shadow-xs'
-                    : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
-                }`}
-              >
-                <FileText className="w-3.5 h-3.5" />
-                1. Declaração
-              </button>
-              <button
-                type="button"
-                onClick={() => setDocType('atestado')}
-                className={`px-3 py-2.5 rounded-xl font-bold text-xs transition border flex items-center justify-center gap-1.5 ${
-                  docType === 'atestado'
-                    ? 'bg-[#123F42] text-white border-[#123F42] shadow-xs'
-                    : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
-                }`}
-              >
-                <BadgeCheck className="w-3.5 h-3.5" />
-                2. Atestado
-              </button>
-              <button
-                type="button"
-                onClick={() => setDocType('relatorio')}
-                className={`px-3 py-2.5 rounded-xl font-bold text-xs transition border flex items-center justify-center gap-1.5 ${
-                  docType === 'relatorio'
-                    ? 'bg-[#123F42] text-white border-[#123F42] shadow-xs'
-                    : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
-                }`}
-              >
-                <BookOpen className="w-3.5 h-3.5" />
-                3. Relatório
-              </button>
-              <button
-                type="button"
-                onClick={() => setDocType('recibo')}
-                className={`px-3 py-2.5 rounded-xl font-bold text-xs transition border flex items-center justify-center gap-1.5 ${
-                  docType === 'recibo'
-                    ? 'bg-[#123F42] text-white border-[#123F42] shadow-xs'
-                    : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
-                }`}
-              >
-                <FileCheck2 className="w-3.5 h-3.5" />
-                4. Recibo Fiscal
-              </button>
+          {/* Seletores de Modalidade Documental */}
+          <div className="mt-8 pt-6 border-t border-slate-100 space-y-4">
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-2">
+                1. Modalidades de Documentos Psicológicos (Resolução CFP nº 06/2019, Art. 8º):
+              </span>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setDocType('declaracao')}
+                  className={`px-3 py-2.5 rounded-xl font-bold text-xs transition border flex items-center justify-center gap-1.5 ${
+                    docType === 'declaracao'
+                      ? 'bg-[#123F42] text-white border-[#123F42] shadow-xs'
+                      : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                  }`}
+                >
+                  <FileText className="w-3.5 h-3.5" />
+                  Declaração (Art. 9º)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDocType('atestado')}
+                  className={`px-3 py-2.5 rounded-xl font-bold text-xs transition border flex items-center justify-center gap-1.5 ${
+                    docType === 'atestado'
+                      ? 'bg-[#123F42] text-white border-[#123F42] shadow-xs'
+                      : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                  }`}
+                >
+                  <BadgeCheck className="w-3.5 h-3.5" />
+                  Atestado (Art. 10)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDocType('relatorio')}
+                  className={`px-3 py-2.5 rounded-xl font-bold text-xs transition border flex items-center justify-center gap-1.5 ${
+                    docType === 'relatorio'
+                      ? 'bg-[#123F42] text-white border-[#123F42] shadow-xs'
+                      : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                  }`}
+                >
+                  <BookOpen className="w-3.5 h-3.5" />
+                  Relatório (Art. 11)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDocType('laudo')}
+                  className={`px-3 py-2.5 rounded-xl font-bold text-xs transition border flex items-center justify-center gap-1.5 ${
+                    docType === 'laudo'
+                      ? 'bg-[#123F42] text-white border-[#123F42] shadow-xs'
+                      : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                  }`}
+                >
+                  <FileCheck2 className="w-3.5 h-3.5" />
+                  Laudo (Art. 13)
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-2">
+                2. Documento Administrativo e Contábil (Receita Federal / Carnê-Leão):
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setDocType('recibo_fiscal')}
+                  className={`px-4 py-2.5 rounded-xl font-bold text-xs transition border flex items-center justify-center gap-2 ${
+                    docType === 'recibo_fiscal'
+                      ? 'bg-[#0F5B5B] text-white border-[#0F5B5B] shadow-xs'
+                      : 'bg-emerald-50/60 text-emerald-900 border-emerald-200 hover:bg-emerald-100/70'
+                  }`}
+                >
+                  <Briefcase className="w-4 h-4 text-emerald-700" />
+                  Recibo de Honorários / Carnê-Leão (Instrução Normativa RFB)
+                </button>
+              </div>
             </div>
           </div>
         </header>
+
+        {/* Notificação de Distinção de Escopo */}
+        {isReciboFiscal ? (
+          <div className="p-4 bg-emerald-50/80 rounded-2xl border border-emerald-200 text-xs text-emerald-950 mb-6 flex items-start gap-3">
+            <Info className="w-4 h-4 text-[#0F5B5B] shrink-0 mt-0.5" />
+            <p className="leading-relaxed">
+              <strong>Distinção Normativa Importante:</strong> O Recibo Fiscal de Honorários é um documento contábil e tributário disciplinado pela Receita Federal do Brasil (IN RFB nº 1500/2014) e Código Civil. Ele <strong>não constitui modalidade de documento psicológico clínico da Resolução CFP nº 06/2019</strong>. As exigências abaixo referem-se à validade fiscal para dedução de IRPF pelo paciente e escrituração do Livro Caixa do profissional.
+            </p>
+          </div>
+        ) : (
+          <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs text-slate-600 mb-6 flex items-start gap-3">
+            <Info className="w-4 h-4 text-[#0F5B5B] shrink-0 mt-0.5" />
+            <p className="leading-relaxed">
+              <strong>Base Normativa Oficial:</strong> Os itens a seguir foram elaborados com base estrita no texto oficial da <strong>Resolução CFP nº 06/2019 comentada</strong> e no <strong>Manual Orientativo do Conselho Federal de Psicologia</strong>. Itens marcados como <em>Vedação Ética Estrita</em> constituem infração disciplinar se descumpridos.
+            </p>
+          </div>
+        )}
 
         {/* Barra de Progresso de Conformidade */}
         <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="space-y-1 flex-1 w-full">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-bold text-slate-700">Status da Conferência Ética:</span>
+              <span className="font-bold text-slate-700">Status da Conferência:</span>
               <span className="font-mono font-bold text-[#0F5B5B]">
-                {completedCount} de {totalCount} itens ({progressPercent}%)
+                {completedCount} de {totalCount} itens conferidos ({progressPercent}%)
               </span>
             </div>
             <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
@@ -279,12 +431,12 @@ export default function ChecklistCfpPage() {
             {isAllChecked ? (
               <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-900 font-bold text-xs">
                 <CheckCircle2 className="w-4 h-4 text-emerald-700" />
-                Pronto para Emissão
+                Conferência 100% Concluída
               </span>
             ) : (
               <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 text-amber-800 font-bold text-xs border border-amber-200">
                 <AlertTriangle className="w-4 h-4 text-amber-600" />
-                Pendente de Revisão
+                Itens Pendentes
               </span>
             )}
             <button
@@ -294,16 +446,21 @@ export default function ChecklistCfpPage() {
               title="Imprimir folha de checagem"
             >
               <Printer className="w-3.5 h-3.5" />
-              Imprimir
+              Imprimir Folha
             </button>
           </div>
         </div>
 
         {/* Lista de Itens do Checklist */}
         <div className="space-y-4 mb-8">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">
-            Requisitos Obrigatórios para {docType.toUpperCase()}:
-          </h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+              Itens para Conferência — {docType.replace('_', ' ').toUpperCase()}:
+            </h2>
+            <span className="text-[11px] text-slate-400">
+              Clique nos itens para marcar como conferido
+            </span>
+          </div>
 
           <div className="space-y-3">
             {currentItems.map((item, index) => {
@@ -322,12 +479,12 @@ export default function ChecklistCfpPage() {
                     <input
                       type="checkbox"
                       checked={isChecked}
-                      onChange={() => {}} // Controlled by container onClick
+                      onChange={() => {}}
                       className="w-5 h-5 rounded text-[#0F5B5B] focus:ring-[#0F5B5B] cursor-pointer"
                     />
                   </div>
 
-                  <div className="space-y-1 flex-1">
+                  <div className="space-y-1.5 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
                       <h3
                         className={`text-sm font-bold leading-tight ${
@@ -336,23 +493,43 @@ export default function ChecklistCfpPage() {
                       >
                         {index + 1}. {item.text}
                       </h3>
-                      {item.critical && (
-                        <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">
-                          Vedação Estrita
+                      {item.categoria === 'vedacao_cfp' && (
+                        <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-200">
+                          Vedação Ética Estrita
+                        </span>
+                      )}
+                      {item.categoria === 'normativo_cfp' && (
+                        <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-teal-50 text-teal-800 border border-teal-200">
+                          Requisito CFP Obrigatório
+                        </span>
+                      )}
+                      {item.categoria === 'fiscal_rfb' && (
+                        <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-blue-50 text-blue-800 border border-blue-200">
+                          Norma Fiscal (Receita Federal)
                         </span>
                       )}
                     </div>
                     <p className="text-xs text-slate-600 leading-relaxed">
                       {item.detail}
                     </p>
-                    <span className="inline-block text-[10px] font-semibold text-slate-400 font-mono pt-1">
-                      Ref: {item.artigoCfp}
+                    <span className="inline-block text-[11px] font-semibold text-slate-500 font-mono pt-1">
+                      Fonte: {item.fonteNormativa}
                     </span>
                   </div>
                 </div>
               )
             })}
           </div>
+        </div>
+
+        {/* Rodapé Informativo e Data de Revisão */}
+        <div className="p-4 bg-white rounded-2xl border border-slate-200 text-[11px] text-slate-500 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-8">
+          <span>
+            <strong>Revisão Técnica &amp; Normativa:</strong> Atualizado em 2026 com base no Manual Orientativo do CFP e Resolução CFP nº 06/2019 comentada oficial.
+          </span>
+          <span className="text-[#0F5B5B] font-medium shrink-0">
+            Curadoria CRP 24/02327
+          </span>
         </div>
 
         {/* Callout de Apoio ao Gerador */}
@@ -362,7 +539,7 @@ export default function ChecklistCfpPage() {
               Precisa gerar o documento já formatado?
             </h3>
             <p className="text-xs text-slate-600">
-              Utilize nossos modelos editáveis de declaração, recibo com valor por extenso e contrato terapêutico.
+              Utilize nossos modelos editáveis de apoio para declarações, recibos com valor por extenso automático e contratos terapêuticos.
             </p>
           </div>
           <Link
