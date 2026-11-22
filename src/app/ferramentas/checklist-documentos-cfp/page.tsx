@@ -96,18 +96,18 @@ const CHECKLIST_ESPECIFICO_CFP: Record<'declaracao' | 'atestado' | 'relatorio' |
   atestado: [
     {
       id: 'atest_processo_previo',
-      text: 'Fundamentado em processo prévio de avaliação psicológica ou atendimento',
+      text: 'Resultado estrito de processo prévio de avaliação psicológica',
       detail:
-        'O atestado psicológico decorre obrigatoriamente de processo prévio de avaliação psicológica concluída ou processo continuado devidamente registrado em prontuário.',
-      fonteNormativa: 'Resolução CFP nº 06/2019, Art. 10, caput e § 3º',
+        'O atestado psicológico decorre obrigatoriamente de um processo de avaliação psicológica concluído ou em andamento, devidamente registrado em prontuário.',
+      fonteNormativa: 'Resolução CFP nº 06/2019, Art. 10, § 2º',
       categoria: 'normativo_cfp',
     },
     {
       id: 'atest_finalidade_estrita',
-      text: 'Informação restrita ao solicitado e resguardo do sigilo íntimo',
+      text: 'Restrição das informações ao estritamente necessário para o solicitante',
       detail:
-        'Deve atestar unicamente a condição de aptidão, inaptidão ou justificativa necessária para a finalidade requerida, resguardando o sigilo de detalhes íntimos da vida do atendido.',
-      fonteNormativa: 'Resolução CFP nº 06/2019, Art. 10, § 1º',
+        'Na emissão do atestado psicológico, a(o) psicóloga(o) deve se restringir às informações estritamente necessárias ao que foi solicitado, resguardando o sigilo de detalhes íntimos da vida do atendido.',
+      fonteNormativa: 'Resolução CFP nº 06/2019, Art. 10, § 5º',
       categoria: 'normativo_cfp',
     },
     {
@@ -229,8 +229,8 @@ const CHECKLIST_RECIBO_FISCAL: ChecklistItem[] = [
     id: 'rfb_receita_saude_obrigatorio',
     text: 'Emissão eletrônica obrigatória pelo "Receita Saúde" (desde 01/01/2025)',
     detail:
-      'Para psicólogos autônomos pessoa física, a emissão do comprovante pelo sistema digital oficial "Receita Saúde" (integrado ao Carnê-Leão Web da Receita Federal) tornou-se obrigatória. Recibos manuais ou em PDF isolados não são mais válidos perante a fiscalização do IRPF.',
-    fonteNormativa: 'Instrução Normativa RFB nº 2.178/2024 e Manual Receita Saúde RFB',
+      'Para psicólogos autônomos pessoa física, a emissão do comprovante pelo sistema digital oficial "Receita Saúde" (integrado ao Carnê-Leão Web da Receita Federal) tornou-se obrigatória a partir de 2025. Recibos manuais ou em PDF isolados não são aceitos para dedução no IRPF.',
+    fonteNormativa: 'Instrução Normativa RFB nº 2.240/2024 e Manual Receita Saúde RFB',
     categoria: 'fiscal_rfb',
   },
   {
@@ -238,15 +238,15 @@ const CHECKLIST_RECIBO_FISCAL: ChecklistItem[] = [
     text: 'Identificação completa dos CPFs do paciente beneficiário e do pagador',
     detail:
       'Obrigatoriedade de informar no Receita Saúde o CPF do paciente que recebeu o atendimento psicológico e, caso o pagamento seja feito por terceiro (ex: responsável financeiro ou cônjuge), o CPF do responsável pagador que deduzirá a despesa médica no IRPF.',
-    fonteNormativa: 'Instrução Normativa RFB nº 2.178/2024 e Manual Receita Saúde RFB',
+    fonteNormativa: 'Instrução Normativa RFB nº 2.240/2024 e Manual Receita Saúde RFB',
     categoria: 'fiscal_rfb',
   },
   {
     id: 'rfb_discriminacao_data',
-    text: 'Indicação das datas das sessões e valor cobrado na competência',
+    text: 'Emissão com base na data do efetivo pagamento (regime de caixa)',
     detail:
-      'Discriminação no sistema da data exata em que cada sessão de psicoterapia ou avaliação foi realizada e o valor efetivamente recebido no mês para a correta base do Carnê-Leão.',
-    fonteNormativa: 'Manual Receita Saúde RFB e Regulamento do Imposto de Renda (RIR)',
+      'O comprovante no Receita Saúde é emitido com base na data em que o pagamento foi efetivamente recebido pelo profissional (regime de caixa do Carnê-Leão), podendo a data ou período de realização dos atendimentos ser informada como campo complementar.',
+    fonteNormativa: 'Manual de Orientação do Receita Saúde (RFB) e Instrução Normativa RFB nº 2.240/2024',
     categoria: 'fiscal_rfb',
   },
   {
@@ -578,7 +578,7 @@ export default function ChecklistCfpPage() {
         {/* Rodapé Informativo e Data de Revisão */}
         <div className="p-4 bg-white rounded-2xl border border-slate-200 text-[11px] text-slate-500 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-8">
           <span>
-            <strong>Revisão Técnica &amp; Normativa:</strong> Atualizado em 2026 com base no Manual Orientativo do CFP, Resolução CFP nº 06/2019 comentada oficial e Instrução Normativa RFB nº 2.178/2024.
+            <strong>Revisão Técnica &amp; Normativa:</strong> Atualizado em 2026 com base no Manual Orientativo do CFP, Resolução CFP nº 06/2019 comentada oficial e Instrução Normativa RFB nº 2.240/2024 (Receita Saúde).
           </span>
           <span className="text-[#0F5B5B] font-medium shrink-0">
             Curadoria CRP 24/02327
