@@ -265,8 +265,8 @@ export default function FerramentasHubPage() {
               </div>
 
               <div className="p-4 bg-[#F5F8F6] rounded-2xl border border-slate-200/90">
-                <span className="font-bold text-[#123F42] block text-sm mb-1">🧾 Recibo de Consulta</span>
-                <p className="text-slate-600">Com valor por extenso automático e campos exigidos no Carnê-Leão / IRPF.</p>
+                <span className="font-bold text-[#123F42] block text-sm mb-1">🧾 Recibo Complementar</span>
+                <p className="text-slate-600">Com valor por extenso automático (recibo físico de apoio; não substitui o Receita Saúde).</p>
               </div>
 
               <div className="p-4 bg-[#F5F8F6] rounded-2xl border border-slate-200/90">
@@ -303,7 +303,7 @@ export default function FerramentasHubPage() {
                 Checklist Ético de Emissão Documental (Resolução CFP nº 06/2019)
               </h3>
               <p className="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
-                Lista interativa de conferência prévia para Declaração, Atestado, Relatório, Laudo e Recibo Fiscal. Valide numeração de laudas e rubricas (Art. 5º, § 8º), estrutura formal em 5 partes, vedações de diagnóstico e arquivamento seguro por 5 anos.
+                Lista interativa de conferência prévia para Declaração, Atestado, Relatório, Laudo, Parecer e Comprovante Receita Saúde. Valide numeração de laudas e rubricas (Art. 5º, § 8º), estrutura formal em 5 partes, vedações de diagnóstico e arquivamento seguro por 5 anos.
               </p>
             </div>
             <Link

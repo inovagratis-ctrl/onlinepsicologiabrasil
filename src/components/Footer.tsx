@@ -117,7 +117,7 @@ export default function Footer() {
                   className="hover:text-white transition flex items-center gap-2"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-[#7BAE9B]"></span>
-                  Recibo IRPF / Carnê-Leão (Valor por Extenso)
+                  Recibo Complementar Impresso (com Valor por Extenso)
                 </Link>
               </li>
               <li>

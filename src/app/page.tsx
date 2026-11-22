@@ -306,7 +306,7 @@ export default function HomePage() {
                 Padronize suas Declarações, Recibos e Contratos Terapêuticos
               </h3>
               <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-                Desenvolvido especialmente para psicólogos clínicos autônomos e clínicas. Preencha os campos no navegador e obtenha instantaneamente documentos em formato A4 timbrado, com cálculo automático de valores por extenso para o Carnê-Leão e salvaguarda do sigilo profissional.
+                Desenvolvido especialmente para psicólogos clínicos autônomos e clínicas. Preencha os campos no navegador e obtenha instantaneamente documentos em formato A4 timbrado, com conversão automática de valores por extenso e salvaguarda do sigilo profissional.
               </p>
             </div>
 
@@ -333,10 +333,10 @@ export default function HomePage() {
                     <Coins className="w-5 h-5" />
                   </div>
                   <h4 className="font-bold text-slate-900 text-sm">
-                    Recibo IRPF / Carnê-Leão
+                    Recibo Complementar Impresso
                   </h4>
                   <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                    Conversão instantânea de valor numérico para valor por extenso em reais. Formatação exigida pela Receita Federal para dedução médica.
+                    Conversão instantânea de valor por extenso em reais. Recibo físico de apoio (a dedução fiscal no IRPF exige emissão no Receita Saúde).
                   </p>
                 </div>
               </div>

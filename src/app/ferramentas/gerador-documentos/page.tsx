@@ -113,7 +113,7 @@ export default function GeradorDocumentosPage() {
                 Modelos Editáveis de Apoio Documental para Psicólogos
               </h1>
               <p className="text-sm text-slate-600 mt-2 leading-relaxed">
-                Modelos editáveis de apoio para declarações de comparecimento, recibos fiscais com conversor por extenso para o Carnê-Leão e termos de acordo terapêutico. <strong>Sujeitos à revisão, conferência e adequação técnica individual de cada profissional</strong> conforme a Resolução CFP nº 06/2019. O processamento ocorre 100% no seu navegador, sem envio de dados a servidores.
+                Modelos editáveis de apoio para declarações de comparecimento, recibos complementares impressos (com conversor por extenso) e termos de acordo terapêutico. <strong>Sujeitos à revisão, conferência e adequação técnica individual de cada profissional</strong> conforme a Resolução CFP nº 06/2019. O processamento ocorre 100% no seu navegador, sem envio de dados a servidores.
               </p>
             </div>
           </div>
@@ -140,7 +140,7 @@ export default function GeradorDocumentosPage() {
               }`}
             >
               <Coins className="w-4 h-4" />
-              2. Recibo de Honorários (Carnê-Leão)
+              2. Recibo Complementar Impresso
             </button>
             <button
               onClick={() => setActiveTab('contrato')}
@@ -504,8 +504,8 @@ export default function GeradorDocumentosPage() {
                         <h3 className="text-lg font-bold font-sans uppercase tracking-wider underline underline-offset-8">
                           Recibo de Pagamento de Honorários
                         </h3>
-                        <span className="text-xs font-sans text-slate-500 block mt-1">
-                          Modelo para fins comprobatórios e fiscais (Carnê-Leão / IRPF)
+                        <span className="text-[11px] font-sans text-slate-500 block mt-1">
+                          Recibo complementar impresso — A dedução fiscal no IRPF exige emissão no Receita Saúde (IN RFB nº 2.240/2024)
                         </span>
                       </div>
 
@@ -601,9 +601,9 @@ export default function GeradorDocumentosPage() {
               Os modelos gerados por esta plataforma baseiam-se nos conceitos da <strong>Resolução CFP nº 06/2019</strong>. Contudo, nenhuma plataforma automatizada pode substituir o julgamento ético do profissional para o caso concreto. Cada documento deve ser minuciosamente revisado antes da assinatura.
             </p>
 
-            <h3 className="text-lg font-bold text-slate-900 pt-4">2. Recomendações sobre Declarações e Recibos Fiscais</h3>
+            <h3 className="text-lg font-bold text-slate-900 pt-4">2. Diretrizes sobre Recibos e o "Receita Saúde" (Obrigatório desde 2025)</h3>
             <p>
-              Na emissão de recibos para dedução no Imposto de Renda (IRPF) ou inclusão no Carnê-Leão da Receita Federal, certifique-se de preencher com exatidão o CPF do responsável financeiro pelo pagamento e o próprio CPF profissional, declarando os rendimentos mensalmente.
+              Para psicólogos autônomos pessoa física, desde 1º de janeiro de 2025 a comprovação oficial de despesas médicas para dedução no IRPF do paciente é realizada obrigatoriamente pelo sistema digital <strong>Receita Saúde</strong> (IN RFB nº 2.240/2024), integrado ao Carnê-Leão Web. O modelo impresso disponibilizado nesta página possui finalidade de recibo físico complementar ao cliente, não substituindo a emissão eletrônica no portal da Receita Federal.
             </p>
             <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600">
               <strong>Isenção de Responsabilidade Profissional:</strong> O portal Psicologia Direta não se responsabiliza pelo uso inadequado, divergências tributárias ou inconsistências em documentos assinados por profissionais terceiros.
