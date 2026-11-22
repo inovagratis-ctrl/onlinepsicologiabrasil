@@ -354,6 +354,15 @@ export default function GeradorDocumentosPage() {
                       className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 text-slate-800"
                     />
                   </div>
+                  <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg text-blue-950 text-[11px] leading-relaxed space-y-1">
+                    <p className="font-bold flex items-center gap-1.5 text-blue-900">
+                      <Info className="w-3.5 h-3.5" />
+                      Aviso Fiscal Obrigatório (Receita Saúde — Receita Federal):
+                    </p>
+                    <p>
+                      Para psicólogos autônomos pessoa física, desde 1º de janeiro de 2025 a comprovação oficial de despesas médicas para dedução no IRPF deve ser escriturada obrigatoriamente no sistema digital <strong>Receita Saúde</strong> (integrado ao Carnê-Leão Web). Este modelo impresso serve como recibo financeiro complementar, mas a emissão eletrônica no portal da Receita Federal é indispensável para evitar a malha fiscal do paciente.
+                    </p>
+                  </div>
                 </div>
               )}
 
